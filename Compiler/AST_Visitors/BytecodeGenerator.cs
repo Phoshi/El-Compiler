@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Bytecode;
+using Speedycloud.Bytecode.ValueTypes;
 using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Runtime;
 using Speedycloud.Runtime.ValueTypes;

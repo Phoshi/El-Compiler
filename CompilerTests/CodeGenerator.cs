@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Speedycloud.Bytecode;
 using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.AST_Visitors;
 using Speedycloud.Runtime;
