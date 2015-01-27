@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Integer : IExpression{
+    public class Integer : IExpression{
         public int Num { get; private set; }
 
         public Integer(int num) {

@@ -44,6 +44,4 @@ namespace Speedycloud.Compiler.AST_Nodes {
             return visitor.Visit(this);
         }
     }
-
-    internal class FunctionDefinition {}
 }
