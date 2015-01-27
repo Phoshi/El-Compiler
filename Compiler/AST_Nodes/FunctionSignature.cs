@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    internal class FunctionSignature : INode {
+    public class FunctionSignature : INode {
         public string Name { get; private set; }
 
         public override string ToString() {

@@ -1,5 +1,5 @@
 ﻿namespace Speedycloud.Compiler.AST_Nodes {
-    class Constraint : INode{
+    public class Constraint : INode{
         public string Name { get; private set; }
 
         public override string ToString() {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Instance : IStatement {
+    public class Instance : IStatement {
         public string TypeclassName { get; private set; }
         public TypeName Parameter { get; private set; }
         public IEnumerable<FunctionDefinition> Definitions { get; private set; }

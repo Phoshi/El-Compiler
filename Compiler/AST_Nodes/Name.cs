@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Name : IExpression{
+    public class Name : IExpression{
         public string Value { get; private set; }
         public bool IsWrite { get; private set; }
 

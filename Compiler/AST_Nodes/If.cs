@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class If : IStatement{
+    public class If : IStatement{
         public IExpression Condition { get; private set; }
         public IStatement Concequent { get; private set; }
         public IStatement Otherwise { get; private set; }

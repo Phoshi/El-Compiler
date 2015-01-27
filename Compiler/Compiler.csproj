@@ -41,11 +41,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AST_Nodes\Array.cs" />
+    <Compile Include="AST_Nodes\ArrayIndex.cs" />
+    <Compile Include="AST_Nodes\Assignment.cs" />
+    <Compile Include="AST_Nodes\BinaryOp.cs" />
+    <Compile Include="AST_Nodes\BindingDeclaration.cs" />
+    <Compile Include="AST_Nodes\Boolean.cs" />
+    <Compile Include="AST_Nodes\Constraint.cs" />
+    <Compile Include="AST_Nodes\Float.cs" />
+    <Compile Include="AST_Nodes\For.cs" />
+    <Compile Include="AST_Nodes\FunctionCall.cs" />
+    <Compile Include="AST_Nodes\FunctionDefinition.cs" />
+    <Compile Include="AST_Nodes\FunctionSignature.cs" />
+    <Compile Include="AST_Nodes\IExpression.cs" />
+    <Compile Include="AST_Nodes\If.cs" />
+    <Compile Include="AST_Nodes\Instance.cs" />
+    <Compile Include="AST_Nodes\IStatement.cs" />
+    <Compile Include="AST_Nodes\Integer.cs" />
+    <Compile Include="AST_Nodes\Name.cs" />
+    <Compile Include="AST_Nodes\NewAssignment.cs" />
+    <Compile Include="AST_Nodes\Program.cs" />
+    <Compile Include="AST_Nodes\Record.cs" />
+    <Compile Include="AST_Nodes\Return.cs" />
+    <Compile Include="AST_Nodes\String.cs" />
+    <Compile Include="AST_Nodes\Type.cs" />
+    <Compile Include="AST_Nodes\TypeClass.cs" />
+    <Compile Include="AST_Nodes\TypeName.cs" />
+    <Compile Include="AST_Nodes\UnaryOperator.cs" />
+    <Compile Include="AST_Nodes\While.cs" />
+    <Compile Include="AST_Visitors\BytecodeGenerator.cs" />
+    <Compile Include="AST_Visitors\IAstVisitor.cs" />
+    <Compile Include="AST_Nodes\INode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\VM\VirtualMachine\VirtualMachine\VirtualMachine.csproj">
+      <Project>{c3e5b48e-b21c-4034-a8b5-027ac686b501}</Project>
+      <Name>VirtualMachine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

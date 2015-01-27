@@ -53,6 +53,16 @@
     <Compile Include="CodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\VM\VirtualMachine\VirtualMachine\VirtualMachine.csproj">
+      <Project>{c3e5b48e-b21c-4034-a8b5-027ac686b501}</Project>
+      <Name>VirtualMachine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Compiler\Compiler.csproj">
+      <Project>{dd998a38-0030-49cc-8097-ae122d75d61a}</Project>
+      <Name>Compiler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Type : INode{
+    public class Type : INode{
         public TypeName Name { get; private set; }
         public IEnumerable<Constraint> Constraints { get; private set; }
         public bool IsRuntimeCheck { get; private set; }

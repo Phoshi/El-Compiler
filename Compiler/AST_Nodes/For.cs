@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class For : IStatement{
+    public class For : IStatement{
         public BindingDeclaration Binding { get; private set; }
         public IExpression Enumerable { get; private set; }
         public IStatement Executable { get; private set; }

@@ -1,5 +1,5 @@
 ﻿namespace Speedycloud.Compiler.AST_Nodes {
-    class BindingDeclaration : INode{
+    public class BindingDeclaration : INode{
         public Name Name { get; private set; }
         public Type Type { get; private set; }
 

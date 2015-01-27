@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Program : INode{
+    public class Program : INode{
         public IEnumerable<IStatement> Statements { get; private set; }
 
         public Program(IEnumerable<IStatement> statements) {

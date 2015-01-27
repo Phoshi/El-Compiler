@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class TypeName : INode {
+    public class TypeName : INode {
         public string Name { get; set; }
 
         public TypeName(string name) {

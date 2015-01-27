@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Float :IExpression {
+    public class Float :IExpression {
         public double Num { get; private set; }
 
         public Float(double num) {

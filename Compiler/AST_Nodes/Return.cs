@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Return : IStatement {
+    public class Return : IStatement {
         public IExpression Expression { get; private set; }
 
         public override string ToString() {

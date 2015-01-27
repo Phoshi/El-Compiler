@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class NewAssignment : IStatement {
+    public class NewAssignment : IStatement {
         public BindingDeclaration Declaration { get; private set; }
         public IExpression Assignment { get; private set; }
         public bool IsWritable { get; private set; }

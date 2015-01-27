@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class TypeClass : IStatement{
+    public class TypeClass : IStatement{
         public string Name { get; private set; }
 
         public override string ToString() {

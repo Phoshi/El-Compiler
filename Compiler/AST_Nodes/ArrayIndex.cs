@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class ArrayIndex :IExpression {
+    public class ArrayIndex :IExpression {
         public Array Array { get; private set; }
         public IExpression Index { get; private set; }
 

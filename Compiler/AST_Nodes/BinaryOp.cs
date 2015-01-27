@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class BinaryOp : IExpression{
+    public class BinaryOp : IExpression{
         public string Op { get; private set; }
         public IExpression Lhs { get; private set; }
         public IExpression Rhs { get; private set; }

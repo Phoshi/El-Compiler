@@ -1,5 +1,5 @@
 namespace Speedycloud.Compiler.AST_Nodes {
-    internal interface IAstVisitor<T> {
+    public interface IAstVisitor<T> {
         T Visit(INode node);
         T Visit(Array array);
         T Visit(ArrayIndex arrayIndex);
@@ -9,7 +9,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
         T Visit(Boolean boolean);
         T Visit(Constraint constraint);
         T Visit(Float number);
-        T Visit(For for);
+        T Visit(For forStatement);
         T Visit(FunctionCall call);
         T Visit(FunctionDefinition def);
         T Visit(FunctionSignature sig);

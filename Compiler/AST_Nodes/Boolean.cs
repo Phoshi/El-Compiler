@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class Boolean : IExpression{
+    public class Boolean : IExpression{
         public bool Flag { get; private set; }
 
         protected bool Equals(Boolean other) {

@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    interface IExpression : INode {
+    public interface IExpression : INode {
     }
 }

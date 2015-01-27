@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class While : IStatement{
+    public class While : IStatement{
         public IExpression Expression { get; private set; }
         public IStatement Executable { get; private set; }
 
