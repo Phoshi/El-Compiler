@@ -19,33 +19,75 @@ namespace Speedycloud.Compiler.AST_Visitors {
         public Dictionary<int, IValue> Constants { get { return new Dictionary<int, IValue>(constTable);} } 
         private readonly Dictionary<int, IValue> constTable = new Dictionary<int, IValue>();
 
-        private int AddConstant(long num) {
-            var c = new IntValue(num);
-            constTable[constTable.Count] = c;
+        private int AddConstant(IValue val) {
+            constTable[constTable.Count] = val;
             return constTable.Count - 1;
         }
 
+        private int AddConstant(long num) {
+            return AddConstant(new IntValue(num));
+        }
+
+        private int AddConstant(string str) {
+            return AddConstant(new StringValue(str));
+        }
+
+        private int AddConstant(double num) {
+            return AddConstant(new DoubleValue(num));
+        }
+
+        private int AddConstant(bool flag) {
+            return AddConstant(new BooleanValue(flag));
+        }
+
         public Dictionary<int, FunctionDefinition> Functions { get { return new Dictionary<int, FunctionDefinition>(funcTable);} }
-        private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>(); 
+        private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
+
+        public Dictionary<string, int> Names { get { return nameTable; } } 
+        private readonly Dictionary<string, int> nameTable = new Dictionary<string, int>();
+
+        private int GetNameEntry(string name) {
+            if (!nameTable.ContainsKey(name)) {
+                nameTable[name] = name.GetHashCode();
+            }
+            return nameTable[name];
+        }
 
         public IEnumerable<Opcode> Visit(INode node) {
-            throw new NotImplementedException();
+            return node.Accept(this);
         }
 
         public IEnumerable<Opcode> Visit(Array array) {
-            throw new NotImplementedException();
+            var bytecode = new List<Opcode>();
+            foreach (var expression in array.Expressions) {
+                bytecode.AddRange(Visit(expression));
+            }
+            bytecode.Add(new Opcode(Instruction.MAKE_ARR, array.Expressions.Count()));
+
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(ArrayIndex arrayIndex) {
-            throw new NotImplementedException();
+            var bytecode = Visit(arrayIndex.Array).Concat(Visit(arrayIndex.Index)).ToList();
+            bytecode.Add(new Opcode(Instruction.BINARY_INDEX));
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(Assignment assignment) {
-            throw new NotImplementedException();
+            return Visit(assignment.Expression).Concat(Visit(assignment.Binding));
         }
 
         public IEnumerable<Opcode> Visit(BinaryOp binaryOp) {
-            throw new NotImplementedException();
+            var bytecode = Visit(binaryOp.Lhs).Concat(Visit(binaryOp.Rhs)).ToList();
+            switch (binaryOp.Op) {
+                case "+": bytecode.Add(new Opcode(Instruction.BINARY_ADD));
+                    break;
+                case "-": bytecode.Add(new Opcode(Instruction.BINARY_SUB));
+                    break;
+                case "*": bytecode.Add(new Opcode(Instruction.BINARY_MUL));
+                    break;
+            }
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(BindingDeclaration declaration) {
@@ -53,7 +95,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Boolean boolean) {
-            throw new NotImplementedException();
+            return new[] {new Opcode(Instruction.LOAD_CONST, AddConstant(boolean.Flag))};
         }
 
         public IEnumerable<Opcode> Visit(Constraint constraint) {
@@ -61,7 +103,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Float number) {
-            throw new NotImplementedException();
+            var constReference = AddConstant(number.Num);
+            return new[] {new Opcode(Instruction.LOAD_CONST, constReference)};
         }
 
         public IEnumerable<Opcode> Visit(For missing_name) {
@@ -95,11 +138,15 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
 
         public IEnumerable<Opcode> Visit(Name name) {
-            throw new NotImplementedException();
+            return new[] {new Opcode(Instruction.STORE_NAME, GetNameEntry(name.Value))};
         }
 
         public IEnumerable<Opcode> Visit(NewAssignment assignment) {
-            throw new NotImplementedException();
+            var bytecode = Visit(assignment.Assignment).ToList();
+            var nameTableEntry = GetNameEntry(assignment.Declaration.Name.Value);
+            var nameConstant = AddConstant(assignment.Declaration.Name.Value);
+            bytecode.Add(new Opcode(Instruction.STORE_NEW_NAME, nameTableEntry, nameConstant));
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(AST_Nodes.Program program) {
@@ -115,7 +162,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(String str) {
-            throw new NotImplementedException();
+            var constReference = AddConstant(str.Str);
+            return new[] {new Opcode(Instruction.LOAD_CONST, constReference)};
         }
 
         public IEnumerable<Opcode> Visit(Type type) {

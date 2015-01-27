@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
     public class ArrayIndex :IExpression {
-        public Array Array { get; private set; }
+        public IExpression Array { get; private set; }
         public IExpression Index { get; private set; }
 
-        public ArrayIndex(Array array, IExpression index) {
+        public ArrayIndex(IExpression array, IExpression index) {
             Array = array;
             Index = index;
         }

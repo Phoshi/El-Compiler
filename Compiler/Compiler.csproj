@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AST_Nodes\Array.cs" />
+    <Compile Include="AST_Nodes\ArrayAssignment.cs" />
     <Compile Include="AST_Nodes\ArrayIndex.cs" />
     <Compile Include="AST_Nodes\Assignment.cs" />
     <Compile Include="AST_Nodes\BinaryOp.cs" />
