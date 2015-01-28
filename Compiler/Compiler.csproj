@@ -48,6 +48,7 @@
     <Compile Include="AST_Nodes\BinaryOp.cs" />
     <Compile Include="AST_Nodes\BindingDeclaration.cs" />
     <Compile Include="AST_Nodes\Boolean.cs" />
+    <Compile Include="AST_Nodes\Bytecode.cs" />
     <Compile Include="AST_Nodes\Constraint.cs" />
     <Compile Include="AST_Nodes\Float.cs" />
     <Compile Include="AST_Nodes\For.cs" />

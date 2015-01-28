@@ -49,10 +49,18 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return address;
         }
 
+        private KeyValuePair<int, FunctionDefinition> GetFunctionByName(string name) {
+            return funcTable.First(kv => kv.Value.Signature.Name == name);
+        }
+
         public Dictionary<string, int> Names { get { return nameTable; } } 
         private readonly Dictionary<string, int> nameTable = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> funcParameterNames = new Dictionary<string, int>(); 
 
         private int GetNameEntry(string name) {
+            if (funcParameterNames.ContainsKey(name)) {
+                return funcParameterNames[name];
+            }
             if (!nameTable.ContainsKey(name)) {
                 nameTable[name] = name.GetHashCode();
             }
@@ -62,8 +70,13 @@ namespace Speedycloud.Compiler.AST_Visitors {
         public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
             var bytecode = new List<Opcode>();
             foreach (var functionDefinition in funcTable) {
+                var i = 0;
+                foreach (var parameter in functionDefinition.Value.Signature.Parameters) {
+                    funcParameterNames[parameter.Name.Value] = i++;
+                }
                 constTable[functionDefinition.Key] = new IntValue(bytecode.Count);
                 bytecode.AddRange(Visit(functionDefinition.Value.Statement));
+                funcParameterNames.Clear();
                 if (bytecode.Last().Instruction != Instruction.RETURN) {
                     bytecode.Add(new Opcode(Instruction.RETURN));
                 }
@@ -179,19 +192,33 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(FunctionCall call) {
-            throw new NotImplementedException();
+            var bytecode = call.Parameters.SelectMany(Visit).ToList();
+            var func = GetFunctionByName(call.Name);
+            bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func.Key, func.Value.Signature.Parameters.Count()));
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(FunctionDefinition def) {
-            throw new NotImplementedException();
+            AddFunction(def);
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(FunctionSignature sig) {
-            throw new NotImplementedException();
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(If ifStatement) {
-            throw new NotImplementedException();
+            var bytecode = Visit(ifStatement.Condition).ToList();
+            var trueBranch = Visit(ifStatement.Concequent).ToList();
+            var falseBranch = Visit(ifStatement.Otherwise).ToList();
+
+            bytecode.Add(new Opcode(Instruction.JUMP_FALSE, trueBranch.Count() + 1));
+            bytecode.AddRange(trueBranch);
+            bytecode.Add(new Opcode(Instruction.JUMP, falseBranch.Count()));
+
+            bytecode.AddRange(falseBranch);
+
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(Instance instance) {
@@ -220,15 +247,49 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(AST_Nodes.Program program) {
-            throw new NotImplementedException();
+            return program.Statements.SelectMany(Visit).ToList();
         }
 
         public IEnumerable<Opcode> Visit(Record record) {
-            throw new NotImplementedException();
+            var name = record.Name;
+            var typeParams = record.TypeParams;
+            var members = record.Members.ToList();
+
+            var ctorSignature = new FunctionSignature(name, members, new Type(new TypeName(name)));
+            var ctorBytecode = new List<Opcode>();
+            var paramCount = 0;
+            foreach (var member in members) {
+                ctorBytecode.Add(new Opcode(Instruction.LOAD_NAME, paramCount++));
+            }
+            ctorBytecode.AddRange(new List<Opcode> {
+                new Opcode(Instruction.MAKE_RECORD, members.Count()),
+                new Opcode(Instruction.RETURN)
+            });
+            var ctorFunc = new FunctionDefinition(ctorSignature, new AST_Nodes.Bytecode(ctorBytecode));
+
+            AddFunction(ctorFunc);
+
+            var attrCount = 0;
+            foreach (var member in members) {
+                var memberSignature = new FunctionSignature(member.Name.Value,
+                    new List<BindingDeclaration> {
+                        new BindingDeclaration(new Name("record", false), new Type(new TypeName(name)))
+                    }, member.Type);
+                var memberFunc = new FunctionDefinition(memberSignature, new AST_Nodes.Bytecode(new List<Opcode> {
+                    new Opcode(Instruction.LOAD_NAME, 0),
+                    new Opcode(Instruction.LOAD_ATTR, attrCount++),
+                    new Opcode(Instruction.RETURN)
+                }));
+                AddFunction(memberFunc);
+            }
+
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(Return returnStatement) {
-            throw new NotImplementedException();
+            var bytecode = Visit(returnStatement.Expression).ToList();
+            bytecode.Add(new Opcode(Instruction.RETURN));
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(String str) {
@@ -237,7 +298,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Type type) {
-            throw new NotImplementedException();
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(TypeClass typeClass) {
@@ -245,11 +306,27 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(TypeName typeName) {
-            throw new NotImplementedException();
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(While whileStatement) {
-            throw new NotImplementedException();
+            var funcReference =
+                AddFunction(
+                    new FunctionDefinition(
+                        new FunctionSignature("WHILE_FUNC", new List<BindingDeclaration>(),
+                            new Type(new TypeName("Void"))), whileStatement.Executable));
+
+            var condition = Visit(whileStatement.Expression).ToList();
+            var bytecode = condition.ToList();
+            bytecode.Add(new Opcode(Instruction.JUMP_FALSE, 2));
+
+            bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, funcReference, 0));
+            bytecode.Add(new Opcode(Instruction.JUMP, -(3 + condition.Count())));
+            return bytecode;
+        }
+
+        public IEnumerable<Opcode> Visit(AST_Nodes.Bytecode code) {
+            return code.Code;
         }
     }
 }

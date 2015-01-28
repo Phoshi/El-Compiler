@@ -26,5 +26,6 @@ namespace Speedycloud.Compiler.AST_Nodes {
         T Visit(TypeClass typeClass);
         T Visit(TypeName typeName);
         T Visit(While whileStatement);
+        T Visit(Bytecode code);
     }
 }

@@ -1,5 +1,5 @@
 namespace Speedycloud.Compiler.AST_Nodes {
-    public class FunctionDefinition : INode{
+    public class FunctionDefinition : IStatement{
         public FunctionSignature Signature { get; private set; }
         public IStatement Statement { get; private set; }
 
