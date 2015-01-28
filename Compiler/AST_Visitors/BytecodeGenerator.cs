@@ -43,6 +43,12 @@ namespace Speedycloud.Compiler.AST_Visitors {
         public Dictionary<int, FunctionDefinition> Functions { get { return new Dictionary<int, FunctionDefinition>(funcTable);} }
         private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
 
+        private int AddFunction(FunctionDefinition def) {
+            var address = AddConstant(-funcTable.Count-1);
+            funcTable[address] = def;
+            return address;
+        }
+
         public Dictionary<string, int> Names { get { return nameTable; } } 
         private readonly Dictionary<string, int> nameTable = new Dictionary<string, int>();
 
@@ -51,6 +57,22 @@ namespace Speedycloud.Compiler.AST_Visitors {
                 nameTable[name] = name.GetHashCode();
             }
             return nameTable[name];
+        }
+
+        public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
+            var bytecode = new List<Opcode>();
+            foreach (var functionDefinition in funcTable) {
+                constTable[functionDefinition.Key] = new IntValue(bytecode.Count);
+                bytecode.AddRange(Visit(functionDefinition.Value.Statement));
+                if (bytecode.Last().Instruction != Instruction.RETURN) {
+                    bytecode.Add(new Opcode(Instruction.RETURN));
+                }
+            }
+
+            bytecode.Add(new Opcode(Instruction.CODE_START));
+            bytecode.AddRange(opcodes);
+            bytecode.Add(new Opcode(Instruction.CODE_STOP));
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(INode node) {
@@ -100,7 +122,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(BindingDeclaration declaration) {
-            throw new NotImplementedException();
+            //We are a code generator. We don't really care about types.
+            return new List<Opcode>(); 
         }
 
         public IEnumerable<Opcode> Visit(Boolean boolean) {
@@ -108,7 +131,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Constraint constraint) {
-            throw new NotImplementedException();
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(Float number) {
@@ -116,8 +139,43 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return new[] {new Opcode(Instruction.LOAD_CONST, constReference)};
         }
 
-        public IEnumerable<Opcode> Visit(For missing_name) {
-            throw new NotImplementedException();
+        public IEnumerable<Opcode> Visit(For forStatement) {
+            var loopIter = GetNameEntry("LOOP_ITER");
+            var loopCount = GetNameEntry("LOOP_COUNT");
+
+            var func = AddFunction(new FunctionDefinition(
+                new FunctionSignature("LOOP_FUNC", new List<BindingDeclaration> {forStatement.Binding},
+                    new Type(new TypeName("Void"))), forStatement.Executable));
+
+            //Get the enumerable
+            var bytecode = Visit(forStatement.Enumerable).ToList();
+            //Store it in the heap for now
+            bytecode.Add(new Opcode(Instruction.STORE_NEW_NAME, loopIter, -1));
+            //Make and load the counter
+            var zero = AddConstant(0);
+            bytecode.Add(new Opcode(Instruction.LOAD_CONST, zero));
+            bytecode.Add(new Opcode(Instruction.STORE_NEW_NAME, loopCount, -1));
+            //Check to see if the loop is iterated
+            bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopIter));
+            bytecode.Add(new Opcode(Instruction.LOAD_ATTR, 0));
+            bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
+            bytecode.Add(new Opcode(Instruction.BINARY_EQL));
+            bytecode.Add(new Opcode(Instruction.JUMP_TRUE, 9)); //Loop body is in a function, so this is actually constant
+            //Set up and run loop body
+            bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopIter));
+            bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
+            bytecode.Add(new Opcode(Instruction.BINARY_INDEX));
+            bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func, 1));
+            //Increment counter and iterate
+            bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
+            bytecode.Add(new Opcode(Instruction.LOAD_CONST, AddConstant(1)));
+            bytecode.Add(new Opcode(Instruction.BINARY_ADD));
+            bytecode.Add(new Opcode(Instruction.STORE_NAME, loopCount));
+            //Jump back
+            bytecode.Add(new Opcode(Instruction.JUMP, -14));
+
+
+            return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(FunctionCall call) {
@@ -147,7 +205,10 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
 
         public IEnumerable<Opcode> Visit(Name name) {
-            return new[] {new Opcode(Instruction.STORE_NAME, GetNameEntry(name.Value))};
+            if (name.IsWrite)
+                return new[] {new Opcode(Instruction.STORE_NAME, GetNameEntry(name.Value))};
+            return new[] { new Opcode(Instruction.LOAD_NAME, GetNameEntry(name.Value)) };
+
         }
 
         public IEnumerable<Opcode> Visit(NewAssignment assignment) {

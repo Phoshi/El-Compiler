@@ -36,9 +36,9 @@ namespace Speedycloud.Compiler.AST_Nodes {
             }
         }
 
-        public Type(TypeName name, IEnumerable<Constraint> constraints, bool isRuntimeCheck, bool isArrayType) {
+        public Type(TypeName name, IEnumerable<Constraint> constraints = null, bool isRuntimeCheck = false, bool isArrayType = false) {
             Name = name;
-            Constraints = constraints;
+            Constraints = constraints ?? new List<Constraint>();
             IsRuntimeCheck = isRuntimeCheck;
             IsArrayType = isArrayType;
         }
