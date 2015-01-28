@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Speedycloud.Bytecode;
-using Speedycloud.Bytecode.ValueTypes;
 using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.AST_Visitors;
-using Speedycloud.Runtime;
 using Array = Speedycloud.Compiler.AST_Nodes.Array;
 using Boolean = Speedycloud.Compiler.AST_Nodes.Boolean;
 using String = Speedycloud.Compiler.AST_Nodes.String;
@@ -186,6 +183,20 @@ namespace CompilerTests {
                 new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
                 new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
                 new Opcode(Instruction.BINARY_MUL), 
+            }.SequenceEqual(bytecode));
+        }
+        [TestMethod]
+        public void BinaryDivision() {
+            var tree =
+                new BinaryOp("/", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_DIV), 
             }.SequenceEqual(bytecode));
         }
     }

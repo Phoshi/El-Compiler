@@ -86,6 +86,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
                     break;
                 case "*": bytecode.Add(new Opcode(Instruction.BINARY_MUL));
                     break;
+                case "/": bytecode.Add(new Opcode(Instruction.BINARY_DIV));
+                    break;
             }
             return bytecode;
         }
