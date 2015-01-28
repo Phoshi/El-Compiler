@@ -199,5 +199,124 @@ namespace CompilerTests {
                 new Opcode(Instruction.BINARY_DIV), 
             }.SequenceEqual(bytecode));
         }
+        [TestMethod]
+        public void BinaryEquals() {
+            var tree =
+                new BinaryOp("==", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_EQL), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryNotEquals() {
+            var tree =
+                new BinaryOp("!=", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_NEQ), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryGreaterThan() {
+            var tree =
+                new BinaryOp(">", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_GT), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryLessThan() {
+            var tree =
+                new BinaryOp("<", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_LT), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryGreaterThanOrEqual() {
+            var tree =
+                new BinaryOp(">=", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_GTE), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryLessThanOrEqual() {
+            var tree =
+                new BinaryOp("<=", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_LTE), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryAnd() {
+            var tree =
+                new BinaryOp("&&", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_AND), 
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void BinaryOr() {
+            var tree =
+                new BinaryOp("||", new Integer(2), new Integer(3));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.IsTrue(new[] {
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(0).Key),
+                new Opcode(Instruction.LOAD_CONST, gen.Constants.ElementAt(1).Key),
+                new Opcode(Instruction.BINARY_OR), 
+            }.SequenceEqual(bytecode));
+        }
     }
 }

@@ -77,18 +77,25 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return Visit(assignment.Expression).Concat(Visit(assignment.Binding));
         }
 
+        private readonly Dictionary<string, Instruction> binOpTable = new Dictionary<string, Instruction> {
+            {"+", Instruction.BINARY_ADD},
+            {"-", Instruction.BINARY_SUB},
+            {"*", Instruction.BINARY_MUL},
+            {"/", Instruction.BINARY_DIV},
+
+            {"==", Instruction.BINARY_EQL},
+            {"!=", Instruction.BINARY_NEQ},
+            {">", Instruction.BINARY_GT},
+            {"<", Instruction.BINARY_LT},
+            {">=", Instruction.BINARY_GTE},
+            {"<=",  Instruction.BINARY_LTE},
+
+            {"&&", Instruction.BINARY_AND},
+            {"||", Instruction.BINARY_OR},
+        }; 
         public IEnumerable<Opcode> Visit(BinaryOp binaryOp) {
             var bytecode = Visit(binaryOp.Lhs).Concat(Visit(binaryOp.Rhs)).ToList();
-            switch (binaryOp.Op) {
-                case "+": bytecode.Add(new Opcode(Instruction.BINARY_ADD));
-                    break;
-                case "-": bytecode.Add(new Opcode(Instruction.BINARY_SUB));
-                    break;
-                case "*": bytecode.Add(new Opcode(Instruction.BINARY_MUL));
-                    break;
-                case "/": bytecode.Add(new Opcode(Instruction.BINARY_DIV));
-                    break;
-            }
+            bytecode.Add(new Opcode(binOpTable[binaryOp.Op]));
             return bytecode;
         }
 
