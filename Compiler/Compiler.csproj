@@ -69,6 +69,7 @@
     <Compile Include="AST_Nodes\Type.cs" />
     <Compile Include="AST_Nodes\TypeClass.cs" />
     <Compile Include="AST_Nodes\TypeName.cs" />
+    <Compile Include="AST_Nodes\UnaryOp.cs" />
     <Compile Include="AST_Nodes\UnaryOperator.cs" />
     <Compile Include="AST_Nodes\While.cs" />
     <Compile Include="AST_Visitors\BytecodeGenerator.cs" />

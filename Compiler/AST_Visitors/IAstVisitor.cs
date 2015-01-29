@@ -3,7 +3,9 @@ namespace Speedycloud.Compiler.AST_Nodes {
         T Visit(INode node);
         T Visit(Array array);
         T Visit(ArrayIndex arrayIndex);
+        T Visit(ArrayAssignment assignment);
         T Visit(Assignment assignment);
+        T Visit(UnaryOp unaryOp);
         T Visit(BinaryOp binaryOp);
         T Visit(BindingDeclaration declaration);
         T Visit(Boolean boolean);

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    class ArrayAssignment : IStatement {
+    public class ArrayAssignment : IStatement {
         public IExpression Array { get; private set; }
         public IExpression Index { get; private set; }
         public IExpression Value { get; private set; }

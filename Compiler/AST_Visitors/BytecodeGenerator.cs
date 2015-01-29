@@ -110,8 +110,24 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return bytecode;
         }
 
+        public IEnumerable<Opcode> Visit(ArrayAssignment assignment) {
+            var bytecode = Visit(assignment.Array).Concat(Visit(assignment.Index)).Concat(Visit(assignment.Value)).ToList();
+            bytecode.Add(new Opcode(Instruction.BINARY_INDEX_UPDATE));
+            return bytecode;
+        }
+
         public IEnumerable<Opcode> Visit(Assignment assignment) {
             return Visit(assignment.Expression).Concat(Visit(assignment.Binding));
+        }
+
+        private readonly Dictionary<string, Instruction> unOpTable = new Dictionary<string, Instruction> {
+            {"-", Instruction.UNARY_NEG},
+            {"!", Instruction.UNARY_NOT},
+        }; 
+        public IEnumerable<Opcode> Visit(UnaryOp unaryOp) {
+            var bytecode = Visit(unaryOp.Expression).ToList();
+            bytecode.Add(new Opcode(unOpTable[unaryOp.Op]));
+            return bytecode;
         }
 
         private readonly Dictionary<string, Instruction> binOpTable = new Dictionary<string, Instruction> {

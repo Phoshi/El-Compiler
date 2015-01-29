@@ -694,5 +694,48 @@ namespace CompilerTests {
                 new Opcode(Instruction.CODE_STOP)
             }.SequenceEqual(bytecode), string.Join("\n", bytecode));
         }
+
+        [TestMethod]
+        public void ArrayAssignment() {
+            var tree = new ArrayAssignment(new Array(new List<IExpression> {new Integer(0)}), new Integer(0),
+                new Integer(1));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree);
+
+            Assert.IsTrue(new List<Opcode> {
+                new Opcode(Instruction.LOAD_CONST, 0),
+                new Opcode(Instruction.MAKE_ARR, 1),
+                new Opcode(Instruction.LOAD_CONST, 1),
+                new Opcode(Instruction.LOAD_CONST, 2),
+                new Opcode(Instruction.BINARY_INDEX_UPDATE),
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void UnaryOperatorNegation() {
+            var tree = new UnaryOp("-", new Integer(1));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree);
+
+            Assert.IsTrue(new List<Opcode> {
+                new Opcode(Instruction.LOAD_CONST, 0),
+                new Opcode(Instruction.UNARY_NEG)
+            }.SequenceEqual(bytecode));
+        }
+
+        [TestMethod]
+        public void UnaryOperatorNot() {
+            var tree = new UnaryOp("!", new Boolean(true));
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree);
+
+            Assert.IsTrue(new List<Opcode> {
+                new Opcode(Instruction.LOAD_CONST, 0),
+                new Opcode(Instruction.UNARY_NOT)
+            }.SequenceEqual(bytecode));
+        }
     }
 }
