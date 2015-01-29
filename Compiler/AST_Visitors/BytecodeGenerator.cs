@@ -67,8 +67,6 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return nameTable[name];
         }
 
-        private Dictionary<string, TypeClass> typeclasses = new Dictionary<string, TypeClass>(); 
-
         public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
             var bytecode = new List<Opcode>();
             foreach (var functionDefinition in funcTable) {
@@ -240,7 +238,6 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Instance instance) {
-            var typeclass = typeclasses[instance.TypeclassName];
             foreach (var member in instance.Definitions) {
                 AddFunction(member);
             }
@@ -274,15 +271,10 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
         public IEnumerable<Opcode> Visit(Record record) {
             var name = record.Name;
-            var typeParams = record.TypeParams;
             var members = record.Members.ToList();
 
             var ctorSignature = new FunctionSignature(name, members, new Type(new TypeName(name)));
-            var ctorBytecode = new List<Opcode>();
-            var paramCount = 0;
-            foreach (var member in members) {
-                ctorBytecode.Add(new Opcode(Instruction.LOAD_NAME, paramCount++));
-            }
+            var ctorBytecode = Enumerable.Range(0, members.Count()).Select(member => new Opcode(Instruction.LOAD_NAME, member)).ToList();
             ctorBytecode.AddRange(new List<Opcode> {
                 new Opcode(Instruction.MAKE_RECORD, members.Count()),
                 new Opcode(Instruction.RETURN)
@@ -324,7 +316,6 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(TypeClass typeClass) {
-            typeclasses[typeClass.Name] = typeClass;
             return new List<Opcode>();
         }
 
