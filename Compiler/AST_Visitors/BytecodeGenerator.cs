@@ -67,6 +67,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return nameTable[name];
         }
 
+        private Dictionary<string, TypeClass> typeclasses = new Dictionary<string, TypeClass>(); 
+
         public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
             var bytecode = new List<Opcode>();
             foreach (var functionDefinition in funcTable) {
@@ -222,7 +224,11 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(Instance instance) {
-            throw new NotImplementedException();
+            var typeclass = typeclasses[instance.TypeclassName];
+            foreach (var member in instance.Definitions) {
+                AddFunction(member);
+            }
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(Integer integer) {
@@ -302,7 +308,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(TypeClass typeClass) {
-            throw new NotImplementedException();
+            typeclasses[typeClass.Name] = typeClass;
+            return new List<Opcode>();
         }
 
         public IEnumerable<Opcode> Visit(TypeName typeName) {

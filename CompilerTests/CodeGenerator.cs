@@ -612,5 +612,87 @@ namespace CompilerTests {
                 new Opcode(Instruction.CODE_STOP)
             }.SequenceEqual(bytecode), string.Join("\n", bytecode));
         }
+
+        [TestMethod]
+        public void TypeClass() {
+            var typeclass = new TypeClass("Showable", new TypeName("T"), new List<FunctionSignature> {
+                new FunctionSignature("Show",
+                new List<BindingDeclaration> {
+                    new BindingDeclaration(new Name("thing", false), new Type(new TypeName("T")))
+                },
+                new Type(new TypeName("String")))
+            });
+            var instance = new Instance("Showable", new TypeName("Integer"), new List<FunctionDefinition> {
+                new FunctionDefinition(
+                    new FunctionSignature("Show",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("thing", false), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("String")))
+                    , new Return(new String("Number")))
+            });
+            var instance2 = new Instance("Showable", new TypeName("String"), new List<FunctionDefinition> {
+                new FunctionDefinition(new FunctionSignature("Show",
+                    new List<BindingDeclaration> {
+                        new BindingDeclaration(new Name("thing", false), new Type(new TypeName("String")))
+                    },
+                    new Type(new TypeName("String"))), new Return(new String("String")))
+            });
+            var tree = new Program(new List<IStatement> {typeclass, instance, instance2});
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Visit(tree).ToList();
+
+            Assert.AreEqual(0, bytecode.Count());
+            Assert.AreEqual(2, gen.Functions.Count);
+            Assert.IsTrue(gen.Functions.Any(
+                fn =>
+                    fn.Value.Signature.Name == "Show" &&
+                    fn.Value.Signature.Parameters.First().Type.Name.Name == "Integer"));
+            Assert.IsTrue(gen.Functions.Any(
+                fn =>
+                    fn.Value.Signature.Name == "Show" &&
+                    fn.Value.Signature.Parameters.First().Type.Name.Name == "String"));
+        }
+
+        [TestMethod]
+        public void FinalisedTypeClass() {
+            var typeclass = new TypeClass("Showable", new TypeName("T"), new List<FunctionSignature> {
+                new FunctionSignature("Show",
+                new List<BindingDeclaration> {
+                    new BindingDeclaration(new Name("thing", false), new Type(new TypeName("T")))
+                },
+                new Type(new TypeName("String")))
+            });
+            var instance = new Instance("Showable", new TypeName("Integer"), new List<FunctionDefinition> {
+                new FunctionDefinition(
+                    new FunctionSignature("Show",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("thing", false), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("String")))
+                    , new Return(new String("Number")))
+            });
+            var instance2 = new Instance("Showable", new TypeName("String"), new List<FunctionDefinition> {
+                new FunctionDefinition(new FunctionSignature("Show",
+                    new List<BindingDeclaration> {
+                        new BindingDeclaration(new Name("thing", false), new Type(new TypeName("String")))
+                    },
+                    new Type(new TypeName("String"))), new Return(new String("String")))
+            });
+            var tree = new Program(new List<IStatement> {typeclass, instance, instance2});
+            var gen = new BytecodeGenerator();
+
+            var bytecode = gen.Finalise(gen.Visit(tree)).ToList();
+
+            Assert.IsTrue(new List<Opcode> {
+                new Opcode(Instruction.LOAD_CONST, 2),
+                new Opcode(Instruction.RETURN),
+                new Opcode(Instruction.LOAD_CONST, 3),
+                new Opcode(Instruction.RETURN),
+                new Opcode(Instruction.CODE_START),
+                new Opcode(Instruction.CODE_STOP)
+            }.SequenceEqual(bytecode), string.Join("\n", bytecode));
+        }
     }
 }
