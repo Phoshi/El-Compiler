@@ -91,5 +91,50 @@ namespace CompilerTests {
             Assert.IsFalse(eq7.IsSubtypeOf(gt10));
             Assert.IsFalse(eq7.IsSubtypeOf(lt5));
         }
+
+        [TestMethod]
+        public void CompoundConstraint() {
+            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
+            var eq7 = new Eq(7);
+            var eq13 = new Eq(13);
+
+            Assert.IsTrue(eq7.IsAssignableTo(bt5and10));
+            Assert.IsFalse(eq13.IsAssignableTo(bt5and10));
+
+            Assert.IsTrue(eq7.IsSubtypeOf(bt5and10));
+            Assert.IsTrue(bt5and10.IsSupertypeOf(eq7));
+
+            Assert.IsFalse(eq13.IsSubtypeOf(bt5and10));
+            Assert.IsFalse(bt5and10.IsSupertypeOf(eq13));
+        }
+
+        [TestMethod]
+        public void CompoundOnCompound() {
+            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
+            var bt6and9 = new CompoundConstraint(new Gt(6), new Lt(9));
+
+            Assert.IsTrue(bt6and9.IsAssignableTo(bt5and10));
+            Assert.IsFalse(bt5and10.IsAssignableTo(bt6and9));
+
+            Assert.IsTrue(bt6and9.IsSubtypeOf(bt5and10));
+            Assert.IsTrue(bt5and10.IsSupertypeOf(bt6and9));
+
+            Assert.IsFalse(bt6and9.IsSupertypeOf(bt5and10));
+            Assert.IsFalse(bt5and10.IsSubtypeOf(bt6and9));
+        }
+
+        [TestMethod]
+        public void CompoundOnSmallerCompound() {
+            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
+            var eq7 = new CompoundConstraint(new Eq(7));
+            var gt6 = new CompoundConstraint(new Gt(6));
+
+            Assert.IsTrue(eq7.IsAssignableTo(bt5and10));
+            Assert.IsTrue(bt5and10.IsSupertypeOf(eq7));
+
+            Assert.IsFalse(gt6.IsAssignableTo(bt5and10));
+            Assert.IsTrue(eq7.IsAssignableTo(gt6));
+            Assert.IsFalse(gt6.IsSupertypeOf(bt5and10));
+        }
     }
 }

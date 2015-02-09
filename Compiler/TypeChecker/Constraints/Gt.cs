@@ -30,6 +30,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Gt) {
                 return Num < ((Gt)constraint).Num;
             }
+            if (constraint is Eq) {
+                return Num < ((Eq) constraint).Num;
+            }
             return false;
         }
 
