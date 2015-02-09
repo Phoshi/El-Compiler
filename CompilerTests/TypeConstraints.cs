@@ -60,6 +60,18 @@ namespace CompilerTests {
         }
 
         [TestMethod]
+        public void ModOnLtGtEq() {
+            var mod5 = new Mod(5);
+            var gt3 = new Gt(3);
+            var lt3 = new Lt(3);
+            var eq10 = new Eq(10);
+
+            Assert.IsTrue(eq10.IsAssignableTo(mod5));
+            Assert.IsFalse(gt3.IsAssignableTo(mod5));
+            Assert.IsFalse(mod5.IsAssignableTo(lt3));
+        }
+
+        [TestMethod]
         public void EqOnLtGt() {
             var eq7 = new Eq(7);
             var gt5 = new Gt(5);

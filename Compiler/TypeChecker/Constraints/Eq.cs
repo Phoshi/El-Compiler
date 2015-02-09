@@ -26,6 +26,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Gt) {
                 return Num > ((Gt)constraint).Num;
             }
+            if (constraint is Mod) {
+                return Num%((Mod) constraint).Num == 0;
+            }
             return Equals(constraint);
         }
 
