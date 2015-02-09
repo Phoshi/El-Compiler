@@ -30,6 +30,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Mod) {
                 return (((Mod)constraint).Num % Num) == 0;
             }
+            if (constraint is Eq) {
+                return (((Eq) constraint).Num%Num) == 0;
+            }
             return false;
         }
 

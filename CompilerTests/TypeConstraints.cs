@@ -93,8 +93,8 @@ namespace CompilerTests {
         }
 
         [TestMethod]
-        public void CompoundConstraint() {
-            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
+        public void AndConstraint() {
+            var bt5and10 = new AndConstraint(new Gt(5), new Lt(10));
             var eq7 = new Eq(7);
             var eq13 = new Eq(13);
 
@@ -109,9 +109,9 @@ namespace CompilerTests {
         }
 
         [TestMethod]
-        public void CompoundOnCompound() {
-            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
-            var bt6and9 = new CompoundConstraint(new Gt(6), new Lt(9));
+        public void AndOnAnd() {
+            var bt5and10 = new AndConstraint(new Gt(5), new Lt(10));
+            var bt6and9 = new AndConstraint(new Gt(6), new Lt(9));
 
             Assert.IsTrue(bt6and9.IsAssignableTo(bt5and10));
             Assert.IsFalse(bt5and10.IsAssignableTo(bt6and9));
@@ -124,10 +124,10 @@ namespace CompilerTests {
         }
 
         [TestMethod]
-        public void CompoundOnSmallerCompound() {
-            var bt5and10 = new CompoundConstraint(new Gt(5), new Lt(10));
-            var eq7 = new CompoundConstraint(new Eq(7));
-            var gt6 = new CompoundConstraint(new Gt(6));
+        public void AndOnSmallerAnd() {
+            var bt5and10 = new AndConstraint(new Gt(5), new Lt(10));
+            var eq7 = new AndConstraint(new Eq(7));
+            var gt6 = new AndConstraint(new Gt(6));
 
             Assert.IsTrue(eq7.IsAssignableTo(bt5and10));
             Assert.IsTrue(bt5and10.IsSupertypeOf(eq7));
@@ -135,6 +135,29 @@ namespace CompilerTests {
             Assert.IsFalse(gt6.IsAssignableTo(bt5and10));
             Assert.IsTrue(eq7.IsAssignableTo(gt6));
             Assert.IsFalse(gt6.IsSupertypeOf(bt5and10));
+        }
+
+        [TestMethod]
+        public void ComplexAnd() {
+            var compound = new AndConstraint(new Gt(0), new Lt(100), new Mod(5));
+            
+            Assert.IsTrue(new Eq(5).IsAssignableTo(compound));
+            Assert.IsFalse(new Eq(1).IsAssignableTo(compound));
+
+            Assert.IsTrue(compound.IsSupertypeOf(new Eq(95)));
+
+            Assert.IsFalse(new Eq(0).IsAssignableTo(compound));
+            Assert.IsFalse(new Eq(100).IsAssignableTo(compound));
+        }
+
+        [TestMethod]
+        public void SimpleAnd() {
+            var gt5 = new AndConstraint(new Gt(5));
+            var eq10 = new AndConstraint(new Eq(10));
+
+            Assert.IsTrue(eq10.IsAssignableTo(gt5));
+            Assert.IsTrue(gt5.IsSupertypeOf(eq10));
+            Assert.IsTrue(eq10.IsSubtypeOf(gt5));
         }
     }
 }

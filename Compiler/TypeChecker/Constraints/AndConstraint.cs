@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker.Constraints {
-    public class CompoundConstraint : ITypeConstraint {
+    public class AndConstraint : ITypeConstraint {
         public List<ITypeConstraint> Constraints { get; set; }
 
-        public CompoundConstraint(params ITypeConstraint[] constraints) {
+        public AndConstraint(params ITypeConstraint[] constraints) {
             Constraints = constraints.ToList();
         }
 
-        private Tuple<List<Tuple<ITypeConstraint, ITypeConstraint>>, List<ITypeConstraint>> MatchPairs(CompoundConstraint other) {
+        private Tuple<List<Tuple<ITypeConstraint, ITypeConstraint>>, List<ITypeConstraint>> MatchPairs(AndConstraint other) {
             var matches = new List<Tuple<ITypeConstraint, ITypeConstraint>>();
 
             var selfConstraints = new List<ITypeConstraint>(Constraints);
@@ -36,8 +36,8 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         } 
 
         public bool Equals(ITypeConstraint constraint) {
-            if (constraint is CompoundConstraint) {
-                var pairs = MatchPairs((CompoundConstraint) constraint);
+            if (constraint is AndConstraint) {
+                var pairs = MatchPairs((AndConstraint) constraint);
                 if (pairs.Item2.Count != 0) {
                     return false;
                 }
@@ -47,8 +47,8 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         }
 
         public bool IsAssignableTo(ITypeConstraint constraint) {
-            if (constraint is CompoundConstraint) {
-                var pairs = MatchPairs((CompoundConstraint)constraint);
+            if (constraint is AndConstraint) {
+                var pairs = MatchPairs((AndConstraint)constraint);
                 if (pairs.Item2.Count != 0) {
                     return false;
                 }
@@ -58,8 +58,8 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         }
 
         public bool IsSupertypeOf(ITypeConstraint constraint) {
-            if (constraint is CompoundConstraint) {
-                var pairs = MatchPairs((CompoundConstraint)constraint);
+            if (constraint is AndConstraint) {
+                var pairs = MatchPairs((AndConstraint)constraint);
                 if (pairs.Item2.Count != 0) {
                     return false;
                 }
@@ -69,8 +69,8 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         }
 
         public bool IsSubtypeOf(ITypeConstraint constraint) {
-            if (constraint is CompoundConstraint) {
-                var pairs = MatchPairs((CompoundConstraint)constraint);
+            if (constraint is AndConstraint) {
+                var pairs = MatchPairs((AndConstraint)constraint);
                 if (pairs.Item2.Count != 0) {
                     return false;
                 }

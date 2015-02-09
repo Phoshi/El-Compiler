@@ -29,7 +29,7 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Mod) {
                 return Num%((Mod) constraint).Num == 0;
             }
-            if (constraint is CompoundConstraint) {
+            if (constraint is AndConstraint) {
                 return constraint.IsSupertypeOf(this);
             }
             return Equals(constraint);
@@ -49,7 +49,7 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Mod) {
                 return Num % ((Mod)constraint).Num == 0;
             }
-            if (constraint is CompoundConstraint) {
+            if (constraint is AndConstraint) {
                 return constraint.IsSupertypeOf(this);
             }
             return false;
