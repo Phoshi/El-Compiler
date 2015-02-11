@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace Speedycloud.Compiler.TypeChecker {
     public class IntegerType : ITypeInformation{
         public bool IsAssignableTo(ITypeInformation other) {
+            if (other is AnyType) return true;
             if (other is IntegerType) {
                 return true;
             }
@@ -17,10 +18,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool Equals(ITypeInformation other) {
+            if (other is AnyType) return true;
             return IsAssignableTo(other);
         }
 
         public bool IsSubType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is DoubleType;
         }
 
@@ -29,10 +32,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsSuperType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return false;
         }
 
         public ITypeInformation Union(ITypeInformation other) {
+            if (other is AnyType) return this;
             if (other is IntegerType) {
                 return new IntegerType();
             }

@@ -154,5 +154,83 @@ namespace CompilerTests {
                             new ConstrainedType(new IntegerType(), new OrConstraint(new Eq(3), new Eq(5)))),
                         new Eq(2))));
         }
+
+        [TestMethod]
+        public void TypeofArrayIndex() {
+            var arr = new Array(new List<IExpression>{new Integer(3), new Integer(5)});
+            var tree = new ArrayIndex(arr, new Integer(1));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+            Assert.IsTrue(type.Equals(new ConstrainedType(new IntegerType(), new OrConstraint(new Eq(3), new Eq(5)))));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayIndexIncorrectIndex() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayIndex(arr, new String("foo"));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayIndexIncorrectArray() {
+            var tree = new ArrayIndex(new Integer(1), new Integer(1));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
+
+        [TestMethod]
+        public void TypeofArrayAssignment() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayAssignment(arr, new Integer(0), new Integer(5));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+            Assert.IsTrue(type is UnknownType);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayAssignmentIncorrectArray() {
+            var tree = new ArrayAssignment(new Integer(1), new Integer(0), new Integer(5));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayAssignmentOutofBounds() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayAssignment(arr, new Integer(2), new Integer(5));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayAssignmentIncorrectIndex() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayAssignment(arr, new String("foo"), new Integer(5));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayAssignmentIncorrectAssignment() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayAssignment(arr, new Integer(1), new String("foo"));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
     }
 }

@@ -5,29 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    public class UnknownType : ITypeInformation {
+    class AnyType : ITypeInformation {
         public bool IsAssignableTo(ITypeInformation other) {
-            return false;
+            return true;
         }
 
         public bool Equals(ITypeInformation other) {
-            return false;
+            return true;
         }
 
         public bool IsSubType(ITypeInformation other) {
-            return false;
+            return true;
         }
 
         public bool IsSuperType(ITypeInformation other) {
-            return false;
+            return true;
         }
 
         public ITypeInformation Union(ITypeInformation other) {
-            throw TypeCheckException.UnknowableTypeUsage(other);
+            return other;
         }
 
         public override string ToString() {
-            return "(Unknown)";
+            return "(Any)";
         }
     }
 }

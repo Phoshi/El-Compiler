@@ -8,14 +8,17 @@ using Speedycloud.Compiler.AST_Nodes;
 namespace Speedycloud.Compiler.TypeChecker {
     public class DoubleType : ITypeInformation{
         public bool IsAssignableTo(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is DoubleType;
         }
 
         public bool Equals(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is DoubleType;
         }
 
         public bool IsSubType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return false;
         }
 
@@ -35,10 +38,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsSuperType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is IntegerType;
         }
 
         public ITypeInformation Union(ITypeInformation other) {
+            if (other is AnyType) return this;
             if (other is DoubleType) {
                 return new DoubleType();
             }

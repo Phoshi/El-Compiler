@@ -16,6 +16,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsAssignableTo(ITypeInformation other) {
+            if (other is AnyType) return true;
             if (other is ConstrainedType) {
                 var otherType = other as ConstrainedType;
                 return Type.IsAssignableTo(otherType.Type) && Constraint.IsAssignableTo(otherType.Constraint);
@@ -24,6 +25,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool Equals(ITypeInformation other) {
+            if (other is AnyType) return true;
             if (other is ConstrainedType) {
                 var otherType = other as ConstrainedType;
                 return Type.Equals(otherType.Type) && Constraint.Equals(otherType.Constraint);
@@ -36,6 +38,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsSubType(ITypeInformation other) {
+            if (other is AnyType) return true;
             if (other is ConstrainedType) {
                 var otherType = other as ConstrainedType;
                 return Type.IsSubType(otherType.Type) && Constraint.IsSubtypeOf(otherType.Constraint);
@@ -44,6 +47,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsSuperType(ITypeInformation other) {
+            if (other is AnyType) return true;
             if (other is ConstrainedType) {
                 var otherType = other as ConstrainedType;
                 return Type.IsSuperType(otherType.Type) && Constraint.IsSupertypeOf(otherType.Constraint);
@@ -52,6 +56,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Union(ITypeInformation other) {
+            if (other is AnyType) return this;
             if (other is ConstrainedType) {
                 var otherType = other as ConstrainedType;
                 return new ConstrainedType(Type.Union(otherType.Type), new OrConstraint(Constraint, otherType.Constraint));

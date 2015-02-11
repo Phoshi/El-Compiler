@@ -13,10 +13,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsAssignableTo(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is ArrayType && Type.IsAssignableTo(((ArrayType)other).Type);
         }
 
         public bool Equals(ITypeInformation other) {
+            if (other is AnyType) return true;
             return other is ArrayType && Type.Equals(((ArrayType)other).Type);
         }
 
@@ -25,14 +27,17 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public bool IsSubType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return false;
         }
 
         public bool IsSuperType(ITypeInformation other) {
+            if (other is AnyType) return true;
             return false;
         }
 
         public ITypeInformation Union(ITypeInformation other) {
+            if (other is AnyType) return this;
             if (other is ArrayType) {
                 var otherType = (other as ArrayType);
                 return new ArrayType(Type.Union(otherType));

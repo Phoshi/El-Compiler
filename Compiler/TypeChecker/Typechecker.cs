@@ -25,11 +25,36 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(ArrayIndex arrayIndex) {
-            throw new NotImplementedException();
+            var arr = Visit(arrayIndex.Array);
+            var index = Visit(arrayIndex.Index);
+            if (!arr.IsAssignableTo(new ArrayType(new AnyType()))) {
+                throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), arr);
+            }
+            if (!index.IsAssignableTo(new IntegerType())) {
+                throw TypeCheckException.TypeMismatch(new IntegerType(), index);
+            }
+            return ((ArrayType)((ConstrainedType) arr).Type).Type;
         }
 
         public ITypeInformation Visit(ArrayAssignment assignment) {
-            throw new NotImplementedException();
+            var arr = Visit(assignment.Array);
+            var index = Visit(assignment.Index);
+            var value = Visit(assignment.Value);
+            if (!arr.IsAssignableTo(new ArrayType(new AnyType()))) {
+                throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), arr);
+            }
+            if (!index.IsAssignableTo(new IntegerType())) {
+                throw TypeCheckException.TypeMismatch(new IntegerType(), index);
+            }
+            var expected = ((ArrayType) ((ConstrainedType) arr).Type).Type;
+            if (!value.IsAssignableTo(expected)) {
+                throw TypeCheckException.TypeMismatch(expected, value);
+            }
+            var bound = new ConstrainedType(new IntegerType(), new Lt(((Eq)((ConstrainedType) arr).Constraint).Num));
+            if (!index.IsAssignableTo(bound)) {
+                throw TypeCheckException.TypeMismatch(bound, index);
+            }
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(Assignment assignment) {
