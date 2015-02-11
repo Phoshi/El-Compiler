@@ -67,7 +67,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(UnaryOp unaryOp) {
-            throw new NotImplementedException();
+            return Visit(unaryOp.Expression).UnaryOp("-");
         }
 
         public ITypeInformation Visit(BinaryOp binaryOp) {

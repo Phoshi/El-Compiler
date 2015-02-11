@@ -1,4 +1,5 @@
 ﻿using System;
+using Speedycloud.Compiler.TypeChecker.Constraints;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class TypeCheckException : Exception {
@@ -15,6 +16,12 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public static TypeCheckException TypeMismatch(ITypeInformation expected, ITypeInformation actual) {
             return new TypeCheckException(string.Format("Attempted to use type {0} where {1} expected.", actual, expected));
+        }
+
+        public static Exception InvalidUnaryOp(string op, ITypeConstraint typeConstraint) {
+            return
+                new TypeCheckException(string.Format("Attempted to use unary operator {0} on invalid constraint {1}", op,
+                    typeConstraint));
         }
     }
 }

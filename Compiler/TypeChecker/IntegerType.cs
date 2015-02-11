@@ -47,6 +47,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             throw TypeCheckException.UnresolvedUnion(this, other);
         }
 
+        public ITypeInformation UnaryOp(string op) {
+            return new IntegerType();
+        }
+
         public override bool Equals(object obj) {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

@@ -46,5 +46,12 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             }
             return false;
         }
+
+        public ITypeConstraint UnaryOp(string op) {
+            if (op == "-") {
+                return new Lt(-Num);
+            }
+            throw TypeCheckException.InvalidUnaryOp(op, this);
+        }
     }
 }

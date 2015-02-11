@@ -35,5 +35,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         public bool IsSubtypeOf(ITypeConstraint constraint) {
             return Constraints.Any(c => c.IsSubtypeOf(constraint));
         }
+
+        public ITypeConstraint UnaryOp(string op) {
+            return new OrConstraint(Constraints.Select(c=>c.UnaryOp(op)).ToArray());
+        }
     }
 }

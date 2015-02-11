@@ -5,5 +5,6 @@
         bool IsSubType(ITypeInformation other);
         bool IsSuperType(ITypeInformation other);
         ITypeInformation Union(ITypeInformation other);
+        ITypeInformation UnaryOp(string op);
     }
 }

@@ -10,5 +10,6 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         bool IsAssignableTo(ITypeConstraint constraint);
         bool IsSupertypeOf(ITypeConstraint constraint);
         bool IsSubtypeOf(ITypeConstraint constraint);
+        ITypeConstraint UnaryOp(string op);
     }
 }

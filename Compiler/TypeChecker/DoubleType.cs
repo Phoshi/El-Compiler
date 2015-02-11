@@ -52,5 +52,9 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             throw TypeCheckException.UnresolvedUnion(this, other);
         }
+
+        public ITypeInformation UnaryOp(string op) {
+            return new DoubleType();
+        }
     }
 }

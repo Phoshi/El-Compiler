@@ -241,5 +241,25 @@ namespace CompilerTests {
             var tc = new Typechecker();
             var type = tc.Visit(tree);
         }
+
+        [TestMethod]
+        public void TypeofUnary() {
+            var tree = new UnaryOp("-", new Integer(3));
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+            
+            Assert.IsTrue(type.Equals(new ConstrainedType(new IntegerType(), new Eq(-3))));
+        }
+
+        [TestMethod]
+        public void TypeofUnaryBool() {
+            var treeb = new UnaryOp("!", new Boolean(false));
+            var tc = new Typechecker();
+
+            var typeb = tc.Visit(treeb);
+
+            Assert.IsTrue(typeb.Equals(new BooleanType()));
+        }
     }
 }

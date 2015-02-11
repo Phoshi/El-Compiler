@@ -26,6 +26,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             throw TypeCheckException.UnknowableTypeUsage(other);
         }
 
+        public ITypeInformation UnaryOp(string op) {
+            throw TypeCheckException.UnknowableTypeUsage(this);
+        }
+
         public override string ToString() {
             return "(Unknown)";
         }

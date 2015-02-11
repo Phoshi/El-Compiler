@@ -63,5 +63,9 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             return Type.Union(other);
         }
+
+        public ITypeInformation UnaryOp(string op) {
+            return new ConstrainedType(Type.UnaryOp(op), Constraint.UnaryOp(op));
+        }
     }
 }
