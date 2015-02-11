@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker.Constraints {
     public class Lt : ITypeConstraint {
-        public int Num { get; private set; }
+        public decimal Num { get; private set; }
 
-        public Lt(int num) {
+        public Lt(decimal num) {
             Num = num;
         }
 
