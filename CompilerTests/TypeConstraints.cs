@@ -159,5 +159,62 @@ namespace CompilerTests {
             Assert.IsTrue(gt5.IsSupertypeOf(eq10));
             Assert.IsTrue(eq10.IsSubtypeOf(gt5));
         }
+
+        [TestMethod]
+        public void AndEquals() {
+            var range = new AndConstraint(new Gt(5), new Lt(10));
+            var range2 = new AndConstraint(new Gt(5), new Lt(11));
+
+            Assert.IsTrue(range.Equals(range));
+            Assert.IsFalse(range.Equals(range2));
+        }
+
+        [TestMethod]
+        public void AndAssignee() {
+            var range = new AndConstraint(new Gt(5), new Lt(10));
+            var gt4 = new Gt(4);
+            var lt11 = new Lt(11);
+
+            Assert.IsTrue(range.IsAssignableTo(gt4));
+            Assert.IsTrue(range.IsAssignableTo(lt11));
+
+            Assert.IsFalse(range.IsAssignableTo(new Gt(6)));
+            Assert.IsFalse(range.IsAssignableTo(new Lt(9)));
+        }
+
+        [TestMethod]
+        public void OrConstraint() {
+            var either5or10 = new OrConstraint(new Eq(5), new Eq(10));
+
+            Assert.IsTrue(new Eq(5).IsAssignableTo(either5or10));
+            Assert.IsTrue(new Eq(10).IsAssignableTo(either5or10));
+            Assert.IsFalse(new Eq(15).IsAssignableTo(either5or10));
+
+            Assert.IsTrue(either5or10.IsSupertypeOf(new Eq(5)));
+            Assert.IsTrue(new Eq(5).IsSubtypeOf(either5or10));
+        }
+
+        [TestMethod]
+        public void OrAsAssignee() {
+            var either5or10 = new OrConstraint(new Eq(5), new Eq(10));
+            var gt4 = new Gt(4);
+            var gt7 = new Gt(7);
+
+            Assert.IsTrue(either5or10.IsAssignableTo(gt4));
+            Assert.IsFalse(either5or10.IsAssignableTo(gt7));
+        }
+
+        [TestMethod]
+        public void OrOnLtGt() {
+            var or = new OrConstraint(new Eq(5), new Gt(10));
+            var gt4 = new Gt(4);
+            var gt7 = new Gt(7);
+
+            Assert.IsTrue(or.IsAssignableTo(gt4));
+            Assert.IsTrue(gt4.IsSupertypeOf(or));
+
+            Assert.IsFalse(or.IsAssignableTo(gt7));
+            Assert.IsFalse(or.IsAssignableTo(gt7));
+        }
     }
 }

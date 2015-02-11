@@ -84,6 +84,7 @@
     <Compile Include="TypeChecker\Constraints\ITypeConstraint.cs" />
     <Compile Include="TypeChecker\Constraints\Lt.cs" />
     <Compile Include="TypeChecker\Constraints\Mod.cs" />
+    <Compile Include="TypeChecker\Constraints\OrConstraint.cs" />
     <Compile Include="TypeChecker\DoubleType.cs" />
     <Compile Include="TypeChecker\IntegerType.cs" />
     <Compile Include="TypeChecker\ITypeInformation.cs" />

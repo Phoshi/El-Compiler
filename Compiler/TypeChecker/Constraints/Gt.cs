@@ -23,6 +23,12 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Gt) {
                 return Num >= ((Gt) constraint).Num;
             }
+            if (constraint is AndConstraint) {
+                return constraint.IsSupertypeOf(this);
+            }
+            if (constraint is OrConstraint) {
+                return constraint.IsSupertypeOf(this);
+            }
             return false;
         }
 
@@ -33,12 +39,24 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             if (constraint is Eq) {
                 return Num < ((Eq) constraint).Num;
             }
+            if (constraint is AndConstraint) {
+                return constraint.IsSupertypeOf(this);
+            }
+            if (constraint is OrConstraint) {
+                return constraint.IsSupertypeOf(this);
+            }
             return false;
         }
 
         public bool IsSubtypeOf(ITypeConstraint constraint) {
             if (constraint is Gt) {
                 return Num > ((Gt)constraint).Num;
+            }
+            if (constraint is AndConstraint) {
+                return constraint.IsSubtypeOf(this);
+            }
+            if (constraint is OrConstraint) {
+                return constraint.IsSubtypeOf(this);
             }
             return false;
         }

@@ -54,7 +54,7 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
                 }
                 return pairs.Item1.All(p => p.Item1.IsAssignableTo(p.Item2));
             }
-            return false;
+            return Constraints.All(c => c.IsAssignableTo(constraint) || (c is Lt && constraint is Gt) || (c is Gt && constraint is Lt));
         }
 
         public bool IsSupertypeOf(ITypeConstraint constraint) {
