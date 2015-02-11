@@ -26,6 +26,10 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             return false;
         }
 
+        public override string ToString() {
+            return string.Format("(Lt {0})", Num);
+        }
+
         public bool IsSupertypeOf(ITypeConstraint constraint) {
             if (constraint is Lt) {
                 return Num > ((Lt)constraint).Num;

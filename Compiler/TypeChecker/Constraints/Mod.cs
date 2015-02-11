@@ -12,6 +12,10 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             Num = num;
         }
 
+        public override string ToString() {
+            return string.Format("(Mod {0})", Num);
+        }
+
         public bool Equals(ITypeConstraint constraint) {
             if (constraint is Mod) {
                 return Num == ((Mod) constraint).Num;

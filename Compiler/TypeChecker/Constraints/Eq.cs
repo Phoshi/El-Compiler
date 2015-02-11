@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker.Constraints {
     public class Eq : ITypeConstraint {
-        public int Num { get; private set; }
+        public decimal Num { get; private set; }
 
-        public Eq(int num) {
+        public Eq(decimal num) {
             Num = num;
+        }
+
+        public override string ToString() {
+            return string.Format("(Eq {0})", Num);
         }
 
         public bool Equals(ITypeConstraint constraint) {

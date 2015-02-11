@@ -19,6 +19,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             return false;
         }
 
+        public override string ToString() {
+            return "(Double)";
+        }
+
         public override bool Equals(object obj) {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;

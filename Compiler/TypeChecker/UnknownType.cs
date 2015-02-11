@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    public class StringType : ITypeInformation{
+    class UnknownType : ITypeInformation {
         public bool IsAssignableTo(ITypeInformation other) {
-            return other is StringType;
+            return false;
         }
 
         public bool Equals(ITypeInformation other) {
-            return other is StringType;
+            return false;
         }
 
         public bool IsSubType(ITypeInformation other) {
@@ -22,15 +22,12 @@ namespace Speedycloud.Compiler.TypeChecker {
             return false;
         }
 
-        public override string ToString() {
-            return "(String)";
+        public ITypeInformation Union(ITypeInformation other) {
+            throw TypeCheckException.UnknowableTypeUsage(other);
         }
 
-        public ITypeInformation Union(ITypeInformation other) {
-            if (other is StringType) {
-                return new StringType();
-            }
-            throw TypeCheckException.UnresolvedUnion(this, other);
+        public override string ToString() {
+            return "(Unknown)";
         }
     }
 }

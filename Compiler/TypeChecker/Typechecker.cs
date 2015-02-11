@@ -4,19 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Speedycloud.Compiler.AST_Nodes;
+using Speedycloud.Compiler.TypeChecker.Constraints;
 using Array = Speedycloud.Compiler.AST_Nodes.Array;
 using Boolean = Speedycloud.Compiler.AST_Nodes.Boolean;
 using String = Speedycloud.Compiler.AST_Nodes.String;
 using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    class Typechecker : IAstVisitor<ITypeInformation> {
+    public class Typechecker : IAstVisitor<ITypeInformation> {
         public ITypeInformation Visit(INode node) {
-            throw new NotImplementedException();
+            return node.Accept(this);
         }
 
         public ITypeInformation Visit(Array array) {
-            throw new NotImplementedException();
+            if (array.Expressions.Any()) {
+                var type = array.Expressions.Select(Visit).Aggregate((fst, snd) => fst.Union(snd));
+                return new ConstrainedType(new ArrayType(type), new Eq(array.Expressions.Count()));
+            }
+            return new ConstrainedType(new ArrayType(new UnknownType()), new Eq(0));
         }
 
         public ITypeInformation Visit(ArrayIndex arrayIndex) {
@@ -44,7 +49,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Boolean boolean) {
-            throw new NotImplementedException();
+            return new BooleanType();
         }
 
         public ITypeInformation Visit(Constraint constraint) {
@@ -52,7 +57,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Float number) {
-            throw new NotImplementedException();
+            return new ConstrainedType(new DoubleType(), new Eq(new decimal(number.Num)));
         }
 
         public ITypeInformation Visit(For forStatement) {
@@ -80,7 +85,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Integer integer) {
-            throw new NotImplementedException();
+            return new ConstrainedType(new IntegerType(), new Eq(integer.Num));
         }
 
         public ITypeInformation Visit(Name name) {
@@ -104,7 +109,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(String str) {
-            throw new NotImplementedException();
+            return new ConstrainedType(new StringType(), new Eq(str.Str.Count()));
         }
 
         public ITypeInformation Visit(Type type) {

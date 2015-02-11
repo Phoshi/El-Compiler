@@ -14,6 +14,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             return other is BooleanType;
         }
 
+        public override string ToString() {
+            return "(Boolean)";
+        }
+
         public bool IsSubType(ITypeInformation other) {
             return false;
         }

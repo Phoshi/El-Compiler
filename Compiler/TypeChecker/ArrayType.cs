@@ -5,13 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    public class StringType : ITypeInformation{
+    public class ArrayType : ITypeInformation {
+        public ITypeInformation Type { get; set; }
+
+        public ArrayType(ITypeInformation type) {
+            Type = type;
+        }
+
         public bool IsAssignableTo(ITypeInformation other) {
-            return other is StringType;
+            return other is ArrayType && Type.IsAssignableTo(((ArrayType)other).Type);
         }
 
         public bool Equals(ITypeInformation other) {
-            return other is StringType;
+            return other is ArrayType && Type.Equals(((ArrayType)other).Type);
+        }
+
+        public override string ToString() {
+            return string.Format("(Array {0})", Type);
         }
 
         public bool IsSubType(ITypeInformation other) {
@@ -22,13 +32,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             return false;
         }
 
-        public override string ToString() {
-            return "(String)";
-        }
-
         public ITypeInformation Union(ITypeInformation other) {
-            if (other is StringType) {
-                return new StringType();
+            if (other is ArrayType) {
+                var otherType = (other as ArrayType);
+                return new ArrayType(Type.Union(otherType));
             }
             throw TypeCheckException.UnresolvedUnion(this, other);
         }

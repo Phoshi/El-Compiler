@@ -33,7 +33,11 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
                 }
             }
             return Tuple.Create(matches, selfConstraints.Concat(otherConstraints).ToList());
-        } 
+        }
+
+        public override string ToString() {
+            return string.Format("(And {0})", string.Join(" && ", Constraints));
+        }
 
         public bool Equals(ITypeConstraint constraint) {
             if (constraint is AndConstraint) {

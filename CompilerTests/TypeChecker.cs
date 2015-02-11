@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.TypeChecker;
+using Speedycloud.Compiler.TypeChecker.Constraints;
+using Array = Speedycloud.Compiler.AST_Nodes.Array;
+using Boolean = Speedycloud.Compiler.AST_Nodes.Boolean;
+using String = Speedycloud.Compiler.AST_Nodes.String;
 
 namespace CompilerTests {
     [TestClass]
@@ -60,9 +66,93 @@ namespace CompilerTests {
         }
 
         [TestMethod]
+        public void ArrayType() {
+            var arr = new ArrayType(new IntegerType());
+            var int1 = new IntegerType();
+
+            Assert.IsTrue(arr.Equals(arr));
+            Assert.IsTrue(arr.IsAssignableTo(arr));
+            Assert.IsFalse(int1.Equals(arr));
+            Assert.IsFalse(arr.IsAssignableTo(int1));
+            Assert.IsFalse(int1.IsAssignableTo(arr));
+        }
+
+        [TestMethod]
+        public void ConstrainedInt() {
+            var eq7 = new ConstrainedType(new IntegerType(), new Eq(7));
+            var gt6 = new ConstrainedType(new IntegerType(), new Gt(6));
+            var gt8 = new ConstrainedType(new IntegerType(), new Gt(8));
+
+            Assert.IsFalse(eq7.Equals(gt6) || gt6.Equals(gt8) || gt8.Equals(eq7));
+            Assert.IsTrue(eq7.IsAssignableTo(gt6));
+            Assert.IsTrue(gt8.IsAssignableTo(gt6));
+            Assert.IsFalse(eq7.IsAssignableTo(gt8));
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(TypeCheckException))]
         public void InvalidUnion() {
             new StringType().Union(new IntegerType());
+        }
+
+        [TestMethod]
+        public void TypeofInteger() {
+            var tree = new Integer(1);
+
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+
+            Assert.IsTrue(type.Equals(new ConstrainedType(new IntegerType(), new Eq(1))));
+        }
+
+        [TestMethod]
+        public void TypeofString() {
+            var tree = new String("foo");
+
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+
+            Assert.IsTrue(type.Equals(new ConstrainedType(new StringType(), new Eq(3))));
+        }
+
+        [TestMethod]
+        public void TypeofFloat() {
+            var tree = new Float(1.5);
+
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+
+            Assert.IsTrue(type.Equals(new ConstrainedType(new DoubleType(), new Eq(1.5m))));
+        }
+
+        [TestMethod]
+        public void TypeofBool() {
+            var tree = new Boolean(true);
+
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+
+            Assert.IsTrue(type.Equals(new BooleanType()));
+        }
+
+        [TestMethod]
+        public void TypeofArray() {
+            var tree = new Array(new List<IExpression>{new Integer(3), new Integer(5)});
+
+            var tc = new Typechecker();
+
+            var type = tc.Visit(tree);
+
+            Assert.IsTrue(
+                type.Equals(
+                    new ConstrainedType(
+                        new ArrayType(
+                            new ConstrainedType(new IntegerType(), new OrConstraint(new Eq(3), new Eq(5)))),
+                        new Eq(2))));
         }
     }
 }

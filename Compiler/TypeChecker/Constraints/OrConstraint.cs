@@ -8,11 +8,18 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
     public class OrConstraint : ITypeConstraint {
         public List<ITypeConstraint> Constraints { get; set; }
 
+        public override string ToString() {
+            return string.Format("(Or {0})", string.Join(" || ", Constraints));
+        }
+
         public OrConstraint(params ITypeConstraint[] constraints) {
             Constraints = constraints.ToList();
         }
 
         public bool Equals(ITypeConstraint constraint) {
+            if (constraint is OrConstraint) {
+                return Constraints.All(c => ((OrConstraint) constraint).Constraints.Any(c.Equals));
+            }
             return Constraints.Any(c => c.Equals(constraint));
         }
 

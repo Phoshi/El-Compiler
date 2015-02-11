@@ -24,6 +24,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             return other is DoubleType;
         }
 
+        public override string ToString() {
+            return "(Integer)";
+        }
+
         public bool IsSuperType(ITypeInformation other) {
             return false;
         }

@@ -8,5 +8,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                     b));
         }
         public TypeCheckException(string error) : base(error){}
+
+        public static TypeCheckException UnknowableTypeUsage(ITypeInformation a) {
+            return new TypeCheckException("Attempted to use type information in unknowable context.");
+        }
     }
 }
