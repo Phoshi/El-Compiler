@@ -50,10 +50,15 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (!value.IsAssignableTo(expected)) {
                 throw TypeCheckException.TypeMismatch(expected, value);
             }
-            var bound = new ConstrainedType(new IntegerType(), new Lt(((Eq)((ConstrainedType) arr).Constraint).Num));
-            if (!index.IsAssignableTo(bound)) {
-                throw TypeCheckException.TypeMismatch(bound, index);
+            var lowerBound = new ConstrainedType(new IntegerType(), new Gt(-1));
+            var upperBound = new ConstrainedType(new IntegerType(), new Lt(((Eq)((ConstrainedType) arr).Constraint).Num));
+            if (!index.IsAssignableTo(lowerBound)) {
+                throw TypeCheckException.TypeMismatch(lowerBound, index);
             }
+            if (!index.IsAssignableTo(upperBound)) {
+                throw TypeCheckException.TypeMismatch(upperBound, index);
+            }
+
             return new UnknownType();
         }
 

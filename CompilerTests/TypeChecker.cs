@@ -212,6 +212,15 @@ namespace CompilerTests {
             var tc = new Typechecker();
             var type = tc.Visit(tree);
         }
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofArrayAssignmentOutofLowerBounds() {
+            var arr = new Array(new List<IExpression> { new Integer(3), new Integer(5) });
+            var tree = new ArrayAssignment(arr, new Integer(-1), new Integer(5));
+
+            var tc = new Typechecker();
+            var type = tc.Visit(tree);
+        }
 
         [TestMethod]
         [ExpectedException(typeof(TypeCheckException))]
