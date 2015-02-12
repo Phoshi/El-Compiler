@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Speedycloud.Compiler.AST_Nodes;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    class AnyType : ITypeInformation {
+    public class AnyType : ITypeInformation {
         public bool IsAssignableTo(ITypeInformation other) {
             return true;
         }

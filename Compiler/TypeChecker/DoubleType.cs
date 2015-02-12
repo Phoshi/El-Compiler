@@ -58,7 +58,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
-            return new DoubleType();
+            if (rhs is DoubleType || rhs is IntegerType)
+                return new DoubleType();
+            throw TypeCheckException.InvalidBinaryOp(this, op, rhs);
         }
     }
 }

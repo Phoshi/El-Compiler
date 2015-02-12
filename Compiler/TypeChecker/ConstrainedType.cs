@@ -77,7 +77,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                 var newConstraintType = Constraint.BinaryOp(op, other.Constraint);
                 return new ConstrainedType(newBaseType, newConstraintType);
             }
-            throw new NotImplementedException();
+            return Type.BinaryOp(op, rhs);
         }
     }
 }

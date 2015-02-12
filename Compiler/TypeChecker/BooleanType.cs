@@ -44,6 +44,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            var validOps = new List<string> { "==", "!=", ">", "<", "<=", ">=", "&&", "||" };
+            if (!validOps.Contains(op)) {
+                throw TypeCheckException.InvalidBinaryOp(this, op, rhs);
+            }
+            if (rhs is BooleanType)
+                return new BooleanType();
             throw new NotImplementedException();
         }
     }

@@ -7,6 +7,7 @@ using Speedycloud.Compiler.TypeChecker.Constraints;
 using Array = Speedycloud.Compiler.AST_Nodes.Array;
 using Boolean = Speedycloud.Compiler.AST_Nodes.Boolean;
 using String = Speedycloud.Compiler.AST_Nodes.String;
+using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace CompilerTests {
     [TestClass]
@@ -312,6 +313,350 @@ namespace CompilerTests {
             Assert.IsTrue(tc.Visit(ints).Equals(new ConstrainedType(new IntegerType(), new Eq(0))));
             Assert.IsTrue(tc.Visit(intAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(2/3m))));
             Assert.IsTrue(tc.Visit(floatAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(2/3m))));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofBinaryIntWithBool() {
+            var tc = new Typechecker();
+
+            var op = new BinaryOp("+", new Integer(3), new Boolean(true));
+            tc.Visit(op);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void TypeofBinaryFloatWithBool() {
+            var tc = new Typechecker();
+
+            var op = new BinaryOp("+", new Float(3), new Boolean(true));
+            tc.Visit(op);
+        }
+
+        [TestMethod]
+        public void TypeofBinaryOpBooleans() {
+            var tc = new Typechecker();
+
+            var successCases = new List<string> {"==", "!=", ">", "<", "<=", ">=", "&&", "||"};
+            foreach (var successCase in successCases) {
+                var bin = new BinaryOp(successCase, new Boolean(true), new Boolean(false));
+
+                Assert.IsTrue(tc.Visit(bin).Equals(new BooleanType()));    
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof (TypeCheckException))]
+        public void TypeofBinaryOpBooleanFailure() {
+            var tc = new Typechecker();
+
+            var failureCases = new List<string> { "+", "-", "/", "*", /*and all others, really*/ };
+            foreach (var failureCase in failureCases) {
+                var bin = new BinaryOp(failureCase, new Boolean(true), new Boolean(false));
+
+                Assert.IsTrue(tc.Visit(bin).Equals(new BooleanType()));
+            }
+        }
+
+        [TestMethod]
+        public void BindingDeclarationPlainInteger() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true), new Type(new TypeName("Integer")));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new IntegerType()));
+        }
+
+        [TestMethod]
+        public void BindingDeclarationPlainFloat() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true), new Type(new TypeName("Double")));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new DoubleType()));
+        }
+
+        [TestMethod]
+        public void BindingDeclarationPlainBool() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true), new Type(new TypeName("Boolean")));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new BooleanType()));
+        }
+
+        [TestMethod]
+        public void BindingDeclarationPlainString() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true), new Type(new TypeName("String")));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new StringType()));
+        }
+
+        [TestMethod]
+        public void BindingDeclarationPlainIntegerArray() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true), new Type(new TypeName("Integer"), isArrayType: true));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new ArrayType(new IntegerType())));
+        }
+
+        [TestMethod]
+        public void BindingDeclarationConstrainedInteger() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true),
+                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                    new Constraint("Eq", new Integer(3))
+                }));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new ConstrainedType(new IntegerType(), new Eq(3))));
+        }
+        [TestMethod]
+        public void BindingDeclarationMultiConstrainedInteger() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true),
+                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                    new Constraint("Gt", new Integer(3)),
+                    new Constraint("Lt", new Integer(10))
+                }));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].IsAssignableTo(new ConstrainedType(new IntegerType(), new AndConstraint(new Gt(3), new Lt(10)))));
+        }
+        [TestMethod]
+        public void BindingDeclarationMultiConstrainedIntegerArray() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true),
+                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                    new Constraint("Gt", new Integer(3)),
+                    new Constraint("Lt", new Integer(10))
+                }, isArrayType: true));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(
+                tc.Names["Foo"].IsAssignableTo(
+                    new ArrayType(new ConstrainedType(new IntegerType(), new AndConstraint(new Gt(3), new Lt(10))))));
+        }
+        [TestMethod]
+        public void BindingDeclarationMultiConstrainedIntegerArrayAtRuntime() {
+            var tc = new Typechecker();
+
+            var decl = new BindingDeclaration(new Name("Foo", true),
+                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                    new Constraint("Gt", new Integer(3)),
+                    new Constraint("Lt", new Integer(10))
+                }, isArrayType: true, isRuntimeCheck: true));
+            var result = tc.Visit(decl);
+
+            Assert.IsTrue(result is UnknownType);
+            Assert.IsTrue(tc.Names["Foo"].Equals(new AnyType()));
+        }
+
+        [TestMethod]
+        public void IfStatementWithBool() {
+            var tc = new Typechecker();
+
+            var ifStatement = new If(new Boolean(true), new Integer(3), new Integer(2));
+            tc.Visit(ifStatement);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void IfStatementWithoutBool() {
+            var tc = new Typechecker();
+
+            var ifStatement = new If(new Integer(3), new Integer(3), new Integer(2));
+            tc.Visit(ifStatement);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void IfStatementCheckConcequent() {
+            var tc = new Typechecker();
+
+            var ifStatement = new If(new Boolean(true), new NewAssignment(
+                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Boolean(true), false),
+                new Integer(2));
+            tc.Visit(ifStatement);
+        }
+
+        [TestMethod]
+        public void NewAssignment() {
+            var tc = new Typechecker();
+            var assignment = new NewAssignment(
+                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), false);
+            tc.Visit(assignment);
+
+            Assert.IsTrue(tc.Names["f"].Equals(new IntegerType()));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void NewAssignmentFailure() {
+            var tc = new Typechecker();
+            var assignment = new NewAssignment(
+                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Boolean(true), false);
+            tc.Visit(assignment);
+        }
+
+        [TestMethod]
+        public void Assignment() {
+            var tc = new Typechecker();
+            tc.Names["f"] = new IntegerType();
+            var assignment = new Assignment(new Name("f", true), new Integer(3));
+            tc.Visit(assignment);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void AssignmentFailure() {
+            var tc = new Typechecker();
+            tc.Names["f"] = new ConstrainedType(new IntegerType(), new Eq(4));
+            var assignment = new Assignment(new Name("f", true), new Integer(3));
+            tc.Visit(assignment);
+        }
+
+        [TestMethod]
+        public void Program() {
+            var tc = new Typechecker();
+            var newAssignment = new NewAssignment(
+                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), false);
+            var assignment = new Assignment(new Name("f", true), new Integer(5));
+            var program = new Program(new List<IStatement> {newAssignment, assignment});
+            tc.Visit(program);
+
+            Assert.IsTrue(tc.Names["f"].Equals(new IntegerType()));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void ProgramFailure() {
+            var tc = new Typechecker();
+            var newAssignment = new NewAssignment(
+                new BindingDeclaration(new Name("f", true),
+                    new Type(new TypeName("Integer"), new List<Constraint> {new Constraint("Eq", new Integer(3))})),
+                new Integer(3), false);
+            var assignment = new Assignment(new Name("f", true), new Integer(5));
+            var program = new Program(new List<IStatement> { newAssignment, assignment });
+            tc.Visit(program);
+        }
+
+        [TestMethod]
+        public void For() {
+            var tc = new Typechecker();
+            var tree = new For(new BindingDeclaration(new Name("i", true), new Type(new TypeName("Integer"))),
+                new Array(new List<IExpression> {new Integer(3)}), new Boolean(true));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void ForInvalidBinding() {
+            var tc = new Typechecker();
+            var tree = new For(new BindingDeclaration(new Name("i", true), new Type(new TypeName("Boolean"))),
+                new Array(new List<IExpression> { new Integer(3) }), new Boolean(true));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void ForInvalidEnumerable() {
+            var tc = new Typechecker();
+            var tree = new For(new BindingDeclaration(new Name("i", true), new Type(new TypeName("Integer"))),
+                new Integer(3), new Boolean(true));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void ForInvalidBlock() {
+            var tc = new Typechecker();
+            var tree = new For(new BindingDeclaration(new Name("i", true), new Type(new TypeName("Integer"))),
+                new Array(new List<IExpression> {new Integer(3)}), new NewAssignment(
+                    new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Boolean(true),
+                    false));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        public void While() {
+            var tc = new Typechecker();
+            var tree = new While(new Boolean(true), new Integer(2));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void WhileInvalidCondition() {
+            var tc = new Typechecker();
+            var tree = new While(new Integer(3), new Integer(2));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void WhileInvalidBlock() {
+            var tc = new Typechecker();
+            var tree = new While(new Boolean(true), new NewAssignment(
+                    new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Boolean(true),
+                    false));
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        public void FunctionDefinition() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            tc.Visit(func);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void FunctionDefinitionInvalidReturn() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Boolean"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            tc.Visit(func);
         }
     }
 }

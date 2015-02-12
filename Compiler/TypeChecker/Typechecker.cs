@@ -12,6 +12,25 @@ using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class Typechecker : IAstVisitor<ITypeInformation> {
+        private readonly Dictionary<string, ITypeInformation> names = new Dictionary<string, ITypeInformation>(); 
+        public Dictionary<string, ITypeInformation> Names { get { return names; } }
+
+        private Dictionary<string, FunctionType> functions = new Dictionary<string, FunctionType>();
+
+        private CascadingDictionary<string, ITypeInformation> types = new CascadingDictionary<string, ITypeInformation>{
+            {"Integer", new IntegerType()},
+            {"Double", new DoubleType()},
+            {"Boolean", new BooleanType()},
+            {"String", new StringType()}
+        };
+
+        private void NewScope() {
+            types = new CascadingDictionary<string, ITypeInformation>(types);
+        }
+
+        private void DeleteTopScope() {
+            types = types.Parent;
+        }
         public ITypeInformation Visit(INode node) {
             return node.Accept(this);
         }
@@ -63,7 +82,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Assignment assignment) {
-            throw new NotImplementedException();
+            var expected = names[assignment.Binding.Value];
+            var actual = Visit(assignment.Expression);
+            if (!actual.IsAssignableTo(expected)) {
+                throw TypeCheckException.TypeMismatch(expected, actual);
+            }
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(UnaryOp unaryOp) {
@@ -74,8 +98,21 @@ namespace Speedycloud.Compiler.TypeChecker {
             return Visit(binaryOp.Lhs).BinaryOp(binaryOp.Op, Visit(binaryOp.Rhs));
         }
 
+        private ITypeConstraint BuildConstraint(Constraint constraint) {
+            var constraints = new Dictionary<string, Func<decimal, ITypeConstraint>> {
+                {"Eq", n=>new Eq(n)},
+                {"Lt", n=>new Lt(n)},
+                {"Gt", n=>new Gt(n)}
+            };
+            var num = ((Integer) constraint.Expression).Num;
+            return constraints[constraint.Name](num);
+        }
+
         public ITypeInformation Visit(BindingDeclaration declaration) {
-            throw new NotImplementedException();
+            var name = declaration.Name.Value;
+            var type = Visit(declaration.Type);
+            names[name] = type;
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(Boolean boolean) {
@@ -91,7 +128,18 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(For forStatement) {
-            throw new NotImplementedException();
+            var enumerableType = Visit(forStatement.Enumerable);
+            if (!enumerableType.IsAssignableTo(new ArrayType(new AnyType()))) {
+                throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), enumerableType);
+            }
+            Visit(forStatement.Binding);
+            var arrayType = ((ArrayType) ((ConstrainedType) enumerableType).Type).Type;
+            if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value])) {
+                throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value], arrayType);
+            }
+
+            Visit(forStatement.Executable);
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(FunctionCall call) {
@@ -99,15 +147,34 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(FunctionDefinition def) {
-            throw new NotImplementedException();
+            NewScope();
+            Visit(def.Signature);
+            Visit(def.Statement);
+            DeleteTopScope();
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(FunctionSignature sig) {
-            throw new NotImplementedException();
+            var name = sig.Name;
+            var parameters = new List<ITypeInformation>();
+            foreach (var binding in sig.Parameters) {
+                Visit(binding);
+                parameters.Add(names[binding.Name.Value]);
+            }
+            var returnType = Visit(sig.ReturnType);
+            functions[name] = new FunctionType(parameters, returnType);
+            names["$RETURN"] = returnType;
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(If ifStatement) {
-            throw new NotImplementedException();
+            var condition = Visit(ifStatement.Condition);
+            if (!condition.IsAssignableTo(new BooleanType())) {
+                throw TypeCheckException.TypeMismatch(new BooleanType(), condition);
+            }
+            Visit(ifStatement.Concequent);
+            Visit(ifStatement.Concequent);
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(Instance instance) {
@@ -119,15 +186,25 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Name name) {
-            throw new NotImplementedException();
+            return names[name.Value];
         }
 
         public ITypeInformation Visit(NewAssignment assignment) {
-            throw new NotImplementedException();
+            Visit(assignment.Declaration);
+            var declaredType = names[assignment.Declaration.Name.Value];
+
+            var assignmentType = Visit(assignment.Assignment);
+            if (!assignmentType.IsAssignableTo(declaredType)) {
+                throw TypeCheckException.TypeMismatch(declaredType, assignmentType);
+            }
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(AST_Nodes.Program program) {
-            throw new NotImplementedException();
+            foreach (var statement in program.Statements) {
+                Visit(statement);
+            }
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(Record record) {
@@ -135,7 +212,11 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Return returnStatement) {
-            throw new NotImplementedException();
+            var ret = Visit(returnStatement.Expression);
+            if (!ret.IsAssignableTo(names["$RETURN"])) {
+                throw TypeCheckException.TypeMismatch(names["$RETURN"], ret);
+            }
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(String str) {
@@ -143,7 +224,24 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Type type) {
-            throw new NotImplementedException();
+            if (type.IsRuntimeCheck) {
+                return new AnyType();
+            }
+            else {
+                var baseType = types[type.Name.Name];
+                var constraints = type.Constraints.Select(BuildConstraint).ToList();
+                var isArray = type.IsArrayType;
+
+                ITypeInformation newType = baseType;
+
+                if (constraints.Any()) {
+                    newType = new ConstrainedType(newType, constraints.Aggregate((a, b) => new AndConstraint(a, b)));
+                }
+                if (isArray) {
+                    newType = new ArrayType(newType);
+                }
+                return newType;
+            }
         }
 
         public ITypeInformation Visit(TypeClass typeClass) {
@@ -155,7 +253,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(While whileStatement) {
-            throw new NotImplementedException();
+            var condition = Visit(whileStatement.Expression);
+            if (!condition.IsAssignableTo(new BooleanType())) {
+                throw TypeCheckException.TypeMismatch(new BooleanType(), condition);
+            }
+            Visit(whileStatement.Executable);
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(AST_Nodes.Bytecode code) {

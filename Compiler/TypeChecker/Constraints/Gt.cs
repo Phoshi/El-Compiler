@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker.Constraints {
     public class Gt : ITypeConstraint{
-        public int Num { get; private set; }
+        public decimal Num { get; private set; }
 
         public override string ToString() {
             return string.Format("(Gt {0})", Num);
         }
 
-        public Gt(int num) {
+        public Gt(decimal num) {
             Num = num;
         }
 
