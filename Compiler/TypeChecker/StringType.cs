@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Compiler.AST_Nodes;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class StringType : ITypeInformation{
@@ -39,6 +40,10 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation UnaryOp(string op) {
+            throw new NotImplementedException();
+        }
+
+        public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
             throw new NotImplementedException();
         }
     }

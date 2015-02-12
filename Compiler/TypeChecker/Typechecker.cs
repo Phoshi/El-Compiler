@@ -71,7 +71,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(BinaryOp binaryOp) {
-            throw new NotImplementedException();
+            return Visit(binaryOp.Lhs).BinaryOp(binaryOp.Op, Visit(binaryOp.Rhs));
         }
 
         public ITypeInformation Visit(BindingDeclaration declaration) {

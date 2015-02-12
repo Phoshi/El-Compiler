@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Compiler.AST_Nodes;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class IntegerType : ITypeInformation{
@@ -49,6 +50,16 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public ITypeInformation UnaryOp(string op) {
             return new IntegerType();
+        }
+
+        public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            if (rhs is IntegerType) {
+                return new IntegerType();
+            }
+            if (rhs is DoubleType) {
+                return new DoubleType();
+            }
+            throw TypeCheckException.InvalidBinaryOp(this, op, rhs);
         }
 
         public override bool Equals(object obj) {

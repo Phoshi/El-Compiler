@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Compiler.AST_Nodes;
 
 namespace Speedycloud.Compiler.TypeChecker {
     class AnyType : ITypeInformation {
@@ -27,6 +28,10 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation UnaryOp(string op) {
+            throw TypeCheckException.UnknowableTypeUsage(this);
+        }
+
+        public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
             throw TypeCheckException.UnknowableTypeUsage(this);
         }
 

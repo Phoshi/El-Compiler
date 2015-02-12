@@ -56,5 +56,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation UnaryOp(string op) {
             return new DoubleType();
         }
+
+        public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            return new DoubleType();
+        }
     }
 }

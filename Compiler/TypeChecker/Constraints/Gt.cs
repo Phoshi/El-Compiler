@@ -71,5 +71,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             }
             throw TypeCheckException.InvalidUnaryOp(op, this);
         }
+
+        public ITypeConstraint BinaryOp(string op, ITypeConstraint constraint) {
+            throw new NotImplementedException();
+        }
     }
 }

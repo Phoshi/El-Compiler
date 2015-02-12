@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.TypeChecker.Constraints;
 
 namespace Speedycloud.Compiler.TypeChecker {
@@ -66,6 +67,17 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public ITypeInformation UnaryOp(string op) {
             return new ConstrainedType(Type.UnaryOp(op), Constraint.UnaryOp(op));
+        }
+
+        public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            if (rhs is ConstrainedType) {
+                var other = rhs as ConstrainedType;
+                var newBaseType = Type.BinaryOp(op, other.Type);
+                if (op == "/" && !newBaseType.Equals(new IntegerType())) op = "//";
+                var newConstraintType = Constraint.BinaryOp(op, other.Constraint);
+                return new ConstrainedType(newBaseType, newConstraintType);
+            }
+            throw new NotImplementedException();
         }
     }
 }

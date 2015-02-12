@@ -39,5 +39,9 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
         public ITypeConstraint UnaryOp(string op) {
             return new OrConstraint(Constraints.Select(c=>c.UnaryOp(op)).ToArray());
         }
+
+        public ITypeConstraint BinaryOp(string op, ITypeConstraint constraint) {
+            throw new NotImplementedException();
+        }
     }
 }

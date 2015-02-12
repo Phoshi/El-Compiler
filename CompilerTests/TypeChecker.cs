@@ -261,5 +261,57 @@ namespace CompilerTests {
 
             Assert.IsTrue(typeb.Equals(new BooleanType()));
         }
+
+        [TestMethod]
+        public void TypeofBinaryAdd() {
+            var tc = new Typechecker();
+
+            var ints = new BinaryOp("+", new Integer(2), new Integer(2));
+            var intAndFloat = new BinaryOp("+", new Integer(2), new Float(2));
+            var floatAndFloat = new BinaryOp("+", new Float(2), new Float(2));
+
+            Assert.IsTrue(tc.Visit(ints).Equals(new ConstrainedType(new IntegerType(), new Eq(4))));
+            Assert.IsTrue(tc.Visit(intAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(4))));
+            Assert.IsTrue(tc.Visit(floatAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(4))));
+        }
+
+        [TestMethod]
+        public void TypeofBinarySub() {
+            var tc = new Typechecker();
+
+            var ints = new BinaryOp("-", new Integer(2), new Integer(1));
+            var intAndFloat = new BinaryOp("-", new Integer(2), new Float(1));
+            var floatAndFloat = new BinaryOp("-", new Float(2), new Float(1));
+
+            Assert.IsTrue(tc.Visit(ints).Equals(new ConstrainedType(new IntegerType(), new Eq(1))));
+            Assert.IsTrue(tc.Visit(intAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(1))));
+            Assert.IsTrue(tc.Visit(floatAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(1))));
+        }
+
+        [TestMethod]
+        public void TypeofBinaryMul() {
+            var tc = new Typechecker();
+
+            var ints = new BinaryOp("*", new Integer(2), new Integer(3));
+            var intAndFloat = new BinaryOp("*", new Integer(2), new Float(3));
+            var floatAndFloat = new BinaryOp("*", new Float(2), new Float(3));
+
+            Assert.IsTrue(tc.Visit(ints).Equals(new ConstrainedType(new IntegerType(), new Eq(6))));
+            Assert.IsTrue(tc.Visit(intAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(6))));
+            Assert.IsTrue(tc.Visit(floatAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(6))));
+        }
+
+        [TestMethod]
+        public void TypeofBinaryDiv() {
+            var tc = new Typechecker();
+
+            var ints = new BinaryOp("/", new Integer(2), new Integer(3));
+            var intAndFloat = new BinaryOp("/", new Integer(2), new Float(3));
+            var floatAndFloat = new BinaryOp("/", new Float(2), new Float(3));
+
+            Assert.IsTrue(tc.Visit(ints).Equals(new ConstrainedType(new IntegerType(), new Eq(0))));
+            Assert.IsTrue(tc.Visit(intAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(2/3m))));
+            Assert.IsTrue(tc.Visit(floatAndFloat).Equals(new ConstrainedType(new DoubleType(), new Eq(2/3m))));
+        }
     }
 }

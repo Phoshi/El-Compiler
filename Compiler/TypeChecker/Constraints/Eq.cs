@@ -71,5 +71,17 @@ namespace Speedycloud.Compiler.TypeChecker.Constraints {
             }
             throw TypeCheckException.InvalidUnaryOp(op, this);
         }
+
+        public ITypeConstraint BinaryOp(string op, ITypeConstraint constraint) {
+            if (constraint is Eq) {
+                var other = constraint as Eq;
+                if (op == "+") return new Eq(Num + other.Num);
+                if (op == "-") return new Eq(Num - other.Num);
+                if (op == "*") return new Eq(Num * other.Num);
+                if (op == "/") return new Eq((int)(Num / other.Num));
+                if (op == "//") return new Eq(Num / other.Num);
+            }
+            throw new NotImplementedException();
+        }
     }
 }

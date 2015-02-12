@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Speedycloud.Compiler.TypeChecker.Constraints;
 
 namespace Speedycloud.Compiler.TypeChecker {
@@ -22,6 +23,12 @@ namespace Speedycloud.Compiler.TypeChecker {
             return
                 new TypeCheckException(string.Format("Attempted to use unary operator {0} on invalid constraint {1}", op,
                     typeConstraint));
+        }
+
+        public static Exception InvalidBinaryOp(ITypeInformation lhs, string op, ITypeInformation rhs) {
+            return
+                new TypeCheckException(string.Format(
+                    "Attempted to use binary operator {0} on invalid types {1} and {2}", op, lhs, rhs));
         }
     }
 }
