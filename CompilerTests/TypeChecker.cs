@@ -658,5 +658,86 @@ namespace CompilerTests {
                     new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
             tc.Visit(func);
         }
+
+        [TestMethod]
+        public void FunctionCall() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var call = new FunctionCall("add", new List<IExpression> {new Integer(2), new Integer(2)});
+            var tree = new Program(new List<IStatement> {func, call});
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void FunctionCallFailure() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var call = new FunctionCall("add", new List<IExpression> { new Boolean(true), new Integer(2) });
+            var tree = new Program(new List<IStatement> { func, call });
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        public void FunctionCallAssignment() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var call = new FunctionCall("add", new List<IExpression> { new Integer(2), new Integer(2) });
+            var assign =
+                new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))), call,
+                    false);
+            var tree = new Program(new List<IStatement> { func, assign });
+
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void FunctionCallAssignmentFailure() {
+            var tc = new Typechecker();
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var call = new FunctionCall("add", new List<IExpression> { new Integer(2), new Integer(2) });
+            var assign =
+                new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Boolean"))), call,
+                    false);
+            var tree = new Program(new List<IStatement> { func, assign });
+
+            tc.Visit(tree);
+        }
+
     }
 }

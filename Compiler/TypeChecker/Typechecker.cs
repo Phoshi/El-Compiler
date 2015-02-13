@@ -147,7 +147,19 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(FunctionCall call) {
-            throw new NotImplementedException();
+            var def = functions[call.Name];
+            var typeInformation = def.Parameters.Zip(call.Parameters, (type, expr) => new {
+                type, expr
+            });
+
+            foreach (var pair in typeInformation) {
+                var actual = Visit(pair.expr);
+                if (!actual.IsAssignableTo(pair.type)) {
+                    throw TypeCheckException.TypeMismatch(pair.type, actual);
+                }
+            }
+
+            return def.ReturnType;
         }
 
         public ITypeInformation Visit(FunctionDefinition def) {
