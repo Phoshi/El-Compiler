@@ -128,6 +128,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(For forStatement) {
+            NewScope();
             var enumerableType = Visit(forStatement.Enumerable);
             if (!enumerableType.IsAssignableTo(new ArrayType(new AnyType()))) {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), enumerableType);
@@ -138,7 +139,10 @@ namespace Speedycloud.Compiler.TypeChecker {
                 throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value], arrayType);
             }
 
+            NewScope();
             Visit(forStatement.Executable);
+            DeleteTopScope();
+            DeleteTopScope();
             return new UnknownType();
         }
 
@@ -169,11 +173,17 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public ITypeInformation Visit(If ifStatement) {
             var condition = Visit(ifStatement.Condition);
+            NewScope();
             if (!condition.IsAssignableTo(new BooleanType())) {
                 throw TypeCheckException.TypeMismatch(new BooleanType(), condition);
             }
+            NewScope();
             Visit(ifStatement.Concequent);
-            Visit(ifStatement.Concequent);
+            DeleteTopScope();
+            NewScope();
+            Visit(ifStatement.Otherwise);
+            DeleteTopScope();
+            DeleteTopScope();
             return new UnknownType();
         }
 
