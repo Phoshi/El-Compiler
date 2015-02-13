@@ -25,6 +25,9 @@ namespace Speedycloud.Compiler.TypeChecker {
             new Dictionary<FunctionCall, FunctionType>();
         public Dictionary<FunctionCall, FunctionType> FunctionCalls { get { return functionCalls; } } 
 
+        private Dictionary<string, RecordTypeInformation> records = new Dictionary<string, RecordTypeInformation>();
+        public Dictionary<string, RecordTypeInformation> Records { get { return records; } } 
+
         private CascadingDictionary<string, ITypeInformation> types = new CascadingDictionary<string, ITypeInformation>{
             {"Integer", new IntegerType()},
             {"Double", new DoubleType()},

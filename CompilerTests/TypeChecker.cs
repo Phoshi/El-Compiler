@@ -830,5 +830,63 @@ namespace CompilerTests {
             tc.Visit(tree);
         }
 
+        [TestMethod]
+        public void ComplexType() {
+            var comp1 = new ComplexType(new IntegerType());
+            var comp2 = new ComplexType(new IntegerType(), new IntegerType());
+            var comp3 = new ComplexType(new StringType());
+            var comp4 = new ComplexType(comp1, comp2, comp3);
+            var comp5 = new ComplexType(new ConstrainedType(new IntegerType(), new Eq(5)));
+            var comp6 = new ComplexType(comp5, comp2, comp3);
+
+            Assert.IsTrue(comp1.IsAssignableTo(comp1));
+            Assert.IsTrue(comp5.IsAssignableTo(comp1));
+            Assert.IsFalse(comp1.IsAssignableTo(comp2));
+            Assert.IsTrue(comp4.Equals(comp4));
+
+            Assert.IsTrue(comp5.IsSubType(comp1));
+            Assert.IsTrue(comp1.IsSuperType(comp5));
+            Assert.IsTrue(comp6.IsSubType(comp4));
+            Assert.IsTrue(comp6.IsAssignableTo(comp4));
+        }
+
+        [TestMethod]
+        public void Record() {
+            var record = new Record("Point", new List<TypeName>(), new List<BindingDeclaration> {
+                new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
+            });
+
+            var tc = new Typechecker();
+            tc.Visit(record);
+
+            Assert.AreEqual(3, tc.Functions.Count);
+            Assert.IsTrue(
+                tc.Functions.Count(
+                    f =>
+                        f.Name == "Point" && 
+                        f.Parameters.Count() == 2 &&
+                        f.Parameters.All(p => p.Equals(new IntegerType())) &&
+                        f.ReturnType.Equals(new ComplexType(new IntegerType(), new IntegerType()))) == 1);
+
+            Assert.IsTrue(
+                tc.Functions.Count(
+                    f =>
+                        f.Name == "x" &&
+                        f.Parameters.Count() == 1 &&
+                        f.Parameters.All(p => p.Equals(new ComplexType(new IntegerType(), new IntegerType()))) &&
+                        f.ReturnType.Equals(new IntegerType())) == 1);
+
+            Assert.IsTrue(
+                tc.Functions.Count(
+                    f =>
+                        f.Name == "y" &&
+                        f.Parameters.Count() == 1 &&
+                        f.Parameters.All(p => p.Equals(new ComplexType(new IntegerType(), new IntegerType()))) &&
+                        f.ReturnType.Equals(new IntegerType())) == 1);
+
+            Assert.IsTrue(tc.Records["Point"].Type.Equals(new ComplexType(new IntegerType(), new IntegerType())));
+        }
+
     }
 }

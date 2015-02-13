@@ -81,6 +81,7 @@
     <Compile Include="TypeChecker\ArrayType.cs" />
     <Compile Include="TypeChecker\BooleanType.cs" />
     <Compile Include="TypeChecker\CascadingDictionary.cs" />
+    <Compile Include="TypeChecker\ComplexType.cs" />
     <Compile Include="TypeChecker\ConstrainedType.cs" />
     <Compile Include="TypeChecker\Constraints\AndConstraint.cs" />
     <Compile Include="TypeChecker\Constraints\Eq.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="TypeChecker\FunctionType.cs" />
     <Compile Include="TypeChecker\IntegerType.cs" />
     <Compile Include="TypeChecker\ITypeInformation.cs" />
+    <Compile Include="TypeChecker\RecordTypeInformation.cs" />
     <Compile Include="TypeChecker\StringType.cs" />
     <Compile Include="TypeChecker\Typechecker.cs" />
     <Compile Include="TypeChecker\TypeCheckException.cs" />
