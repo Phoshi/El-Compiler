@@ -44,7 +44,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                 var otherType = other as ConstrainedType;
                 return Type.IsSubType(otherType.Type) && Constraint.IsSubtypeOf(otherType.Constraint);
             }
-            return Type.IsSubType(other);
+            return Type.IsSubType(other) || Type.IsAssignableTo(other);
         }
 
         public bool IsSuperType(ITypeInformation other) {

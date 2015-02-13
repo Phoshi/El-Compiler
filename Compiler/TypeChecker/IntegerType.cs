@@ -34,6 +34,7 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public bool IsSuperType(ITypeInformation other) {
             if (other is AnyType) return true;
+            if (other is ConstrainedType && ((ConstrainedType) other).Type.Equals(this)) return true;
             return false;
         }
 

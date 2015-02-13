@@ -888,5 +888,45 @@ namespace CompilerTests {
             Assert.IsTrue(tc.Records["Point"].Type.Equals(new ComplexType(new IntegerType(), new IntegerType())));
         }
 
+        [TestMethod]
+        public void RecordUsage() {
+            var record = new Record("Point", new List<TypeName>(), new List<BindingDeclaration> {
+                new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
+            });
+            var newRecord = new FunctionCall("Point", new List<IExpression> {new Integer(5), new Integer(10)});
+            var assign = new NewAssignment(
+                new BindingDeclaration(new Name("p", true), new Type(new TypeName("Point"))), newRecord, false);
+            var access = new FunctionCall("x", new List<IExpression> {new Name("p", false)});
+            var assignAccess =
+                new NewAssignment(new BindingDeclaration(new Name("xVal", true), new Type(new TypeName("Integer"))),
+                    access, false);
+
+            var tree = new Program(new List<IStatement> {record, assign, assignAccess});
+
+            var tc = new Typechecker();
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void RecordUsageFailure() {
+            var record = new Record("Point", new List<TypeName>(), new List<BindingDeclaration> {
+                new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
+            });
+            var newRecord = new FunctionCall("Point", new List<IExpression> { new Integer(5), new Integer(10) });
+            var assign = new NewAssignment(
+                new BindingDeclaration(new Name("p", true), new Type(new TypeName("Point"))), newRecord, false);
+            var access = new FunctionCall("x", new List<IExpression> { new Name("p", false) });
+            var assignAccess =
+                new NewAssignment(new BindingDeclaration(new Name("xVal", true), new Type(new TypeName("Boolean"))),
+                    access, false);
+
+            var tree = new Program(new List<IStatement> { record, assign, assignAccess });
+
+            var tc = new Typechecker();
+            tc.Visit(tree);
+        }
     }
 }

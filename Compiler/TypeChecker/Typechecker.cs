@@ -242,7 +242,25 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Record record) {
-            throw new NotImplementedException();
+            var name = record.Name;
+            var typeParams = record.TypeParams;
+            var members = record.Members.Select(m=>new {Name = m.Name.Value, Type = Visit(m.Type)}).ToList();
+
+            var memberTypes = members.Select(m => m.Type).ToList();
+            var type = new ComplexType(memberTypes.ToArray());
+            var ctor = new FunctionType(name, memberTypes, type);
+            var accessors =
+                members.Select(member => new FunctionType(member.Name, new List<ITypeInformation> {type}, member.Type));
+
+            records[name] = new RecordTypeInformation(type, ctor, accessors);
+
+            functions.Add(ctor);
+            foreach (var accessor in accessors) {
+                functions.Add(accessor);
+            }
+            types[name] = type;
+
+            return new UnknownType();
         }
 
         public ITypeInformation Visit(Return returnStatement) {
