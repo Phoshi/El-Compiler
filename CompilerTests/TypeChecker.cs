@@ -80,6 +80,17 @@ namespace CompilerTests {
         }
 
         [TestMethod]
+        public void ComplexArrayTyping() {
+            var arr = new ArrayType(new IntegerType());
+            var arr2 = new ArrayType(new ConstrainedType(new IntegerType(), new Eq(5)));
+
+            Assert.IsTrue(arr.IsSuperType(arr2));
+            Assert.IsTrue(arr2.IsSubType(arr));
+            Assert.IsTrue(arr2.IsAssignableTo(arr));
+            Assert.IsFalse(arr.IsAssignableTo(arr2));
+        }
+
+        [TestMethod]
         public void ConstrainedInt() {
             var eq7 = new ConstrainedType(new IntegerType(), new Eq(7));
             var gt6 = new ConstrainedType(new IntegerType(), new Gt(6));

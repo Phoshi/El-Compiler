@@ -29,11 +29,13 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public bool IsSubType(ITypeInformation other) {
             if (other is AnyType) return true;
+            if (other is ArrayType) return Type.IsSubType(((ArrayType) other).Type);
             return false;
         }
 
         public bool IsSuperType(ITypeInformation other) {
             if (other is AnyType) return true;
+            if (other is ArrayType) return Type.IsSuperType(((ArrayType)other).Type);
             return false;
         }
 
