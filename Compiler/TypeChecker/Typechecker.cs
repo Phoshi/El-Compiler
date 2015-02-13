@@ -18,6 +18,13 @@ namespace Speedycloud.Compiler.TypeChecker {
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } } 
         private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
 
+        private readonly Dictionary<FunctionDefinition, FunctionType> functionDefinitions =
+            new Dictionary<FunctionDefinition, FunctionType>();
+        public Dictionary<FunctionDefinition, FunctionType> FunctionDefinitions { get { return functionDefinitions; } } 
+        private readonly Dictionary<FunctionCall, FunctionType> functionCalls =
+            new Dictionary<FunctionCall, FunctionType>();
+        public Dictionary<FunctionCall, FunctionType> FunctionCalls { get { return functionCalls; } } 
+
         private CascadingDictionary<string, ITypeInformation> types = new CascadingDictionary<string, ITypeInformation>{
             {"Integer", new IntegerType()},
             {"Double", new DoubleType()},
@@ -156,6 +163,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                     continue;
                 }
 
+                functionCalls[call] = def;
                 return def.ReturnType;
             }
             throw TypeCheckException.UnknownOverload(call, definitions);
@@ -166,6 +174,8 @@ namespace Speedycloud.Compiler.TypeChecker {
             Visit(def.Signature);
             Visit(def.Statement);
             DeleteTopScope();
+
+            functionDefinitions[def] = Functions.Last();
             return new UnknownType();
         }
 

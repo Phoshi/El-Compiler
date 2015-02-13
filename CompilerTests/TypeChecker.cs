@@ -796,6 +796,9 @@ namespace CompilerTests {
 
             var tc = new Typechecker();
             tc.Visit(tree);
+
+            Assert.AreEqual(tc.FunctionDefinitions[func], tc.FunctionCalls[call1]);
+            Assert.AreEqual(tc.FunctionDefinitions[func2], tc.FunctionCalls[call2]);
         }
 
         [TestMethod]
