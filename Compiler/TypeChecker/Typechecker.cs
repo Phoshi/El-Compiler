@@ -15,7 +15,8 @@ namespace Speedycloud.Compiler.TypeChecker {
         private readonly Dictionary<string, ITypeInformation> names = new Dictionary<string, ITypeInformation>(); 
         public Dictionary<string, ITypeInformation> Names { get { return names; } }
 
-        private Dictionary<string, FunctionType> functions = new Dictionary<string, FunctionType>();
+        public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } } 
+        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
 
         private CascadingDictionary<string, ITypeInformation> types = new CascadingDictionary<string, ITypeInformation>{
             {"Integer", new IntegerType()},
@@ -147,19 +148,17 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(FunctionCall call) {
-            var def = functions[call.Name];
-            var typeInformation = def.Parameters.Zip(call.Parameters, (type, expr) => new {
-                type, expr
-            });
-
-            foreach (var pair in typeInformation) {
-                var actual = Visit(pair.expr);
-                if (!actual.IsAssignableTo(pair.type)) {
-                    throw TypeCheckException.TypeMismatch(pair.type, actual);
+            var definitions = functions.Where(f=>f.Name == call.Name).ToList();
+            foreach (var def in definitions) {
+                var correctTypeMatch =
+                    def.Parameters.Zip(call.Parameters, (type, expr) => Visit(expr).IsAssignableTo(type)).All(t => t);
+                if (!correctTypeMatch) {
+                    continue;
                 }
-            }
 
-            return def.ReturnType;
+                return def.ReturnType;
+            }
+            throw TypeCheckException.UnknownOverload(call, definitions);
         }
 
         public ITypeInformation Visit(FunctionDefinition def) {
@@ -178,7 +177,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                 parameters.Add(names[binding.Name.Value]);
             }
             var returnType = Visit(sig.ReturnType);
-            functions[name] = new FunctionType(parameters, returnType);
+            functions.Add(new FunctionType(name, parameters, returnType));
             names["$RETURN"] = returnType;
             return new UnknownType();
         }

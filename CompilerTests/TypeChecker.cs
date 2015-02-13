@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.TypeChecker;
@@ -736,6 +737,93 @@ namespace CompilerTests {
                     false);
             var tree = new Program(new List<IStatement> { func, assign });
 
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        public void FunctionDefOverload() {
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var func2 =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Boolean"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Boolean")))
+                        },
+                        new Type(new TypeName("Boolean"))),
+                    new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
+            var tree = new Program(new List<IStatement> {func, func2});
+
+            var tc = new Typechecker();
+            tc.Visit(tree);
+
+            Assert.AreEqual(2, tc.Functions.Count);
+            Assert.IsTrue(tc.Functions.Count(f => f.Name == "add" && f.Parameters.All(p=>p.Equals(new IntegerType()))) == 1);
+            Assert.IsTrue(tc.Functions.Count(f => f.Name == "add" && f.Parameters.All(p => p.Equals(new BooleanType()))) == 1);
+        }
+
+        [TestMethod]
+        public void FunctionCallOverload() {
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var func2 =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Boolean"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Boolean")))
+                        },
+                        new Type(new TypeName("Boolean"))),
+                    new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
+            var call1 = new FunctionCall("add", new List<IExpression> {new Integer(2), new Integer(2)});
+            var call2 = new FunctionCall("add", new List<IExpression> { new Boolean(true), new Boolean(false) });
+            var tree = new Program(new List<IStatement> {func, func2, call1, call2});
+
+            var tc = new Typechecker();
+            tc.Visit(tree);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(TypeCheckException))]
+        public void FunctionCallOverloadFailure() {
+            var func =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Integer"))),
+                    new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
+            var func2 =
+                new FunctionDefinition(
+                    new FunctionSignature("add",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("a", true), new Type(new TypeName("Boolean"))),
+                            new BindingDeclaration(new Name("b", true), new Type(new TypeName("Boolean")))
+                        },
+                        new Type(new TypeName("Boolean"))),
+                    new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
+            var call1 = new FunctionCall("add", new List<IExpression> { new Integer(2), new Integer(2) });
+            var call2 = new FunctionCall("add", new List<IExpression> { new String("foo"), new Boolean(false) });
+            var tree = new Program(new List<IStatement> { func, func2, call1, call2 });
+
+            var tc = new Typechecker();
             tc.Visit(tree);
         }
 

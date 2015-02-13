@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.TypeChecker.Constraints;
 
 namespace Speedycloud.Compiler.TypeChecker {
@@ -29,6 +31,12 @@ namespace Speedycloud.Compiler.TypeChecker {
             return
                 new TypeCheckException(string.Format(
                     "Attempted to use binary operator {0} on invalid types {1} and {2}", op, lhs, rhs));
+        }
+
+        public static Exception UnknownOverload(FunctionCall call, List<FunctionType> definitions) {
+            return new TypeCheckException(string.Format(
+                "Attempted to call function {0} with parameters {1}, but no suitable overload was found. Known overloads are {2}",
+                call.Name, string.Join(", ", call.Parameters), string.Join("; ", definitions)));
         }
     }
 }
