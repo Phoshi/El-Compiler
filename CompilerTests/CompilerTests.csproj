@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeChecker.cs" />
     <Compile Include="TypeConstraints.cs" />
+    <Compile Include="ParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Bytecode\Bytecode.csproj">
