@@ -23,39 +23,16 @@ namespace Speedycloud.Compiler.Parser {
             return tokens[++position];
         }
 
-        private static ParserExtensions.Parser<Token> MatchType(TokenType type) {
-            return ParserExtensions.Shift().Match(t => t.Type == type);
-        }
-
-        private ParserExtensions.Parser<IExpression> Integer, Float, Number, Array;
-
-        private void MakeParsers() {
-            Float = MatchType(TokenType.Number).Match(t => {
-                double foo;
-                return double.TryParse(t.TokenText, out foo);
-            }).Apply<Token, IExpression>(m => new Float(double.Parse(m.TokenText)));
-            Integer = MatchType(TokenType.Number).Match(t => {
-                long foo;
-                return long.TryParse(t.TokenText, out foo);
-            }).Apply<Token, IExpression>(m => new Integer(int.Parse(m.TokenText)));
-            Number = Integer.Or(Float);
-            Array = Integer
-                .Interspersed(MatchType(TokenType.Comma))
-                .Surrounded(MatchType(TokenType.OpenSquareBracket), MatchType(TokenType.CloseSquareBracket))
-                .Slurp<IExpression, IExpression>(r => new Array(r));
-        }
-
         public Parser(IEnumerable<Token> tokens) {
             this.tokens = new List<Token>(tokens);
-            MakeParsers();
         }
 
         public Integer ParseInt() {
-            return (Integer)Number(tokens).First().Value;
+            throw new NotImplementedException();
         }
 
         public AST_Nodes.Array ParseArray() {
-            return (AST_Nodes.Array)Array(tokens).First().Value;
+            throw new NotImplementedException();
         }
 
         public ArrayAssignment ParseArrayAssignment() {
@@ -87,7 +64,7 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public Float ParseFloat() {
-            return (Float)Number(tokens).First().Value;
+            throw new NotImplementedException();
         }
 
         public For ParseFor() {

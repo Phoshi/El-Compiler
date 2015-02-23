@@ -76,7 +76,6 @@
     <Compile Include="AST_Nodes\INode.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Parser\ParserExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypeChecker\AnyType.cs" />
