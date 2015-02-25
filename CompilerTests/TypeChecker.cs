@@ -551,7 +551,7 @@ namespace CompilerTests {
             var newAssignment = new NewAssignment(
                 new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), false);
             var assignment = new Assignment(new Name("f", true), new Integer(5));
-            var program = new Program(new List<IStatement> {newAssignment, assignment});
+            var program = new Block(new List<IStatement> {newAssignment, assignment});
             tc.Visit(program);
 
             Assert.IsTrue(tc.Names["f"].Equals(new IntegerType()));
@@ -566,7 +566,7 @@ namespace CompilerTests {
                     new Type(new TypeName("Integer"), new List<Constraint> {new Constraint("Eq", new Integer(3))})),
                 new Integer(3), false);
             var assignment = new Assignment(new Name("f", true), new Integer(5));
-            var program = new Program(new List<IStatement> { newAssignment, assignment });
+            var program = new Block(new List<IStatement> { newAssignment, assignment });
             tc.Visit(program);
         }
 
@@ -684,7 +684,7 @@ namespace CompilerTests {
                         new Type(new TypeName("Integer"))),
                     new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
             var call = new FunctionCall("add", new List<IExpression> {new Integer(2), new Integer(2)});
-            var tree = new Program(new List<IStatement> {func, call});
+            var tree = new Block(new List<IStatement> {func, call});
 
             tc.Visit(tree);
         }
@@ -703,7 +703,7 @@ namespace CompilerTests {
                         new Type(new TypeName("Integer"))),
                     new Return(new BinaryOp("+", new Name("a", false), new Name("b", false))));
             var call = new FunctionCall("add", new List<IExpression> { new Boolean(true), new Integer(2) });
-            var tree = new Program(new List<IStatement> { func, call });
+            var tree = new Block(new List<IStatement> { func, call });
 
             tc.Visit(tree);
         }
@@ -724,7 +724,7 @@ namespace CompilerTests {
             var assign =
                 new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))), call,
                     false);
-            var tree = new Program(new List<IStatement> { func, assign });
+            var tree = new Block(new List<IStatement> { func, assign });
 
             tc.Visit(tree);
         }
@@ -746,7 +746,7 @@ namespace CompilerTests {
             var assign =
                 new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Boolean"))), call,
                     false);
-            var tree = new Program(new List<IStatement> { func, assign });
+            var tree = new Block(new List<IStatement> { func, assign });
 
             tc.Visit(tree);
         }
@@ -771,7 +771,7 @@ namespace CompilerTests {
                         },
                         new Type(new TypeName("Boolean"))),
                     new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
-            var tree = new Program(new List<IStatement> {func, func2});
+            var tree = new Block(new List<IStatement> {func, func2});
 
             var tc = new Typechecker();
             tc.Visit(tree);
@@ -803,7 +803,7 @@ namespace CompilerTests {
                     new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
             var call1 = new FunctionCall("add", new List<IExpression> {new Integer(2), new Integer(2)});
             var call2 = new FunctionCall("add", new List<IExpression> { new Boolean(true), new Boolean(false) });
-            var tree = new Program(new List<IStatement> {func, func2, call1, call2});
+            var tree = new Block(new List<IStatement> {func, func2, call1, call2});
 
             var tc = new Typechecker();
             tc.Visit(tree);
@@ -835,7 +835,7 @@ namespace CompilerTests {
                     new Return(new BinaryOp("&&", new Name("a", false), new Name("b", false))));
             var call1 = new FunctionCall("add", new List<IExpression> { new Integer(2), new Integer(2) });
             var call2 = new FunctionCall("add", new List<IExpression> { new String("foo"), new Boolean(false) });
-            var tree = new Program(new List<IStatement> { func, func2, call1, call2 });
+            var tree = new Block(new List<IStatement> { func, func2, call1, call2 });
 
             var tc = new Typechecker();
             tc.Visit(tree);
@@ -913,7 +913,7 @@ namespace CompilerTests {
                 new NewAssignment(new BindingDeclaration(new Name("xVal", true), new Type(new TypeName("Integer"))),
                     access, false);
 
-            var tree = new Program(new List<IStatement> {record, assign, assignAccess});
+            var tree = new Block(new List<IStatement> {record, assign, assignAccess});
 
             var tc = new Typechecker();
             tc.Visit(tree);
@@ -934,7 +934,7 @@ namespace CompilerTests {
                 new NewAssignment(new BindingDeclaration(new Name("xVal", true), new Type(new TypeName("Boolean"))),
                     access, false);
 
-            var tree = new Program(new List<IStatement> { record, assign, assignAccess });
+            var tree = new Block(new List<IStatement> { record, assign, assignAccess });
 
             var tc = new Typechecker();
             tc.Visit(tree);

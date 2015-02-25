@@ -23,7 +23,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseArray();
+            var tree = parser.Parse();
             Assert.AreEqual(new Array(new List<IExpression> {
                 new Integer(5), new Integer(15)
             }), tree);
@@ -41,7 +41,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseArrayAssignment();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new ArrayAssignment(new Name("foo", false), new Name("bar", false), new Name("baz", false)), tree);
         }
@@ -56,7 +56,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseArrayIndex();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new ArrayIndex(new Name("foo", false), new Name("bar", false)), tree);
         }
@@ -70,7 +70,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseAssignment();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new Assignment(new Name("foo", true), new Name("bar", false)), tree);
         }
@@ -84,9 +84,9 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseBinaryOperator();
+            var tree = parser.Parse();
             Assert.AreEqual(
-                new BinaryOp("+", new Name("foo", true), new Name("bar", false)), tree);
+                new BinaryOp("+", new Name("foo", false), new Name("bar", false)), tree);
         }
 
         [TestMethod]
@@ -100,7 +100,7 @@ namespace CompilerTests {
             var parser = new Parser(tokens);
             var tree = parser.ParseBindingDeclaration();
             Assert.AreEqual(
-                new BindingDeclaration(new Name("foo", false), new Type(new TypeName("bar"))), tree);
+                new BindingDeclaration(new Name("foo", true), new Type(new TypeName("bar"))), tree);
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseBoolean();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new Boolean(true), tree);
         }
@@ -122,7 +122,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseBoolean();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new Boolean(false), tree);
         }
@@ -147,7 +147,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseFloat();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new Float(3.14), tree);
         }
@@ -170,7 +170,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseFor();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new For(new BindingDeclaration(new Name("foo", true), new Type(new TypeName("bar"))),
                     new Name("baz", false), new FunctionCall("bang", new List<IExpression> {new Name("foo", false)})),
@@ -187,7 +187,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseFunctionCall();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new FunctionCall("foo", new List<IExpression>{new Integer(2)}), tree);
         }
@@ -215,13 +215,13 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseFunctionDefinition();
+            var tree = parser.Parse();
             Assert.AreEqual(
                 new FunctionDefinition(
                     new FunctionSignature("add",
                         new List<BindingDeclaration> {
-                            new BindingDeclaration(new Name("x", false), new Type(new TypeName("Integer"))),
-                            new BindingDeclaration(new Name("y", false), new Type(new TypeName("Integer")))
+                            new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                            new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer")))
                         },
                         new Type(new TypeName("Integer"))),
                     new Return(new BinaryOp("+", new Name("x", false), new Name("y", false)))), tree);
@@ -246,12 +246,12 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseInt();
+            var tree = parser.ParseFunctionSignature();
 
             Assert.AreEqual(new FunctionSignature("add",
                 new List<BindingDeclaration> {
-                    new BindingDeclaration(new Name("x", false), new Type(new TypeName("Integer"))),
-                    new BindingDeclaration(new Name("y", false), new Type(new TypeName("Integer")))
+                    new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                    new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer")))
                 },
                 new Type(new TypeName("Integer"))), tree);
         }
@@ -275,7 +275,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseIf();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new If(new Boolean(true), new FunctionCall("foo", new List<IExpression> { new Integer(5) }), new FunctionCall("foo", new List<IExpression> { new Integer(4) })), tree);
         }
@@ -287,7 +287,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseInt();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new Integer(5), tree);
         }
@@ -299,7 +299,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseName();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new Name("foo", false), tree);
         }
@@ -316,7 +316,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseNewAssignment();
+            var tree = parser.Parse();
 
             Assert.AreEqual(
                 new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
@@ -326,7 +326,7 @@ namespace CompilerTests {
         [TestMethod]
         public void NewAssignmentReadonly() {
             var tokens = new List<Token> {
-                new Token(TokenType.Var, "val"),
+                new Token(TokenType.Val, "val"),
                 new Token(TokenType.Name, "x"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
@@ -335,7 +335,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseNewAssignment();
+            var tree = parser.Parse();
 
             Assert.AreEqual(
                 new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
@@ -343,7 +343,7 @@ namespace CompilerTests {
         }
 
         [TestMethod]
-        public void Program() {
+        public void Block() {
             var tokens = new List<Token> {
                 new Token(TokenType.OpenBrace, "{"),
                 new Token(TokenType.Var, "var"),
@@ -364,9 +364,9 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseNewAssignment();
+            var tree = parser.Parse();
 
-            Assert.AreEqual(new Program(new List<IStatement> {
+            Assert.AreEqual(new Block(new List<IStatement> {
                 new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
                     new Integer(5), true),
                 new NewAssignment(new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
@@ -380,18 +380,18 @@ namespace CompilerTests {
                 new Token(TokenType.Record, "record"),
                 new Token(TokenType.Name, "Point"),
                 new Token(TokenType.Assignment, "="),
-                new Token(TokenType.OpenBrace, "{"),
+                new Token(TokenType.OpenBracket, "("),
                 new Token(TokenType.Name, "x"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
                 new Token(TokenType.Name, "y"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
-                new Token(TokenType.CloseBrace, "}"),
+                new Token(TokenType.CloseBracket, ")"),
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseRecord();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new Record("Point", new List<TypeName>{}, new List<BindingDeclaration> {
                 new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
@@ -407,9 +407,9 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseReturn();
+            var tree = parser.Parse();
 
-            Assert.AreEqual(new Return(new Integer(2)), tree);
+            Assert.AreEqual(new Return(new Integer(5)), tree);
         }
 
         [TestMethod]
@@ -419,7 +419,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseString();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new String("Hello, world!"), tree);
         }
@@ -500,7 +500,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseUnaryOp();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new UnaryOp("-", new Name("foo", false)), tree);
         }
@@ -519,7 +519,7 @@ namespace CompilerTests {
             };
 
             var parser = new Parser(tokens);
-            var tree = parser.ParseWhile();
+            var tree = parser.Parse();
 
             Assert.AreEqual(new While(new Boolean(true), new FunctionCall("foo", new List<IExpression>{new Integer(5)})), tree);
         }

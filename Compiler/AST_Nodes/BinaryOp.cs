@@ -20,6 +20,26 @@ namespace Speedycloud.Compiler.AST_Nodes {
             Rhs = rhs;
         }
 
+        protected bool Equals(BinaryOp other) {
+            return string.Equals(Op, other.Op) && Equals(Lhs, other.Lhs) && Equals(Rhs, other.Rhs);
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BinaryOp) obj);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                int hashCode = (Op != null ? Op.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (Lhs != null ? Lhs.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (Rhs != null ? Rhs.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
         public T Accept<T>(IAstVisitor<T> visitor) {
             return visitor.Visit(this);
         }

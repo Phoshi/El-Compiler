@@ -499,7 +499,7 @@ namespace CompilerTests {
                     new Type(new TypeName("Integer"))),
                 new Return(new Name("x", false)));
             var call = new FunctionCall("foo", new List<IExpression> {new Integer(3)});
-            var tree = new Program(new List<IStatement> {def, call});
+            var tree = new Block(new List<IStatement> {def, call});
 
             var gen = new BytecodeGenerator();
             var bytecode = gen.Visit(tree);
@@ -638,7 +638,7 @@ namespace CompilerTests {
                     },
                     new Type(new TypeName("String"))), new Return(new String("String")))
             });
-            var tree = new Program(new List<IStatement> {typeclass, instance, instance2});
+            var tree = new Block(new List<IStatement> {typeclass, instance, instance2});
             var gen = new BytecodeGenerator();
 
             var bytecode = gen.Visit(tree).ToList();
@@ -680,7 +680,7 @@ namespace CompilerTests {
                     },
                     new Type(new TypeName("String"))), new Return(new String("String")))
             });
-            var tree = new Program(new List<IStatement> {typeclass, instance, instance2});
+            var tree = new Block(new List<IStatement> {typeclass, instance, instance2});
             var gen = new BytecodeGenerator();
 
             var bytecode = gen.Finalise(gen.Visit(tree)).ToList();

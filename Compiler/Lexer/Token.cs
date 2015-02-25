@@ -69,6 +69,8 @@ namespace Speedycloud.Compiler.Lexer {
         Failure,
         Assignment,
         In,
-        RuntimeCheck
+        RuntimeCheck,
+
+        Eof
     }
 }

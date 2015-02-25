@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.AST_Nodes {
-    public class Program : INode{
+    public class Block : IStatement{
         public IEnumerable<IStatement> Statements { get; private set; }
 
-        public Program(IEnumerable<IStatement> statements) {
+        public Block(IEnumerable<IStatement> statements) {
             Statements = statements;
         }
 
@@ -16,7 +16,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
             return visitor.Visit(this);
         }
 
-        protected bool Equals(Program other) {
+        protected bool Equals(Block other) {
             return Statements.SequenceEqual(other.Statements);
         }
 
@@ -24,7 +24,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Program) obj);
+            return Equals((Block) obj);
         }
 
         public override int GetHashCode() {
@@ -32,7 +32,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
         }
 
         public override string ToString() {
-            return string.Format("(Program [{0}])", string.Join(", ", Statements));
+            return string.Format("(Block [{0}])", string.Join(", ", Statements));
         }
     }
 }

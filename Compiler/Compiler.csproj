@@ -62,7 +62,7 @@
     <Compile Include="AST_Nodes\Integer.cs" />
     <Compile Include="AST_Nodes\Name.cs" />
     <Compile Include="AST_Nodes\NewAssignment.cs" />
-    <Compile Include="AST_Nodes\Program.cs" />
+    <Compile Include="AST_Nodes\Block.cs" />
     <Compile Include="AST_Nodes\Record.cs" />
     <Compile Include="AST_Nodes\Return.cs" />
     <Compile Include="AST_Nodes\String.cs" />

@@ -234,8 +234,8 @@ namespace Speedycloud.Compiler.TypeChecker {
             return new UnknownType();
         }
 
-        public ITypeInformation Visit(AST_Nodes.Program program) {
-            foreach (var statement in program.Statements) {
+        public ITypeInformation Visit(AST_Nodes.Block block) {
+            foreach (var statement in block.Statements) {
                 Visit(statement);
             }
             return new UnknownType();
