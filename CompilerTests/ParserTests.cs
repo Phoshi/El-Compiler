@@ -77,16 +77,34 @@ namespace CompilerTests {
 
         [TestMethod]
         public void BinaryOp() {
-            var tokens = new List<Token> {
+            var ops = new List<string> {
+                "+",
+                "-",
+                "/",
+                "*",
+                "%",
+                "==",
+                "!=",
+                ">",
+                "<",
+                "<=",
+                "<=",
+                "&&",
+                "||"
+            };
+            foreach (var op in ops) {
+                var tokens = new List<Token> {
                 new Token(TokenType.Name, "foo"),
-                new Token(TokenType.Operator, "+"),
+                new Token(TokenType.Operator, op),
                 new Token(TokenType.Name, "bar")
             };
 
-            var parser = new Parser(tokens);
-            var tree = parser.Parse();
-            Assert.AreEqual(
-                new BinaryOp("+", new Name("foo", false), new Name("bar", false)), tree);
+                var parser = new Parser(tokens);
+                var tree = parser.Parse();
+                Assert.AreEqual(
+                    new BinaryOp(op, new Name("foo", false), new Name("bar", false)), tree);
+            }
+
         }
 
         [TestMethod]
@@ -371,6 +389,55 @@ namespace CompilerTests {
                     new Integer(5), true),
                 new NewAssignment(new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
                     new Integer(4), true)
+            }), tree);
+        }
+
+        [TestMethod]
+        public void Program() {
+            var tokens = new List<Token> {
+                new Token(TokenType.Record, "record"),
+                new Token(TokenType.Name, "Point"),
+                new Token(TokenType.Assignment, "="),
+                new Token(TokenType.OpenBracket, "("),
+                new Token(TokenType.Name, "x"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.Name, "y"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.CloseBracket, ")"),
+                new Token(TokenType.OpenBrace, "{"),
+                new Token(TokenType.Var, "var"),
+                new Token(TokenType.Name, "x"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.Assignment, "="),
+                new Token(TokenType.Number, "5"),
+                new Token(TokenType.LineSeperator, ";"),
+                new Token(TokenType.Var, "var"),
+                new Token(TokenType.Name, "y"),
+                new Token(TokenType.Colon, ":"),
+                new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.Assignment, "="),
+                new Token(TokenType.Number, "4"),
+                new Token(TokenType.LineSeperator, ";"),
+                new Token(TokenType.CloseBrace, "}")
+            };
+
+            var parser = new Parser(tokens);
+            var tree = parser.ParseProgram();
+
+            Assert.AreEqual(new Program(new List<INode> {
+                new Record("Point", new List<TypeName> {}, new List<BindingDeclaration> {
+                    new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                    new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
+                }),
+                new Block(new List<IStatement> {
+                    new NewAssignment(new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
+                        new Integer(5), true),
+                    new NewAssignment(new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
+                        new Integer(4), true)
+                })
             }), tree);
         }
 

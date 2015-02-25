@@ -37,6 +37,10 @@ namespace Speedycloud.Compiler.Parser {
             return tokens[++position];
         }
 
+        private bool Eof() {
+            return position >= tokens.Count;
+        }
+
         private readonly Dictionary<string, int> precidences = new Dictionary<string, int> {
             {"(", 10},
             {"[", 10},
@@ -44,7 +48,18 @@ namespace Speedycloud.Compiler.Parser {
             {"+", 20},
             {"-", 20},
             {"*", 30},
-            {"/", 30}
+            {"/", 30},
+            {"%", 30},
+
+            {"==", 50},
+            {"!=", 50},
+            {">", 50},
+            {"<", 50},
+            {"<=", 50},
+            {">=", 50},
+
+            {"&&", 40},
+            {"||", 40},
         };
         private int GetTokenPrecidence(Token tok) {
             if (precidences.ContainsKey(tok.TokenText)) {
@@ -384,6 +399,14 @@ namespace Speedycloud.Compiler.Parser {
             var type = ParseType();
 
             return new FunctionSignature(funcName, parameters, type);
+        }
+
+        public AST_Nodes.Program ParseProgram() {
+            var nodes = new List<INode>();
+            while (!Eof()) {
+                nodes.Add(Parse());
+            }
+            return new AST_Nodes.Program(nodes);
         }
     }
 
