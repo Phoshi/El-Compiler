@@ -95,7 +95,7 @@ namespace CompilerTests {
             foreach (var op in ops) {
                 var tokens = new List<Token> {
                 new Token(TokenType.Name, "foo"),
-                new Token(TokenType.Operator, op),
+                new Token(TokenType.Symbol, op),
                 new Token(TokenType.Name, "bar")
             };
 
@@ -228,7 +228,7 @@ namespace CompilerTests {
                 new Token(TokenType.Name, "Integer"),
                 new Token(TokenType.Return, "return"),
                 new Token(TokenType.Name, "x"),
-                new Token(TokenType.Operator, "+"),
+                new Token(TokenType.Symbol, "+"),
                 new Token(TokenType.Name, "y")
             };
 
@@ -521,10 +521,10 @@ namespace CompilerTests {
         public void ConstrainedType() {
             var tokens = new List<Token> {
                 new Token(TokenType.Name, "Integer"),
-                new Token(TokenType.OpenAngleBracket, "<"),
+                new Token(TokenType.Symbol, "<"),
                 new Token(TokenType.Name, "Eq"),
                 new Token(TokenType.Number, "5"),
-                new Token(TokenType.CloseAngleBracket, ">")
+                new Token(TokenType.Symbol, ">")
             };
 
             var parser = new Parser(tokens);
@@ -562,7 +562,7 @@ namespace CompilerTests {
         [TestMethod]
         public void UnaryOp() {
             var tokens = new List<Token> {
-                new Token(TokenType.Operator, "-"),
+                new Token(TokenType.Symbol, "-"),
                 new Token(TokenType.Name, "foo")
             };
 

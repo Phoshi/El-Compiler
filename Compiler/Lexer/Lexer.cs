@@ -16,43 +16,41 @@ namespace Speedycloud.Compiler.Lexer {
             {"=", new Token(TokenType.Assignment, "=")},
             {";", new Token(TokenType.LineSeperator, ";")},
 
-            {"+", new Token(TokenType.Operator, "+")},
-            {"-", new Token(TokenType.Operator, "-")},
-            {"/", new Token(TokenType.Operator, "/")},
-            {"*", new Token(TokenType.Operator, "*")},
-            {"%", new Token(TokenType.Operator, "%")},
-            {"==", new Token(TokenType.Operator, "==")},
-            {"!=", new Token(TokenType.Operator, "!=")},
-            {">", new Token(TokenType.Operator, ">")},
-            {"<", new Token(TokenType.Operator, "<")},
-            {"<=", new Token(TokenType.Operator, "<=")},
-            {">=", new Token(TokenType.Operator, ">=")},
-            {"&&", new Token(TokenType.Operator, "&&")},
-            {"||", new Token(TokenType.Operator, "||")},
+            {"+", new Token(TokenType.Symbol, "+")},
+            {"-", new Token(TokenType.Symbol, "-")},
+            {"/", new Token(TokenType.Symbol, "/")},
+            {"*", new Token(TokenType.Symbol, "*")},
+            {"%", new Token(TokenType.Symbol, "%")},
+            {"==", new Token(TokenType.Symbol, "==")},
+            {"!=", new Token(TokenType.Symbol, "!=")},
+            {">", new Token(TokenType.Symbol, ">")},
+            {"<", new Token(TokenType.Symbol, "<")},
+            {"<=", new Token(TokenType.Symbol, "<=")},
+            {">=", new Token(TokenType.Symbol, ">=")},
+            {"&&", new Token(TokenType.Symbol, "&&")},
+            {"||", new Token(TokenType.Symbol, "||")},
 
             {"true", new Token(TokenType.True, "true")},
             {"false", new Token(TokenType.False, "false")},
 
             {"def", new Token(TokenType.Def, "def")},
             {"for", new Token(TokenType.For, "for")},
+            {"in", new Token(TokenType.In, "in")},
+            {"if", new Token(TokenType.If, "if")},
+            {"else", new Token(TokenType.Else, "else")},
             {"while", new Token(TokenType.While, "while")},
-        };
+            {"return", new Token(TokenType.Return, "return")},
 
-        /*var ops = new List<string> {
-                "+",
-                "-",
-                "/",
-                "*",
-                "%",
-                "==",
-                "!=",
-                ">",
-                "<",
-                "<=",
-                "<=",
-                "&&",
-                "||"
-            };*/
+            {"val", new Token(TokenType.Val, "val")},
+            {"var", new Token(TokenType.Var, "var")},
+
+            {"?", new Token(TokenType.RuntimeCheck, "?")},
+
+            {"record", new Token(TokenType.Record, "record")},
+            {",", new Token(TokenType.Comma, ",")},
+
+            {":", new Token(TokenType.Colon, ":")},
+        };
 
         private LexModes mode = LexModes.Normal;
         public List<Token> Lex(string input) {
@@ -61,11 +59,30 @@ namespace Speedycloud.Compiler.Lexer {
             foreach (var character in input) {
                 if (mode == LexModes.Normal) {
                     if (character == ' ') {
-                        Tokenise(accumulator);
-                        accumulator = "";
+                        if (accumulator != "") {
+                            tokens.Add(Tokenise(accumulator));
+                            accumulator = "";
+                        }
                         continue;
                     }
+                    if (accumulator != "" && accumulator.All(char.IsLetterOrDigit) != char.IsLetterOrDigit(character)) {
+                        if (!accumulator.All(c => char.IsDigit(c) || c == '.')) {
+                            tokens.Add(Tokenise(accumulator));
+                            accumulator = "";    
+                        }
+                    }
+
                     accumulator += character;
+
+                    if (consts.ContainsKey(accumulator) &&
+                        !consts.Keys.Any(key => key.StartsWith(accumulator) && key != accumulator)) {
+                        tokens.Add(Tokenise(accumulator));
+                        accumulator = "";
+                    }
+                    else if (consts.ContainsKey(accumulator.Substring(0, accumulator.Length - 1))){
+                        tokens.Add(Tokenise(accumulator.Substring(0, accumulator.Length - 1)));
+                        accumulator = accumulator.Last().ToString();
+                    }
 
                     if (character == '"') {
                         mode = LexModes.String;

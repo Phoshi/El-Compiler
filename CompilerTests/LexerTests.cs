@@ -110,8 +110,8 @@ namespace CompilerTests {
             var tokens = lexer.Lex("<>");
 
             var expected = new Token[] {
-                new Token(TokenType.OpenAngleBracket, "<"), 
-                new Token(TokenType.CloseAngleBracket, ">"), 
+                new Token(TokenType.Symbol, "<"), 
+                new Token(TokenType.Symbol, ">"), 
             };
             Assert.IsTrue(expected.SequenceEqual(tokens), Str(expected, tokens));
         }
@@ -150,7 +150,7 @@ namespace CompilerTests {
                 var tokens = lexer.Lex(op);
 
                 var expected = new Token[] {
-                    new Token(TokenType.Operator, op),
+                    new Token(TokenType.Symbol, op),
                 };
                 Assert.IsTrue(expected.SequenceEqual(tokens), Str(expected, tokens));
             }

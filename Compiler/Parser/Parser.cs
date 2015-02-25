@@ -95,7 +95,7 @@ namespace Speedycloud.Compiler.Parser {
                 var nextPrecidence = GetTokenPrecidence(GetCurrentToken());
                 if (tokenPrecidence < nextPrecidence)
                     RHS = ParseBinaryOperator(tokenPrecidence + 1, RHS);
-                if (binOp.Type == TokenType.Operator) {
+                if (binOp.Type == TokenType.Symbol) {
                     LHS = new BinaryOp(binOp.TokenText, (IExpression)LHS, (IExpression)RHS);
                 }
                 else if (binOp.Type == TokenType.OpenSquareBracket) {
@@ -138,7 +138,7 @@ namespace Speedycloud.Compiler.Parser {
                 case TokenType.True: case TokenType.False: return ParseBoolean();
                 case TokenType.While: return ParseWhile();
                 case TokenType.If: return ParseIf();
-                case TokenType.Operator: return ParseUnaryOp();
+                case TokenType.Symbol: return ParseUnaryOp();
                 case TokenType.Var: case TokenType.Val: return ParseNewAssignment();
                 case TokenType.OpenBrace: return ParseBlock();
                 case TokenType.Def: return ParseFunctionDefinition();
@@ -148,7 +148,7 @@ namespace Speedycloud.Compiler.Parser {
             }
             throw ParseException.UnexpectedToken(GetCurrentToken(), TokenType.Number, TokenType.OpenSquareBracket,
                 TokenType.String, TokenType.Name, TokenType.True, TokenType.False, TokenType.While, TokenType.If,
-                TokenType.Operator, TokenType.Var, TokenType.Val, TokenType.OpenBrace, TokenType.Def, TokenType.Return,
+                TokenType.Symbol, TokenType.Var, TokenType.Val, TokenType.OpenBrace, TokenType.Def, TokenType.Return,
                 TokenType.For, TokenType.Record);
         }
 
@@ -332,7 +332,7 @@ namespace Speedycloud.Compiler.Parser {
                 t = new Type(ParseTypeName());
             }
 
-            if (GetCurrentToken().Type == TokenType.OpenAngleBracket) {
+            if (GetCurrentToken().Equals(new Token(TokenType.Symbol, "<"))) {
                 var constraints = ParseTypeConstraintList();
                 t = new Type(t.Name, constraints, isRuntimeCheck: t.IsRuntimeCheck, isArrayType: t.IsArrayType);
             }
@@ -346,12 +346,12 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         private IEnumerable<Constraint> ParseTypeConstraintList() {
-            ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenAngleBracket);
+            ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, "<"));
             var constraints = new List<Constraint>();
-            while (GetCurrentToken().Type != TokenType.CloseAngleBracket) {
+            while (!GetCurrentToken().Equals(new Token(TokenType.Symbol, ">"))) {
                 constraints.Add(ParseTypeConstraint());
             }
-            ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseAngleBracket);
+            ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, ">"));
             return constraints;
         }
 
@@ -361,7 +361,7 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public UnaryOp ParseUnaryOp() {
-            ParseException.AssertType(GetCurrentToken(), TokenType.Operator);
+            ParseException.AssertType(GetCurrentToken(), TokenType.Symbol);
             var op = ConsumeCurrentToken().TokenText;
             var operand = (IExpression)Parse();
             return new UnaryOp(op, operand);
@@ -417,7 +417,16 @@ namespace Speedycloud.Compiler.Parser {
             }
         }
 
+        public static void Assert(Token actual, params Token[] expected) {
+            if (!expected.Any(actual.Equals)) {
+                throw UnexpectedToken(actual, expected);
+            }
+        }
+
         public static ParseException UnexpectedToken(Token unexpected, params TokenType[] expected) {
+            return new ParseException(string.Format("{0} unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList())));
+        }
+        public static ParseException UnexpectedToken(Token unexpected, params Token[] expected) {
             return new ParseException(string.Format("{0} unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList())));
         }
 
