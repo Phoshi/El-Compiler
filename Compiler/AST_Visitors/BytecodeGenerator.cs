@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Speedycloud.Bytecode;
 using Speedycloud.Bytecode.ValueTypes;
 using Speedycloud.Compiler.AST_Nodes;
+using Speedycloud.Compiler.TypeChecker;
 using Speedycloud.Runtime;
 using Speedycloud.Runtime.ValueTypes;
 using Array = Speedycloud.Compiler.AST_Nodes.Array;
@@ -16,6 +17,7 @@ using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.AST_Visitors {
     public class BytecodeGenerator : IAstVisitor<IEnumerable<Opcode>> {
+        private readonly Typechecker typeInformation;
         public Dictionary<int, IValue> Constants { get { return new Dictionary<int, IValue>(constTable);} } 
         private readonly Dictionary<int, IValue> constTable = new Dictionary<int, IValue>();
 
@@ -44,7 +46,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
 
         public BytecodeGenerator() { }
-        public BytecodeGenerator(IEnumerable<FunctionDefinition> preludeFunctions) {
+        public BytecodeGenerator(IEnumerable<FunctionDefinition> preludeFunctions, Typechecker typeInformation) {
+            this.typeInformation = typeInformation;
             foreach (var functionDefinition in preludeFunctions) {
                 AddFunction(functionDefinition);
             }
@@ -56,8 +59,13 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return address;
         }
 
-        private KeyValuePair<int, FunctionDefinition> GetFunctionByName(string name) {
-            return funcTable.First(kv => kv.Value.Signature.Name == name);
+        private KeyValuePair<int, FunctionDefinition> GetFunctionForCall(FunctionCall call) {
+            if (typeInformation != null && typeInformation.FunctionCalls.ContainsKey(call)) {
+                var callInfo = typeInformation.FunctionCalls[call];
+                var def = typeInformation.FunctionDefinitions.First(pair => pair.Value == callInfo);
+                return funcTable.First(func => Equals(func.Value, def.Key));
+            }
+            return funcTable.First(kv => kv.Value.Signature.Name == call.Name);
         }
 
         public Dictionary<string, int> Names { get { return nameTable; } } 
@@ -144,6 +152,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
             {"-", Instruction.BINARY_SUB},
             {"*", Instruction.BINARY_MUL},
             {"/", Instruction.BINARY_DIV},
+            {"%", Instruction.BINARY_MOD},
 
             {"==", Instruction.BINARY_EQL},
             {"!=", Instruction.BINARY_NEQ},
@@ -221,7 +230,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
         public IEnumerable<Opcode> Visit(FunctionCall call) {
             var bytecode = call.Parameters.SelectMany(Visit).ToList();
-            var func = GetFunctionByName(call.Name);
+            var func = GetFunctionForCall(call);
             bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func.Key, func.Value.Signature.Parameters.Count()));
             for (int i = 0; i < func.Value.Signature.Parameters.Count(); i++) {
                 bytecode.Add(new Opcode(Instruction.POP_TOP));

@@ -48,9 +48,10 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public Typechecker() {}
 
-        public Typechecker(IEnumerable<FunctionType> preludeFunctionTypes) {
+        public Typechecker(Dictionary<FunctionDefinition, FunctionType> preludeFunctionTypes) {
             foreach (var preludeFunctionType in preludeFunctionTypes) {
-                functions.Add(preludeFunctionType);
+                functions.Add(preludeFunctionType.Value);
+                functionDefinitions[preludeFunctionType.Key] = preludeFunctionType.Value;
             }
         }
         public ITypeInformation Visit(INode node) {

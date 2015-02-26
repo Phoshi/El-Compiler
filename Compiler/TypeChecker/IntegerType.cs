@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Speedycloud.Compiler.AST_Nodes;
@@ -54,6 +55,10 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            var booleanOps = new[] {">", "<", "<=", ">=", "==", "!="};
+            if (booleanOps.Contains(op)) {
+                return new BooleanType();
+            }
             if (rhs.IsAssignableTo(new IntegerType())) {
                 return new IntegerType();
             }

@@ -374,7 +374,7 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBracket);
             var concequence = Parse();
 
-            return new While((IExpression)condition, (IExpression)concequence);
+            return new While((IExpression)condition, (IStatement)concequence);
 
         }
 
@@ -395,8 +395,14 @@ namespace Speedycloud.Compiler.Parser {
             var funcName = ConsumeCurrentToken().TokenText;
             var parameters = ParseBindingDeclarationList();
 
-            ParseException.AssertType(ConsumeCurrentToken(), TokenType.Colon);
-            var type = ParseType();
+            Type type;
+            if (GetCurrentToken().Type == TokenType.Colon) {
+                ConsumeCurrentToken();
+                type = ParseType();
+            }
+            else {
+                type = new Type(new TypeName("Void"));
+            }
 
             return new FunctionSignature(funcName, parameters, type);
         }
