@@ -16,10 +16,8 @@ namespace Speedycloud.Compiler.TypeChecker {
         private readonly Dictionary<string, ITypeInformation> names = new Dictionary<string, ITypeInformation>(); 
         public Dictionary<string, ITypeInformation> Names { get { return names; } }
 
-        public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } } 
-        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType> {
-            new FunctionType("putc", new List<ITypeInformation> {new IntegerType()}, new UnknownType())
-        };
+        public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } }
+        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>(Prelude.Functions.Types());
 
         private readonly Dictionary<FunctionDefinition, FunctionType> functionDefinitions =
             new Dictionary<FunctionDefinition, FunctionType> {};

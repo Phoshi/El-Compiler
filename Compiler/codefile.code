@@ -1,8 +1,5 @@
-﻿def print(str: String): Void {
-	for(c: Integer in str){
-		putc(c);
-	};
-}
-if (true){
+﻿if (false){
 	print("True");
+} else {
+	print("False");
 }

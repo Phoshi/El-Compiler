@@ -44,15 +44,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
         private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
 
         public BytecodeGenerator() {
-            var putc =
-                new FunctionDefinition(
-                    new FunctionSignature("putc",
-                        new List<BindingDeclaration> {
-                            new BindingDeclaration(new Name("c", false), new Type(new TypeName("Integer")))
-                        },
-                        new Type(new TypeName("Void"))),
-                    new AST_Nodes.Bytecode(new List<Opcode> {new Opcode(Instruction.LOAD_NAME, 0), new Opcode(Instruction.SYSCALL, 0)}));
-            AddFunction(putc);
+            foreach (var functionDefinition in Prelude.Functions.Definitions()) {
+                AddFunction(functionDefinition);
+            }
         }
 
         private int AddFunction(FunctionDefinition def) {
