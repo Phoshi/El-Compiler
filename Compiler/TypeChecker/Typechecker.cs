@@ -241,6 +241,13 @@ namespace Speedycloud.Compiler.TypeChecker {
             return new UnknownType();
         }
 
+        public ITypeInformation Visit(AST_Nodes.Program program) {
+            foreach (var node in program.Nodes) {
+                Visit(node);
+            }
+            return new UnknownType();
+        }
+
         public ITypeInformation Visit(Record record) {
             var name = record.Name;
             var typeParams = record.TypeParams;

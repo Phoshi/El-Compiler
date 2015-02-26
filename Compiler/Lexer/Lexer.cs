@@ -58,7 +58,7 @@ namespace Speedycloud.Compiler.Lexer {
             var accumulator = "";
             foreach (var character in input) {
                 if (mode == LexModes.Normal) {
-                    if (character == ' ') {
+                    if (char.IsWhiteSpace(character)) {
                         if (accumulator != "") {
                             tokens.Add(Tokenise(accumulator));
                             accumulator = "";
@@ -66,7 +66,7 @@ namespace Speedycloud.Compiler.Lexer {
                         continue;
                     }
                     if (accumulator != "" && accumulator.All(char.IsLetterOrDigit) != char.IsLetterOrDigit(character)) {
-                        if (!accumulator.All(c => char.IsDigit(c) || c == '.')) {
+                        if (!(accumulator.All(c => char.IsDigit(c) || c == '.') && (character == '.' || char.IsDigit(character)))) {
                             tokens.Add(Tokenise(accumulator));
                             accumulator = "";    
                         }

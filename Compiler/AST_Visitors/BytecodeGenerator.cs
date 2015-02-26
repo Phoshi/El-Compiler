@@ -269,6 +269,10 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return block.Statements.SelectMany(Visit).ToList();
         }
 
+        public IEnumerable<Opcode> Visit(AST_Nodes.Program program) {
+            return program.Nodes.SelectMany(Visit).ToList();
+        }
+
         public IEnumerable<Opcode> Visit(Record record) {
             var name = record.Name;
             var members = record.Members.ToList();

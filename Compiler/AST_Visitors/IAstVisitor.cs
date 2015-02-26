@@ -21,6 +21,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
         T Visit(Name name);
         T Visit(NewAssignment assignment);
         T Visit(Block block);
+        T Visit(Program program);
         T Visit(Record record);
         T Visit(Return returnStatement);
         T Visit(String str);
