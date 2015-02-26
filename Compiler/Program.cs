@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
+using Speedycloud.Bytecode;
 
 namespace Speedycloud.Compiler {
     class Program {
         static void Main(string[] args) {
-            const string code = @"def print(foo: String): String {return foo;}
-if (true)
-	print(""True"")";
+            var code = File.ReadAllText(args[0]);
+
+            Console.WriteLine("Input:");
+            Console.WriteLine("\t" + code);
 
             var lexer = new Lexer.Lexer();
             var parser = new Parser.Parser(lexer.Lex(code));
@@ -15,10 +19,7 @@ if (true)
             var tree = parser.ParseProgram();
 
             typechecker.Visit(tree);
-            var bytecode = compiler.Finalise(compiler.Visit(tree));
-
-            Console.WriteLine("Input:");
-            Console.WriteLine("\t" + code);
+            var bytecode = compiler.Finalise(compiler.Visit(tree)).ToList();
 
             Console.WriteLine("Constants:");
             foreach (var constant in compiler.Constants) {
@@ -34,6 +35,12 @@ if (true)
             foreach (var opcode in bytecode) {
                 Console.WriteLine("\t" + opcode);
             }
+            var saver = new BytecodeSerialiser();
+
+            var bytecodeData = saver.Dump(bytecode, compiler.Constants.Values);
+            Console.WriteLine("Data:");
+            Console.Write(bytecodeData);
+            File.WriteAllText(args[1], bytecodeData);
             Console.ReadKey();
         }
     }

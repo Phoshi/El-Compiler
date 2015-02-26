@@ -43,6 +43,18 @@ namespace Speedycloud.Compiler.AST_Visitors {
         public Dictionary<int, FunctionDefinition> Functions { get { return new Dictionary<int, FunctionDefinition>(funcTable);} }
         private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
 
+        public BytecodeGenerator() {
+            var putc =
+                new FunctionDefinition(
+                    new FunctionSignature("putc",
+                        new List<BindingDeclaration> {
+                            new BindingDeclaration(new Name("c", false), new Type(new TypeName("Integer")))
+                        },
+                        new Type(new TypeName("Void"))),
+                    new AST_Nodes.Bytecode(new List<Opcode> {new Opcode(Instruction.LOAD_NAME, 0), new Opcode(Instruction.SYSCALL, 0)}));
+            AddFunction(putc);
+        }
+
         private int AddFunction(FunctionDefinition def) {
             var address = AddConstant(-funcTable.Count-1);
             funcTable[address] = def;
@@ -69,13 +81,17 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
         public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
             var bytecode = new List<Opcode>();
-            foreach (var functionDefinition in funcTable) {
+            var compiled = new HashSet<FunctionDefinition>();
+            while (funcTable.Any(func=>!compiled.Contains(func.Value))) {
+                var functionDefinition = funcTable.First(func => !compiled.Contains(func.Value));
+                compiled.Add(functionDefinition.Value);
                 var i = 0;
                 foreach (var parameter in functionDefinition.Value.Signature.Parameters) {
                     funcParameterNames[parameter.Name.Value] = i++;
                 }
                 constTable[functionDefinition.Key] = new IntValue(bytecode.Count);
-                bytecode.AddRange(Visit(functionDefinition.Value.Statement));
+                var bc = Visit(functionDefinition.Value.Statement);
+                bytecode.AddRange(bc);
                 funcParameterNames.Clear();
                 if (bytecode.Last().Instruction != Instruction.RETURN) {
                     bytecode.Add(new Opcode(Instruction.RETURN));
@@ -189,19 +205,20 @@ namespace Speedycloud.Compiler.AST_Visitors {
             bytecode.Add(new Opcode(Instruction.LOAD_ATTR, 0));
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.BINARY_EQL));
-            bytecode.Add(new Opcode(Instruction.JUMP_TRUE, 9)); //Loop body is in a function, so this is actually constant
+            bytecode.Add(new Opcode(Instruction.JUMP_TRUE, 10)); //Loop body is in a function, so this is actually constant
             //Set up and run loop body
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopIter));
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.BINARY_INDEX));
             bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func, 1));
+            bytecode.Add(new Opcode(Instruction.POP_TOP));
             //Increment counter and iterate
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.LOAD_CONST, AddConstant(1)));
             bytecode.Add(new Opcode(Instruction.BINARY_ADD));
             bytecode.Add(new Opcode(Instruction.STORE_NAME, loopCount));
             //Jump back
-            bytecode.Add(new Opcode(Instruction.JUMP, -14));
+            bytecode.Add(new Opcode(Instruction.JUMP, -15));
 
 
             return bytecode;
@@ -211,6 +228,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
             var bytecode = call.Parameters.SelectMany(Visit).ToList();
             var func = GetFunctionByName(call.Name);
             bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func.Key, func.Value.Signature.Parameters.Count()));
+            for (int i = 0; i < func.Value.Signature.Parameters.Count(); i++) {
+                bytecode.Add(new Opcode(Instruction.POP_TOP));
+            }
             return bytecode;
         }
 
@@ -306,7 +326,7 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
         public IEnumerable<Opcode> Visit(Return returnStatement) {
             var bytecode = Visit(returnStatement.Expression).ToList();
-            bytecode.Add(new Opcode(Instruction.RETURN));
+            bytecode.Add(new Opcode(Instruction.RETURN, 1));
             return bytecode;
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Speedycloud.Bytecode;
 using Speedycloud.Compiler.AST_Nodes;
 using Speedycloud.Compiler.TypeChecker.Constraints;
 using Array = Speedycloud.Compiler.AST_Nodes.Array;
@@ -16,10 +17,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         public Dictionary<string, ITypeInformation> Names { get { return names; } }
 
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } } 
-        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
+        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType> {
+            new FunctionType("putc", new List<ITypeInformation> {new IntegerType()}, new UnknownType())
+        };
 
         private readonly Dictionary<FunctionDefinition, FunctionType> functionDefinitions =
-            new Dictionary<FunctionDefinition, FunctionType>();
+            new Dictionary<FunctionDefinition, FunctionType> {};
         public Dictionary<FunctionDefinition, FunctionType> FunctionDefinitions { get { return functionDefinitions; } } 
         private readonly Dictionary<FunctionCall, FunctionType> functionCalls =
             new Dictionary<FunctionCall, FunctionType>();
@@ -32,7 +35,8 @@ namespace Speedycloud.Compiler.TypeChecker {
             {"Integer", new IntegerType()},
             {"Double", new DoubleType()},
             {"Boolean", new BooleanType()},
-            {"String", new StringType()}
+            {"String", new StringType()},
+            {"Void", new UnknownType()}
         };
 
         private void NewScope() {
@@ -145,7 +149,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), enumerableType);
             }
             Visit(forStatement.Binding);
-            var arrayType = ((ArrayType) ((ConstrainedType) enumerableType).Type).Type;
+            var arrayType = enumerableType is StringType ? new IntegerType() : ((ArrayType) ((ConstrainedType) enumerableType).Type).Type;
             if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value])) {
                 throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value], arrayType);
             }

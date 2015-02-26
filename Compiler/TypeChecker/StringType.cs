@@ -9,6 +9,7 @@ namespace Speedycloud.Compiler.TypeChecker {
     public class StringType : ITypeInformation{
         public bool IsAssignableTo(ITypeInformation other) {
             if (other is AnyType) return true;
+            if (other.IsAssignableTo(new ArrayType(new AnyType()))) return true;
             return other is StringType;
         }
 
