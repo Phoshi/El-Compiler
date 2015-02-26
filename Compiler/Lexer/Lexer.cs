@@ -16,6 +16,7 @@ namespace Speedycloud.Compiler.Lexer {
             {"=", new Token(TokenType.Assignment, "=")},
             {";", new Token(TokenType.LineSeperator, ";")},
 
+            {"!", new Token(TokenType.Symbol, "!")},
             {"+", new Token(TokenType.Symbol, "+")},
             {"-", new Token(TokenType.Symbol, "-")},
             {"/", new Token(TokenType.Symbol, "/")},

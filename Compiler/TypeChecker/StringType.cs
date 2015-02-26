@@ -45,6 +45,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
+            if (op == "+") {
+                return new StringType();
+            }
             throw new NotImplementedException();
         }
 

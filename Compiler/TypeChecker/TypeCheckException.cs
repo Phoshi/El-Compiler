@@ -38,5 +38,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 "Attempted to call function {0} with parameters {1}, but no suitable overload was found. Known overloads are {2}",
                 call.Name, string.Join(", ", call.Parameters), string.Join("; ", definitions)));
         }
+
+        public static Exception ReadonlyAssignment(Assignment assignment) {
+            return new TypeCheckException(string.Format("Attempted to reassign readonly binding {0} with {1}", assignment.Binding, assignment.Expression));
+        }
     }
 }

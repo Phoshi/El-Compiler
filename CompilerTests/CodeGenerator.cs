@@ -358,8 +358,8 @@ namespace CompilerTests {
             var one = gen.Constants.First(kv => kv.Value.Type == ValueType.Integer && kv.Value.Integer == 1);
             var func = gen.Functions.First();
 
-            var loopIter = "LOOP_ITER".GetHashCode();
-            var loopCount = "LOOP_COUNT".GetHashCode();
+            var loopIter = gen.Names.First(n => n.Key.StartsWith("LOOP_ITER")).Value;
+            var loopCount = gen.Names.First(n => n.Key.StartsWith("LOOP_COUNT")).Value;
 
             Assert.IsTrue(new[] {
                 new Opcode(Instruction.MAKE_ARR, 0),
@@ -370,21 +370,20 @@ namespace CompilerTests {
                 new Opcode(Instruction.LOAD_ATTR, 0),
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.BINARY_EQL),
-                new Opcode(Instruction.JUMP_TRUE, 10),
+                new Opcode(Instruction.JUMP_TRUE, 9),
 
                 new Opcode(Instruction.LOAD_NAME, loopIter),
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.BINARY_INDEX),
 
                 new Opcode(Instruction.CALL_FUNCTION, func.Key, 1),
-                new Opcode(Instruction.POP_TOP),
 
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.LOAD_CONST, one.Key),
                 new Opcode(Instruction.BINARY_ADD),
                 new Opcode(Instruction.STORE_NAME, loopCount),
 
-                new Opcode(Instruction.JUMP, -15),
+                new Opcode(Instruction.JUMP, -14),
             }.SequenceEqual(bytecode), string.Join("\n", bytecode));
 
             Assert.AreEqual("i", gen.Functions[0].Signature.Parameters.First().Name.Value);
@@ -410,8 +409,8 @@ namespace CompilerTests {
             var one = gen.Constants.First(kv => kv.Value.Type == ValueType.Integer && kv.Value.Integer == 1);
             var func = gen.Functions.First();
 
-            var loopIter = "LOOP_ITER".GetHashCode();
-            var loopCount = "LOOP_COUNT".GetHashCode();
+            var loopIter = gen.Names.First(n=>n.Key.StartsWith("LOOP_ITER")).Value;
+            var loopCount = gen.Names.First(n => n.Key.StartsWith("LOOP_COUNT")).Value;
 
             Assert.IsTrue(new[] {
                 new Opcode(Instruction.LOAD_NAME, 0),
@@ -426,21 +425,20 @@ namespace CompilerTests {
                 new Opcode(Instruction.LOAD_ATTR, 0),
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.BINARY_EQL),
-                new Opcode(Instruction.JUMP_TRUE, 10),
+                new Opcode(Instruction.JUMP_TRUE, 9),
 
                 new Opcode(Instruction.LOAD_NAME, loopIter),
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.BINARY_INDEX),
 
                 new Opcode(Instruction.CALL_FUNCTION, func.Key, 1),
-                new Opcode(Instruction.POP_TOP),
 
                 new Opcode(Instruction.LOAD_NAME, loopCount),
                 new Opcode(Instruction.LOAD_CONST, one.Key),
                 new Opcode(Instruction.BINARY_ADD),
                 new Opcode(Instruction.STORE_NAME, loopCount),
 
-                new Opcode(Instruction.JUMP, -15),
+                new Opcode(Instruction.JUMP, -14),
                 new Opcode(Instruction.CODE_STOP),
             }.SequenceEqual(bytecode), string.Join("\n", bytecode));
 
@@ -513,7 +511,6 @@ namespace CompilerTests {
             Assert.IsTrue(new List<Opcode> {
                 new Opcode(Instruction.LOAD_CONST, three.Key),
                 new Opcode(Instruction.CALL_FUNCTION, func.Key, 1),
-                new Opcode(Instruction.POP_TOP)
             }.SequenceEqual(bytecode));
         }
 
@@ -604,13 +601,13 @@ namespace CompilerTests {
                 new Opcode(Instruction.LOAD_NAME, 0),
                 new Opcode(Instruction.LOAD_NAME, 1),
                 new Opcode(Instruction.MAKE_RECORD, 2),
-                new Opcode(Instruction.RETURN),
+                new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.LOAD_NAME, 0),
                 new Opcode(Instruction.LOAD_ATTR, 0),
-                new Opcode(Instruction.RETURN),
+                new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.LOAD_NAME, 0),
                 new Opcode(Instruction.LOAD_ATTR, 1),
-                new Opcode(Instruction.RETURN),
+                new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.CODE_START),
                 new Opcode(Instruction.CODE_STOP)
             }.SequenceEqual(bytecode), string.Join("\n", bytecode));

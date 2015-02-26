@@ -41,8 +41,8 @@ namespace Speedycloud.Compiler {
             var saver = new BytecodeSerialiser();
 
             var bytecodeData = saver.Dump(bytecode, compiler.Constants.Values);
-            Console.WriteLine("Data:");
-            Console.Write(bytecodeData);
+            //Console.WriteLine("Data:");
+            //Console.Write(bytecodeData);
             File.WriteAllText(args[1], bytecodeData);
             Console.ReadKey();
         }

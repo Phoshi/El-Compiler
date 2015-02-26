@@ -13,8 +13,8 @@ using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class Typechecker : IAstVisitor<ITypeInformation> {
-        private readonly Dictionary<string, ITypeInformation> names = new Dictionary<string, ITypeInformation>(); 
-        public Dictionary<string, ITypeInformation> Names { get { return names; } }
+        private readonly CascadingDictionary<string, BindingInformation> names = new CascadingDictionary<string, BindingInformation>(); 
+        public CascadingDictionary<string, BindingInformation> Names { get { return names; } }
 
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } }
         private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
@@ -63,7 +63,7 @@ namespace Speedycloud.Compiler.TypeChecker {
                 var type = array.Expressions.Select(Visit).Aggregate((fst, snd) => fst.Union(snd));
                 return new ConstrainedType(new ArrayType(type), new Eq(array.Expressions.Count()));
             }
-            return new ConstrainedType(new ArrayType(new UnknownType()), new Eq(0));
+            return new ConstrainedType(new ArrayType(new AnyType()), new Eq(0));
         }
 
         public ITypeInformation Visit(ArrayIndex arrayIndex) {
@@ -105,7 +105,10 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Assignment assignment) {
-            var expected = names[assignment.Binding.Value];
+            if (!names[assignment.Binding.Value].Writable) {
+                throw TypeCheckException.ReadonlyAssignment(assignment);
+            }
+            var expected = names[assignment.Binding.Value].Type;
             var actual = Visit(assignment.Expression);
             if (!actual.IsAssignableTo(expected)) {
                 throw TypeCheckException.TypeMismatch(expected, actual);
@@ -134,7 +137,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(BindingDeclaration declaration) {
             var name = declaration.Name.Value;
             var type = Visit(declaration.Type);
-            names[name] = type;
+            names[name] = new BindingInformation(name, type, true);
             return new UnknownType();
         }
 
@@ -158,11 +161,11 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             Visit(forStatement.Binding);
             var arrayType = GetInnerArrayType(enumerableType);
-            if (names[forStatement.Binding.Name.Value] is AnyType) {
-                names[forStatement.Binding.Name.Value] = arrayType;
+            if (names[forStatement.Binding.Name.Value].Type is AnyType) {
+                names[forStatement.Binding.Name.Value] = names[forStatement.Binding.Name.Value].WithType(arrayType);
             }
-            if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value])) {
-                throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value], arrayType);
+            if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value].Type)) {
+                throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value].Type, arrayType);
             }
 
             NewScope();
@@ -216,11 +219,11 @@ namespace Speedycloud.Compiler.TypeChecker {
             var parameters = new List<ITypeInformation>();
             foreach (var binding in sig.Parameters) {
                 Visit(binding);
-                parameters.Add(names[binding.Name.Value]);
+                parameters.Add(names[binding.Name.Value].Type);
             }
             var returnType = Visit(sig.ReturnType);
             functions.Add(new FunctionType(name, parameters, returnType));
-            names["$RETURN"] = returnType;
+            names["$RETURN"] = new BindingInformation("$RETURN", returnType, false);
             return new UnknownType();
         }
 
@@ -249,20 +252,24 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(Name name) {
-            return names[name.Value];
+            return names[name.Value].Type;
         }
 
         public ITypeInformation Visit(NewAssignment assignment) {
             Visit(assignment.Declaration);
-            var declaredType = names[assignment.Declaration.Name.Value];
+            var declaredType = names[assignment.Declaration.Name.Value].Type;
 
             var assignmentType = Visit(assignment.Assignment);
             if (declaredType is AnyType) {
                 declaredType = assignmentType.LeastSpecificType();
-                names[assignment.Declaration.Name.Value] = declaredType;
+                names[assignment.Declaration.Name.Value] = names[assignment.Declaration.Name.Value].WithType(declaredType);
             }
             if (!assignmentType.IsAssignableTo(declaredType)) {
                 throw TypeCheckException.TypeMismatch(declaredType, assignmentType);
+            }
+
+            if (!assignment.IsWritable) {
+                names[assignment.Declaration.Name.Value] = names[assignment.Declaration.Name.Value].WithWritable(false);
             }
             return new UnknownType();
         }
@@ -305,8 +312,8 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public ITypeInformation Visit(Return returnStatement) {
             var ret = Visit(returnStatement.Expression);
-            if (!ret.IsAssignableTo(names["$RETURN"])) {
-                throw TypeCheckException.TypeMismatch(names["$RETURN"], ret);
+            if (!ret.IsAssignableTo(names["$RETURN"].Type)) {
+                throw TypeCheckException.TypeMismatch(names["$RETURN"].Type, ret);
             }
             return new UnknownType();
         }

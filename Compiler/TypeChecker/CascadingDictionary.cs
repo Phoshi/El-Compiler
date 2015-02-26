@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Speedycloud.Compiler.TypeChecker {
-    class CascadingDictionary<TKey, TValue> : IDictionary<TKey, TValue> {
+    public class CascadingDictionary<TKey, TValue> : IDictionary<TKey, TValue> {
         private readonly Dictionary<TKey, TValue> contents = new Dictionary<TKey, TValue>();
         private readonly CascadingDictionary<TKey, TValue> parent;
 

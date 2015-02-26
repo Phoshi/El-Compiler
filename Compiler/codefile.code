@@ -1,8 +1,46 @@
-﻿{
-	var sum = 0;
-	val arr = [1, 2, 3, 4, 5, 100];
-	for (i in arr){
-		sum = sum + i;
+﻿record Point = (x: Integer<Gt 0>, y: Integer<Gt 0>)
+
+record Journey = (start: Point, end: Point)
+
+def print(point: Point){
+	print("(x = ");
+	print(x(point));
+	print(", y = ");
+	print(y(point));
+	print(")");
+}
+
+def print(journey: Journey){
+	print(start(journey));
+	print("->");
+	print(end(journey));
+}
+
+def getLine(): String{
+	var string = "";
+	var done = false;
+	while (!done){
+		val chr = getc();
+		if (chr == 13){
+			getc();
+			done = true;
+		} else {
+			string = string + chr;
+		};
 	};
-	print(sum);
+	return string;
+}
+
+{
+	print("Hello there! What is your name? ");
+	var name = getLine();
+
+	print("Your name is " + name);
+
+	var one: Point = Point(3, 4);
+	var two = Point(5, 5);
+	var journey = Journey(one, two);
+	print(journey);
+	println("");
+	println(-5);
 }

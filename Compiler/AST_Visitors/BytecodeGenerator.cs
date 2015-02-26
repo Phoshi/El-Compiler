@@ -62,8 +62,10 @@ namespace Speedycloud.Compiler.AST_Visitors {
         private KeyValuePair<int, FunctionDefinition> GetFunctionForCall(FunctionCall call) {
             if (typeInformation != null && typeInformation.FunctionCalls.ContainsKey(call)) {
                 var callInfo = typeInformation.FunctionCalls[call];
-                var def = typeInformation.FunctionDefinitions.First(pair => pair.Value == callInfo);
-                return funcTable.First(func => Equals(func.Value, def.Key));
+                var defs = typeInformation.FunctionDefinitions.Where(pair => pair.Value == callInfo).ToList();
+                if (defs.Any()) {
+                    return funcTable.First(func => Equals(func.Value, defs.First().Key));
+                }
             }
             return funcTable.First(kv => kv.Value.Signature.Name == call.Name);
         }
@@ -188,9 +190,11 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return new[] {new Opcode(Instruction.LOAD_CONST, constReference)};
         }
 
+        Random rng = new Random();
         public IEnumerable<Opcode> Visit(For forStatement) {
-            var loopIter = GetNameEntry("LOOP_ITER");
-            var loopCount = GetNameEntry("LOOP_COUNT");
+
+            var loopIter = GetNameEntry("LOOP_ITER_"+rng.NextDouble());
+            var loopCount = GetNameEntry("LOOP_COUNT_"+rng.NextDouble());
 
             var func = AddFunction(new FunctionDefinition(
                 new FunctionSignature("LOOP_FUNC", new List<BindingDeclaration> {forStatement.Binding},
@@ -209,20 +213,19 @@ namespace Speedycloud.Compiler.AST_Visitors {
             bytecode.Add(new Opcode(Instruction.LOAD_ATTR, 0));
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.BINARY_EQL));
-            bytecode.Add(new Opcode(Instruction.JUMP_TRUE, 10)); //Loop body is in a function, so this is actually constant
+            bytecode.Add(new Opcode(Instruction.JUMP_TRUE, 9)); //Loop body is in a function, so this is actually constant
             //Set up and run loop body
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopIter));
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.BINARY_INDEX));
             bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func, 1));
-            bytecode.Add(new Opcode(Instruction.POP_TOP));
             //Increment counter and iterate
             bytecode.Add(new Opcode(Instruction.LOAD_NAME, loopCount));
             bytecode.Add(new Opcode(Instruction.LOAD_CONST, AddConstant(1)));
             bytecode.Add(new Opcode(Instruction.BINARY_ADD));
             bytecode.Add(new Opcode(Instruction.STORE_NAME, loopCount));
             //Jump back
-            bytecode.Add(new Opcode(Instruction.JUMP, -15));
+            bytecode.Add(new Opcode(Instruction.JUMP, -14));
 
 
             return bytecode;
@@ -232,9 +235,6 @@ namespace Speedycloud.Compiler.AST_Visitors {
             var bytecode = call.Parameters.SelectMany(Visit).ToList();
             var func = GetFunctionForCall(call);
             bytecode.Add(new Opcode(Instruction.CALL_FUNCTION, func.Key, func.Value.Signature.Parameters.Count()));
-            for (int i = 0; i < func.Value.Signature.Parameters.Count(); i++) {
-                bytecode.Add(new Opcode(Instruction.POP_TOP));
-            }
             return bytecode;
         }
 
@@ -305,13 +305,13 @@ namespace Speedycloud.Compiler.AST_Visitors {
             var ctorBytecode = Enumerable.Range(0, members.Count()).Select(member => new Opcode(Instruction.LOAD_NAME, member)).ToList();
             ctorBytecode.AddRange(new List<Opcode> {
                 new Opcode(Instruction.MAKE_RECORD, members.Count()),
-                new Opcode(Instruction.RETURN)
+                new Opcode(Instruction.RETURN, 1)
             });
             var ctorFunc = new FunctionDefinition(ctorSignature, new AST_Nodes.Bytecode(ctorBytecode));
 
             AddFunction(ctorFunc);
 
-            var attrCount = 0;
+            var attrCount = members.Count;
             foreach (var member in members) {
                 var memberSignature = new FunctionSignature(member.Name.Value,
                     new List<BindingDeclaration> {
@@ -319,8 +319,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
                     }, member.Type);
                 var memberFunc = new FunctionDefinition(memberSignature, new AST_Nodes.Bytecode(new List<Opcode> {
                     new Opcode(Instruction.LOAD_NAME, 0),
-                    new Opcode(Instruction.LOAD_ATTR, attrCount++),
-                    new Opcode(Instruction.RETURN)
+                    new Opcode(Instruction.LOAD_ATTR, --attrCount),
+                    new Opcode(Instruction.RETURN, 1)
                 }));
                 AddFunction(memberFunc);
             }

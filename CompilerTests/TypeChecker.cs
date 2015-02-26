@@ -377,7 +377,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new IntegerType()));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new IntegerType()));
         }
 
         [TestMethod]
@@ -388,7 +388,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new DoubleType()));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new DoubleType()));
         }
 
         [TestMethod]
@@ -399,7 +399,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new BooleanType()));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new BooleanType()));
         }
 
         [TestMethod]
@@ -410,7 +410,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new StringType()));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new StringType()));
         }
 
         [TestMethod]
@@ -421,7 +421,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new ArrayType(new IntegerType())));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new ArrayType(new IntegerType())));
         }
 
         [TestMethod]
@@ -435,7 +435,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new ConstrainedType(new IntegerType(), new Eq(3))));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new ConstrainedType(new IntegerType(), new Eq(3))));
         }
         [TestMethod]
         public void BindingDeclarationMultiConstrainedInteger() {
@@ -449,7 +449,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].IsAssignableTo(new ConstrainedType(new IntegerType(), new AndConstraint(new Gt(3), new Lt(10)))));
+            Assert.IsTrue(tc.Names["Foo"].Type.IsAssignableTo(new ConstrainedType(new IntegerType(), new AndConstraint(new Gt(3), new Lt(10)))));
         }
         [TestMethod]
         public void BindingDeclarationMultiConstrainedIntegerArray() {
@@ -464,7 +464,7 @@ namespace CompilerTests {
 
             Assert.IsTrue(result is UnknownType);
             Assert.IsTrue(
-                tc.Names["Foo"].IsAssignableTo(
+                tc.Names["Foo"].Type.IsAssignableTo(
                     new ArrayType(new ConstrainedType(new IntegerType(), new AndConstraint(new Gt(3), new Lt(10))))));
         }
         [TestMethod]
@@ -479,7 +479,7 @@ namespace CompilerTests {
             var result = tc.Visit(decl);
 
             Assert.IsTrue(result is UnknownType);
-            Assert.IsTrue(tc.Names["Foo"].Equals(new AnyType()));
+            Assert.IsTrue(tc.Names["Foo"].Type.Equals(new AnyType()));
         }
 
         [TestMethod]
@@ -516,7 +516,7 @@ namespace CompilerTests {
                 new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), false);
             tc.Visit(assignment);
 
-            Assert.IsTrue(tc.Names["f"].Equals(new IntegerType()));
+            Assert.IsTrue(tc.Names["f"].Type.Equals(new IntegerType()));
         }
 
         [TestMethod]
@@ -531,7 +531,7 @@ namespace CompilerTests {
         [TestMethod]
         public void Assignment() {
             var tc = new Typechecker();
-            tc.Names["f"] = new IntegerType();
+            tc.Names["f"] = new BindingInformation("f", new IntegerType(), true);
             var assignment = new Assignment(new Name("f", true), new Integer(3));
             tc.Visit(assignment);
         }
@@ -540,7 +540,7 @@ namespace CompilerTests {
         [ExpectedException(typeof(TypeCheckException))]
         public void AssignmentFailure() {
             var tc = new Typechecker();
-            tc.Names["f"] = new ConstrainedType(new IntegerType(), new Eq(4));
+            tc.Names["f"] = new BindingInformation("f", new ConstrainedType(new IntegerType(), new Eq(4)), true);
             var assignment = new Assignment(new Name("f", true), new Integer(3));
             tc.Visit(assignment);
         }
@@ -549,12 +549,12 @@ namespace CompilerTests {
         public void Program() {
             var tc = new Typechecker();
             var newAssignment = new NewAssignment(
-                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), false);
+                new BindingDeclaration(new Name("f", true), new Type(new TypeName("Integer"))), new Integer(3), true);
             var assignment = new Assignment(new Name("f", true), new Integer(5));
             var program = new Block(new List<IStatement> {newAssignment, assignment});
             tc.Visit(program);
 
-            Assert.IsTrue(tc.Names["f"].Equals(new IntegerType()));
+            Assert.IsTrue(tc.Names["f"].Type.Equals(new IntegerType()));
         }
 
         [TestMethod]
