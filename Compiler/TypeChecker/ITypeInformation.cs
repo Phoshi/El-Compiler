@@ -9,5 +9,6 @@ namespace Speedycloud.Compiler.TypeChecker {
         ITypeInformation Union(ITypeInformation other);
         ITypeInformation UnaryOp(string op);
         ITypeInformation BinaryOp(string op, ITypeInformation rhs);
+        ITypeInformation LeastSpecificType();
     }
 }

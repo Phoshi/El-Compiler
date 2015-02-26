@@ -62,5 +62,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 return new DoubleType();
             throw TypeCheckException.InvalidBinaryOp(this, op, rhs);
         }
+
+        public ITypeInformation LeastSpecificType() {
+            return new DoubleType();
+        }
     }
 }

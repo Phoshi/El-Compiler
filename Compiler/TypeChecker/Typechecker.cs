@@ -17,7 +17,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public Dictionary<string, ITypeInformation> Names { get { return names; } }
 
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } }
-        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>(Prelude.Functions.Types());
+        private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
 
         private readonly Dictionary<FunctionDefinition, FunctionType> functionDefinitions =
             new Dictionary<FunctionDefinition, FunctionType> {};
@@ -34,7 +34,8 @@ namespace Speedycloud.Compiler.TypeChecker {
             {"Double", new DoubleType()},
             {"Boolean", new BooleanType()},
             {"String", new StringType()},
-            {"Void", new UnknownType()}
+            {"Void", new UnknownType()},
+            {"Any", new AnyType()}
         };
 
         private void NewScope() {
@@ -43,6 +44,14 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         private void DeleteTopScope() {
             types = types.Parent;
+        }
+
+        public Typechecker() {}
+
+        public Typechecker(IEnumerable<FunctionType> preludeFunctionTypes) {
+            foreach (var preludeFunctionType in preludeFunctionTypes) {
+                functions.Add(preludeFunctionType);
+            }
         }
         public ITypeInformation Visit(INode node) {
             return node.Accept(this);
@@ -147,7 +156,10 @@ namespace Speedycloud.Compiler.TypeChecker {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), enumerableType);
             }
             Visit(forStatement.Binding);
-            var arrayType = enumerableType is StringType ? new IntegerType() : ((ArrayType) ((ConstrainedType) enumerableType).Type).Type;
+            var arrayType = GetInnerArrayType(enumerableType);
+            if (names[forStatement.Binding.Name.Value] is AnyType) {
+                names[forStatement.Binding.Name.Value] = arrayType;
+            }
             if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value])) {
                 throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value], arrayType);
             }
@@ -157,6 +169,20 @@ namespace Speedycloud.Compiler.TypeChecker {
             DeleteTopScope();
             DeleteTopScope();
             return new UnknownType();
+        }
+
+        private ITypeInformation GetInnerArrayType(ITypeInformation arr) {
+            var subtype = arr;
+            if (subtype is StringType) {
+                return new IntegerType();
+            }
+            if (subtype is ConstrainedType) {
+                subtype = ((ConstrainedType) arr).Type;
+            }
+            if (subtype is ArrayType) {
+                return ((ArrayType) subtype).Type;
+            }
+            throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), arr);
         }
 
         public ITypeInformation Visit(FunctionCall call) {
@@ -230,6 +256,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             var declaredType = names[assignment.Declaration.Name.Value];
 
             var assignmentType = Visit(assignment.Assignment);
+            if (declaredType is AnyType) {
+                declaredType = assignmentType.LeastSpecificType();
+                names[assignment.Declaration.Name.Value] = declaredType;
+            }
             if (!assignmentType.IsAssignableTo(declaredType)) {
                 throw TypeCheckException.TypeMismatch(declaredType, assignmentType);
             }

@@ -9,8 +9,8 @@ using Speedycloud.Compiler.TypeChecker;
 using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.Prelude {
-    static class Functions {
-        private static readonly Dictionary<FunctionDefinition, FunctionType> funcs =
+     class Functions {
+        private readonly Dictionary<FunctionDefinition, FunctionType> funcs =
             new Dictionary<FunctionDefinition, FunctionType> {
                 {
                     new FunctionDefinition(
@@ -38,11 +38,11 @@ namespace Speedycloud.Compiler.Prelude {
                 }
             };
 
-        public static IEnumerable<FunctionDefinition> Definitions() {
+        public IEnumerable<FunctionDefinition> Definitions() {
             return funcs.Keys;
         }
 
-        public static IEnumerable<FunctionType> Types() {
+        public IEnumerable<FunctionType> Types() {
             return funcs.Values;
         } 
     }

@@ -52,5 +52,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 return new BooleanType();
             throw new NotImplementedException();
         }
+
+        public ITypeInformation LeastSpecificType() {
+            return new BooleanType();
+        }
     }
 }

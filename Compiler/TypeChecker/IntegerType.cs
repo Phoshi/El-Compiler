@@ -54,13 +54,17 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
-            if (rhs is IntegerType) {
+            if (rhs.IsAssignableTo(new IntegerType())) {
                 return new IntegerType();
             }
-            if (rhs is DoubleType) {
+            if (rhs.IsAssignableTo(new DoubleType())) {
                 return new DoubleType();
             }
             throw TypeCheckException.InvalidBinaryOp(this, op, rhs);
+        }
+
+        public ITypeInformation LeastSpecificType() {
+            return new IntegerType();
         }
 
         public override bool Equals(object obj) {

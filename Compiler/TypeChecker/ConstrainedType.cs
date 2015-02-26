@@ -74,10 +74,19 @@ namespace Speedycloud.Compiler.TypeChecker {
                 var other = rhs as ConstrainedType;
                 var newBaseType = Type.BinaryOp(op, other.Type);
                 if (op == "/" && !newBaseType.Equals(new IntegerType())) op = "//";
-                var newConstraintType = Constraint.BinaryOp(op, other.Constraint);
-                return new ConstrainedType(newBaseType, newConstraintType);
+                try {
+                    var newConstraintType = Constraint.BinaryOp(op, other.Constraint);
+                    return new ConstrainedType(newBaseType, newConstraintType);
+                }
+                catch (NotImplementedException ex) {
+                    return Type.BinaryOp(op, rhs);
+                }
             }
             return Type.BinaryOp(op, rhs);
+        }
+
+        public ITypeInformation LeastSpecificType() {
+            return Type;
         }
     }
 }

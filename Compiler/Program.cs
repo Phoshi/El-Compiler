@@ -11,10 +11,12 @@ namespace Speedycloud.Compiler {
             Console.WriteLine("Input:");
             Console.WriteLine("\t" + code);
 
+            var prelude = new Prelude.Functions();
+
             var lexer = new Lexer.Lexer();
             var parser = new Parser.Parser(lexer.Lex(code));
-            var typechecker = new TypeChecker.Typechecker();
-            var compiler = new AST_Visitors.BytecodeGenerator();
+            var typechecker = new TypeChecker.Typechecker(prelude.Types());
+            var compiler = new AST_Visitors.BytecodeGenerator(prelude.Definitions());
 
             var tree = parser.ParseProgram();
 

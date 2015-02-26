@@ -43,8 +43,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
         public Dictionary<int, FunctionDefinition> Functions { get { return new Dictionary<int, FunctionDefinition>(funcTable);} }
         private readonly Dictionary<int, FunctionDefinition> funcTable = new Dictionary<int, FunctionDefinition>();
 
-        public BytecodeGenerator() {
-            foreach (var functionDefinition in Prelude.Functions.Definitions()) {
+        public BytecodeGenerator() { }
+        public BytecodeGenerator(IEnumerable<FunctionDefinition> preludeFunctions) {
+            foreach (var functionDefinition in preludeFunctions) {
                 AddFunction(functionDefinition);
             }
         }

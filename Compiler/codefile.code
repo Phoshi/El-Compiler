@@ -1,5 +1,7 @@
-﻿if (false){
-	print("True");
-} else {
-	print("False");
+﻿{
+	var sum = 0;
+	val arr = [1, 2, 3, 4];
+	for (i in arr){
+		sum = sum + i;
+	};
 }

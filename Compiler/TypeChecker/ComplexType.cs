@@ -75,5 +75,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation BinaryOp(string op, ITypeInformation rhs) {
             throw new NotImplementedException();
         }
+
+        public ITypeInformation LeastSpecificType() {
+            return this;
+        }
     }
 }
