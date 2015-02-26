@@ -24,17 +24,18 @@ namespace Speedycloud.Compiler.Prelude {
                              new Opcode(Instruction.SYSCALL, 0)
                          })),
                      new FunctionType("putc", new List<ITypeInformation> {new IntegerType()}, new UnknownType())
-                 }, {
+                 },
+
+                                  {
                      new FunctionDefinition(
-                         new FunctionSignature("print",
-                             new List<BindingDeclaration> {
-                                 new BindingDeclaration(new Name("str", false), new Type(new TypeName("String")))
-                             },
-                             new Type(new TypeName("Void"))),
-                         new For(new BindingDeclaration(new Name("c", false), new Type(new TypeName("Integer"))),
-                             new Name("str", false),
-                             new FunctionCall("putc", new List<IExpression> {new Name("c", false)}))),
-                     new FunctionType("print", new List<ITypeInformation> {new StringType()}, new UnknownType())
+                         new FunctionSignature("getc",
+                             new List<BindingDeclaration> {},
+                             new Type(new TypeName("Integer"))),
+                         new AST_Nodes.Bytecode(new List<Opcode> {
+                             new Opcode(Instruction.SYSCALL, 1),
+                             new Opcode(Instruction.RETURN, 1)
+                         })),
+                     new FunctionType("getc", new List<ITypeInformation> {}, new IntegerType())
                  },
              };
 
@@ -47,15 +48,49 @@ namespace Speedycloud.Compiler.Prelude {
         }
 
          public string RegisterAdditionalFunctions(string code) {
-             var prelude = @"def print(num: Integer){
-	                            var n = num;
-	                            if (n > 0){
-		                            var digit = n % 10;
-		                            n = n / 10;
-		                            print(n);
-		                            putc(48 + digit);
-	                            };
-                            }";
+             var prelude = @"
+def print(str: String){
+    for (c in str){
+        putc(c);
+    };
+}
+
+def println(str: String){
+    print(str);
+    putc(10);
+}
+
+def print(num: Integer){
+	var n = num;
+    if (n < 0){
+        print(""-"");
+        n = -n;
+    };
+	if (n > 0){
+		var digit = n % 10;
+		n = n / 10;
+		print(n);
+		putc(48 + digit);
+	};
+}
+
+def println(num: Integer){
+    print(num);
+    putc(10);
+}
+
+def print(flag: Boolean){
+    if (flag)
+        print(""True"")
+    else
+        print(""False"");
+}
+
+def println(flag: Boolean){
+    print(flag);
+    putc(10);
+}
+";
              return prelude + code;
          }
     }
