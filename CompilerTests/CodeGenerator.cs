@@ -603,10 +603,10 @@ namespace CompilerTests {
                 new Opcode(Instruction.MAKE_RECORD, 2),
                 new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.LOAD_NAME, 0),
-                new Opcode(Instruction.LOAD_ATTR, 0),
+                new Opcode(Instruction.LOAD_ATTR, 1),
                 new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.LOAD_NAME, 0),
-                new Opcode(Instruction.LOAD_ATTR, 1),
+                new Opcode(Instruction.LOAD_ATTR, 0),
                 new Opcode(Instruction.RETURN, 1),
                 new Opcode(Instruction.CODE_START),
                 new Opcode(Instruction.CODE_STOP)
