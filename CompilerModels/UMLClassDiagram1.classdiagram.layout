@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="UMLClassDiagram1">
+  <logicalClassDesignerModelMoniker Id="7895de15-809d-40e1-a4fa-3f212b66fe4e" />
+  <nestedChildShapes>
+    <classShape Id="c3e3b74e-ec4a-4baf-8f2c-54a7aa8cbd63" isExpanded="false" absoluteBounds="2.5, 0.5, 1.5, 0.50533563931783043" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
+      <classMoniker Id="9c8b0ad3-7370-4437-a1a1-a86e49be8124" LastKnownName="BytecodeGenerator" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="1bc1e0ad-94fe-40a7-959f-49cef6504f72" isExpanded="false" absoluteBounds="2.515, 1.0153356393178306, 1.4700000000000002, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="e5f1248b-0f57-494c-b2c3-85b98a7da0b1" isExpanded="false" absoluteBounds="2.515, 1.2265075068672497, 1.4700000000000002, 0.2011718675494194" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <packageShape Id="67275c23-374e-49cd-8c1a-10ef0e9886c0" absoluteBounds="0.5, 2, 1.5, 1" customColor="255, 249, 230" hideQualifiedName="false">
+      <packageMoniker Id="0bb3ad3e-249e-4644-8913-06bebe9bd6a3" LastKnownName="Speedycloud" />
+    </packageShape>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>

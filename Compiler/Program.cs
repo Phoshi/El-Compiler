@@ -20,7 +20,7 @@ namespace Speedycloud.Compiler {
 
             var lexer = new Lexer.Lexer();
             var parser = new Parser.Parser(lexer.Lex(code));
-            var typechecker = new TypeChecker.Typechecker(prelude.Types());
+            var typechecker = new Typechecker(prelude.Types());
             var compiler = new AST_Visitors.BytecodeGenerator(prelude.Definitions(), typechecker);
             INode tree;
             try {
@@ -35,7 +35,7 @@ namespace Speedycloud.Compiler {
                 typechecker.Visit(tree);
             }
             catch (TypeCheckException ex) {
-                Console.Write(ex);
+                Console.Write(ex.Message);
                 return 1;
             }
 
@@ -58,8 +58,6 @@ namespace Speedycloud.Compiler {
             var saver = new BytecodeSerialiser();
 
             var bytecodeData = saver.Dump(bytecode, compiler.Constants.Values);
-            //Console.WriteLine("Data:");
-            //Console.Write(bytecodeData);
             var savename = args.Count() > 1 ? args[1] : args[0].Substring(0, args[0].IndexOf('.')) + ".elc";
             File.WriteAllText(savename, bytecodeData);
             return 0;

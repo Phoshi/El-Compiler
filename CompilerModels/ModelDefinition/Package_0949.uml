@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="d8082761-4aa6-449e-bf4f-1d103ddd1863"
+  name="Compiler"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="d858b153-94f7-49cd-bd8d-7a401b57e3d3"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSpeedycloud.Compiler"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="9324f8b1-93d5-42d7-99a3-8d90dd2cb087"
+        LastKnownName="AST_Visitors"
+        LastKnownLocation="Package1_0949.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="c6125e9b-f2d2-45f9-9227-418d82b9ab08"
+        LastKnownName="AST_Nodes"
+        LastKnownLocation="Package7_0949.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="9497dbe3-ef61-4fa1-b688-5c3d04cc8759"
+        LastKnownName="TypeChecker"
+        LastKnownLocation="Package8_0949.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="4ccc48ac-a19d-43fb-8a81-2ecaeadcd2d3"
+        LastKnownName="Lexer"
+        LastKnownLocation="Package_0954.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="29280661-47c5-4ccc-9488-961af56c51b9"
+        LastKnownName="Parser"
+        LastKnownLocation="Package1_0954.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

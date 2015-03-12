@@ -345,13 +345,25 @@ namespace Speedycloud.Compiler.Parser {
             return t;
         }
 
-        private IEnumerable<Constraint> ParseTypeConstraintList() {
+        private IEnumerable<IEnumerable<Constraint>> ParseTypeConstraintList() {
             ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, "<"));
-            var constraints = new List<Constraint>();
-            while (!GetCurrentToken().Equals(new Token(TokenType.Symbol, ">"))) {
-                constraints.Add(ParseTypeConstraint());
+            var returns = new List<IEnumerable<Constraint>>();
+            var constraints = ParseInnerConstraintList();
+            returns.Add(constraints);
+            while (GetCurrentToken().Equals(new Token(TokenType.Symbol, "|"))) {
+                ConsumeCurrentToken();
+                constraints = ParseInnerConstraintList();
+                returns.Add(constraints);
             }
             ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, ">"));
+            return returns;
+        }
+
+        private IEnumerable<Constraint> ParseInnerConstraintList() {
+            var constraints = new List<Constraint>();
+            while (!GetCurrentToken().Equals(new Token(TokenType.Symbol, ">")) && !(GetCurrentToken().Equals(new Token(TokenType.Symbol, "|")))) {
+                constraints.Add(ParseTypeConstraint());
+            }
             return constraints;
         }
 

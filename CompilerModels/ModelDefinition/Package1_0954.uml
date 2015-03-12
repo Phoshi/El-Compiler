@@ -1,0 +1,3687 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="29280661-47c5-4ccc-9488-961af56c51b9"
+  name="Parser"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="bb163cbb-3f96-4860-ba20-fb399bf296ed"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSpeedycloud.Compiler.Parser"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="c1483f6f-5acd-45a6-b4b8-31b579e5e369"
+        name="Parser"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="792dc240-8315-4a24-8711-e0e0f5c1a9ed"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="05c7b18a-6198-4d61-befd-1013582e370d"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="237248f2-a61f-4e28-bd8c-99afcd9b7724">
+                <propertyInstance
+                  Id="406943fe-8d86-44c8-9cf4-5d6b0c6ab0b7"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a73fba8f-8c2c-4d64-b0c3-d61ff6aa991b">
+                <propertyInstance
+                  Id="de1b8135-067e-4b41-81db-883c33a3f894"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bc50f25d-4c6c-4883-939a-758534736ac2">
+                <propertyInstance
+                  Id="80864642-3489-4f10-b9de-d09cc63d6e80"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="35fa7240-b52c-40f5-bddd-9b46edca8255">
+                <propertyInstance
+                  Id="7449ab3a-f80f-40ad-abb4-bd28830356ef"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cc4c91f5-a7bc-4c0a-af08-1957a668527f">
+                <propertyInstance
+                  Id="454fe232-c364-423b-8815-53553e39000d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="1912dc4b-43c5-4757-aef6-34aee474dcc2"
+            name="position"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="17e89f1d-728f-4d2f-81eb-208dd5755797"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3Dposition"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="09e34c37-1af0-4d9d-9f7a-12b74dfc1774"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ad24816-76c6-4fdb-a2b2-1568af029ea3">
+                    <propertyInstance
+                      Id="05c68e73-b471-45f9-8db1-4c5999974df8"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6f606532-739e-4fca-86af-60ee8403e4a3">
+                    <propertyInstance
+                      Id="18319823-477b-442f-bfda-462578190e3b"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d3551dea-b40d-4968-9358-9dcaf3bf1fdb">
+                    <propertyInstance
+                      Id="8f3448c7-e759-481b-9cf9-04224e88cb37"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ccf2d2cd-d05f-4da9-976c-426a44851ec4">
+                    <propertyInstance
+                      Id="b456e7f0-9623-43b2-b231-c00180c31dcc"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="406b3fe8-ed53-4f5d-b06a-1b6e82d91aec">
+                    <propertyInstance
+                      Id="11b5ad86-380a-4754-98b4-74867ee8b6d5"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                LastKnownName="Integer"
+                LastKnownLocation="CompilerModels.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="ab31a32f-49cc-4bf7-bf69-ae545b536a53"
+            name="precidences"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="fde5c355-7107-4742-a3c0-e58d729a97e8"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3Dprecidences"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9c125d9a-0577-42a3-9f5c-793f283fb530"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6da1fd8b-5426-4bf3-9b9f-fa1563ff58e9">
+                    <propertyInstance
+                      Id="f9525a86-7f86-4a90-a6ac-72b0c0f14cbc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="df99e6fb-5003-439c-b8e5-b8d4f5a687b2">
+                    <propertyInstance
+                      Id="b9199632-75b0-46b4-a32e-2ecc2723ee44"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="78cdd41b-0223-4a95-a05b-5984a5992670">
+                    <propertyInstance
+                      Id="d2aec2a7-802a-46cc-97dd-8ba733b67ccd"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2d08efa3-9891-4bbc-b6ea-4b39743952c8">
+                    <propertyInstance
+                      Id="0361c72d-be69-4d01-8521-d7afb0e32e22"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f27054ce-2891-4cb9-8cea-63193435d188">
+                    <propertyInstance
+                      Id="36ec84c9-a482-423e-bd79-ff9488a3b7e2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="0b48eaee-d7f2-4e72-b019-ae95639df750"
+                LastKnownName="Dictionary&lt;String‎, Int32‎&gt;"
+                LastKnownLocation="Package6_0949.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="4fc08d85-d1e5-469d-a1a5-56ae9c21358b"
+            name="tokens"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="465c9ee8-19b8-4848-9eca-cb5a58823c43"
+                handle="viewcode://./CodeSchema_Field?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3Dtokens"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="856769e0-99a7-4a46-83a1-b185b92c3037"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b76b338a-15fd-4f4a-8ec9-9bf8788b1776">
+                    <propertyInstance
+                      Id="0303af62-8945-428e-980b-4c31639d99a3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1c1f81ab-8c72-4623-9b7a-543b8966500b">
+                    <propertyInstance
+                      Id="7e24e3fb-c593-4dbb-897e-c72eeb68d82a"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e3375249-fe4e-4467-9ece-909391072d2c">
+                    <propertyInstance
+                      Id="269c7a88-1c9c-4f13-bc98-054617128f72"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6a183511-40f0-4713-be89-46688b5d022b">
+                    <propertyInstance
+                      Id="b4a88024-5b97-4476-b1c2-82caeb3f9b64"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="07efd880-028a-4886-b534-a5fa6776110a">
+                    <propertyInstance
+                      Id="57e52db4-3804-4ad4-9448-90a086f6d559"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="12579b86-7d7c-4a95-a94e-f67a186b2e91"
+                LastKnownName="List&lt;Token‎&gt;"
+                LastKnownLocation="Package6_0949.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="f92d583e-60c5-4567-8ac4-4dc8cc500ac5"
+            name="GetTokenPrecidence"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="3a50d268-f1c5-4256-803d-33717660cca1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3DGetTokenPrecidence OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3400708e-12c6-412e-b78e-18850e0d3f2c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8aed25b7-55a6-48db-b553-501502625167">
+                    <propertyInstance
+                      Id="a9704e53-aef0-48c0-b504-cdc7d33ebbf4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fe987933-b153-46ca-ad46-962b98cee3d2">
+                    <propertyInstance
+                      Id="78df8615-3c91-4b47-ae73-2278e6f6e83e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1573d259-3d15-47fb-942b-fb97fac7f788">
+                    <propertyInstance
+                      Id="0e558e4d-69f9-4b5e-8510-d649ab8c6922"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="12bbbf74-0866-4302-a921-34ebdb09bf45">
+                    <propertyInstance
+                      Id="cfa41497-a81c-4fec-b864-9d1dab7a87ab"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="90a94488-4741-48dc-9a34-7c256f26b0f4">
+                    <propertyInstance
+                      Id="6828a3cd-a504-4b5c-a6b5-defe522a8634"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8a5b617b-3d1f-46fc-a7e6-b00dd2d2f742">
+                    <propertyInstance
+                      Id="3e9bf789-e261-45d7-86c2-fb2c2e9ac66b"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4afb6d06-c5ad-446b-ae96-5f59d7b7c3e1"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                      LastKnownName="Integer"
+                      LastKnownLocation="CompilerModels.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b29e8aa8-2ffe-44f5-b988-d5783aa2ee4c"
+                  name="tok"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="323a7ded-c380-4949-a5d5-3b8c3ee0dde0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3DGetTokenPrecidence OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)]) ParameterIdentifier%3Dtok"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="618241a6-572b-46e2-bad6-0c85848e52b1"
+            name="ParseBinaryOperator"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="8318a7a2-8c7d-4bed-aa34-4ea96c0e11a2"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3DParseBinaryOperator OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DInt32)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.AST_Nodes Type%3DINode)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="91323808-ee8a-42da-8961-38f0cbc8de27"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d9f69fed-0972-4b82-955c-f4c9086d7d9a">
+                    <propertyInstance
+                      Id="75a51810-d238-4561-b416-f72648f550ae"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e2271cf9-0226-4dca-8029-a0fd295c7009">
+                    <propertyInstance
+                      Id="82d754cf-26e7-4b4e-86a3-41c999d167da"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ce60b9e1-73b2-4e56-8f0e-f0eb7c372bbf">
+                    <propertyInstance
+                      Id="8c339970-bfc5-4ba6-b03e-2e2ab133ba08"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7e678021-4cfa-4e70-89b9-da27f2258c1c">
+                    <propertyInstance
+                      Id="90d9ef2d-911f-4e90-ad95-155b19504589"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9dce0512-38eb-4036-9dda-69b424207c54">
+                    <propertyInstance
+                      Id="5e41e8a8-cbfa-4bd2-b600-59ac9dbba38d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dd687e45-71fd-4e8c-bee1-6ad49a5c4452">
+                    <propertyInstance
+                      Id="c26a5a99-5ddc-4a91-a39f-31f1b70a3c57"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e24705a7-0ab7-42f2-b92b-a483bd1d7bd1"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="6732df2b-a8e9-412e-ba27-3113b7b3f210"
+                      LastKnownName="INode"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="08771ec4-6ec3-4af4-b7e5-8054311f1733"
+                  name="expressionPrecidence"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="c350f604-7ddd-490e-98a7-8046055fd23a"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3DParseBinaryOperator OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DInt32)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.AST_Nodes Type%3DINode)]) ParameterIdentifier%3DexpressionPrecidence"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                      LastKnownName="Integer"
+                      LastKnownLocation="CompilerModels.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e58b6107-cb01-4d83-86d2-6c9636bee096"
+                  name="LHS"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="ba82f402-b077-4f3d-838e-2f7a13824e65"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3DParseBinaryOperator OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DInt32)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.AST_Nodes Type%3DINode)]) ParameterIdentifier%3DLHS"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="6732df2b-a8e9-412e-ba27-3113b7b3f210"
+                      LastKnownName="INode"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1e9afa45-0383-4633-91ab-97e2957174ef"
+            name="ConsumeCurrentToken"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b8502cb0-7b86-4061-b0dd-311ca68229f4"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DConsumeCurrentToken"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b64e1958-3c42-4a12-89cd-c3272a4310a4"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b1648323-f50a-49c5-a8f9-e0fbebc7d5b3">
+                    <propertyInstance
+                      Id="57953a0c-ebf3-4c03-8243-f3079e990275"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="102a3767-77d3-404b-ada6-5ebf43686fd0">
+                    <propertyInstance
+                      Id="32651f8b-5d77-43ee-b37d-70ee2c5cc5c8"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dbf59a87-ea3a-4b37-ab18-eb71ef2fce22">
+                    <propertyInstance
+                      Id="eac48532-2c0e-4b0c-b2a6-cab24e3dfeb5"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6a68ceda-2339-40ce-9c25-319992c08ff8">
+                    <propertyInstance
+                      Id="1a30755b-0df2-4d43-b8da-b10b731c9326"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5027faaa-d748-477b-a928-c5caa79df9be">
+                    <propertyInstance
+                      Id="1adb2302-b012-44e4-91ae-e528c588ef94"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f7d53a9e-37d6-4f9c-a308-54f0759ed8aa">
+                    <propertyInstance
+                      Id="d618103f-085d-4a6a-845a-8bce126d1f4c"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2e168999-830f-4833-bf73-79b8c9ce60aa"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e4a1880e-7888-4833-a49a-61b2139b76d7"
+            name="Eof"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="74b03335-5c28-42b9-87c1-1895aabaca73"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DEof"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="bca64b44-0cd9-4fb4-8925-b209c09e8975"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9c26046b-77d1-4bff-acc6-c01badb9445f">
+                    <propertyInstance
+                      Id="012362c3-ec16-40b8-be0a-6f94b5b6b605"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b47eb108-6762-4c5f-896c-a45709d1dded">
+                    <propertyInstance
+                      Id="6daad298-336c-4551-b8a6-5c34bab38203"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4e207447-54ce-4428-9a28-113fe8debbc7">
+                    <propertyInstance
+                      Id="5aa216b5-691f-4fc0-a94c-a8b3b6356107"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d3a93eb1-0427-45ed-994f-339237587ac3">
+                    <propertyInstance
+                      Id="35bfd1c1-ab7e-414a-a1e7-c9cff621a412"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="15901a6c-ba81-41a1-a236-534723e924b0">
+                    <propertyInstance
+                      Id="c4db40a9-a4a9-4625-8050-d386ad555ef4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ff9b056f-436f-44ac-b487-86c2644b449b">
+                    <propertyInstance
+                      Id="bb21fff0-0913-48fe-824c-3af250c36d4a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b399a058-6785-4ec4-ada4-71d49578194f"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="CompilerModels.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="82b740df-2659-4f89-9f54-66a9d3f48e46"
+            name="GetCurrentToken"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a5d4c452-8004-429c-b8c1-0ac66128f290"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DGetCurrentToken"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e21bb61e-4018-4be9-b6b0-8253885a6bc8"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5b1ba243-a868-46fc-b2bc-c1e5861198a6">
+                    <propertyInstance
+                      Id="fa2246b9-87e4-4644-a6e7-97fc47ebaa5c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="aa022ab5-9660-461d-8618-7af6b5e65e6d">
+                    <propertyInstance
+                      Id="9f1e8238-9739-4a8f-a05d-e57348baac4e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1925e9cf-02ec-432b-9721-3bc99a92ee5d">
+                    <propertyInstance
+                      Id="db25428d-1bdb-4dc7-aaec-35fd1cdd547b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a7d507b-d97f-49e3-a5bb-055c0bf5479c">
+                    <propertyInstance
+                      Id="9913d292-b1bd-4bcc-b056-fbb8500b9301"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9e25651f-64e9-40ea-8257-360a9d3e5832">
+                    <propertyInstance
+                      Id="a772ef71-ba31-4d40-a6ce-e0f3e33a436c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2c3d2a82-dd34-4723-9452-2c9e96f9f4b5">
+                    <propertyInstance
+                      Id="3e2a7324-c6fb-4d0c-a45c-b20153f8b2c7"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2dab8db7-f5c4-46a5-9ec1-7bd2446facfa"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c4257e60-c8e6-481f-9bed-063fc7588a69"
+            name="GetNextToken"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="6d8bb5cf-74b5-403d-9b35-1ad3e08d37b1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DGetNextToken"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="23a46a45-d205-467c-8fc9-b5f3e05eb51a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c8081027-f8e9-48bc-a176-680111d9119c">
+                    <propertyInstance
+                      Id="54500bd7-32fb-441f-bac8-1626b135345c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bfd9f44d-9ae3-4e8f-b822-8b3f857c9b24">
+                    <propertyInstance
+                      Id="93188c37-6829-4504-a005-f119689a45c1"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="10ac8012-eda1-41b2-99e5-053107c75d6c">
+                    <propertyInstance
+                      Id="89c0aae9-e74e-4a37-8442-cb7a39933f21"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8983ee72-9b4b-41cc-b0e1-b4334ed97c23">
+                    <propertyInstance
+                      Id="2a6acaeb-b43b-4f25-88ff-3245cbcd01db"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="edc8ff41-61fb-4519-9c84-800e2646ce48">
+                    <propertyInstance
+                      Id="b1066e0f-0418-4579-b01a-06d189cef809"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="916d28d4-372d-42b8-8a5f-61032979f323">
+                    <propertyInstance
+                      Id="17c38cea-69f1-4d91-abb2-c70f0af6a5a5"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f2227cb6-a81f-4e56-912e-bf5768321b9f"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="387b25e3-9a8a-4666-bba7-c3af28980bdf"
+            name="Parse"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="2bbfa4e1-f0c7-49f5-b3e9-3a6958dcc362"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParse"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="706049c3-bc09-4f18-b748-1e9f477431d4"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="529c0582-fced-4c85-a65e-44a0a0b3e59a">
+                    <propertyInstance
+                      Id="de8f15f2-2844-48fa-8007-7672ec1f0b7f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9fb6f736-e7c3-4be7-8c67-70215efe8a73">
+                    <propertyInstance
+                      Id="bb8380c0-f424-4ec5-88f2-7209b74a01c7"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e47e0673-bba3-4ec9-878a-119f7940ffa2">
+                    <propertyInstance
+                      Id="11659e74-97e3-4044-808e-2e723db510e8"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0069467d-b627-40bf-8056-9e08740520f6">
+                    <propertyInstance
+                      Id="67668f23-7ecd-48a0-8e6c-4dbd576103a1"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4ac0394f-754a-407b-8f56-a7ac60b17f0c">
+                    <propertyInstance
+                      Id="db28b01e-99e2-4051-b5e7-242c17f1a1a2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="06e0677d-6d95-4104-a64f-f2d3c60dbe75">
+                    <propertyInstance
+                      Id="57de503a-3e7f-4110-a484-744a06afe321"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="70d0bf11-29cf-4c87-b421-77dfcd37a17b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="6732df2b-a8e9-412e-ba27-3113b7b3f210"
+                      LastKnownName="INode"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1fc5fc85-697f-400b-9963-6e7bb07cba2a"
+            name="ParseArray"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="5a99bef9-b16f-4967-a690-0fe5edc37216"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseArray"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a86c4eab-09b2-4cb7-9de6-03efc63b1a00"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8e596ebb-bf8e-4c92-a64a-803d48fdd727">
+                    <propertyInstance
+                      Id="b2cdf005-e72a-4e2d-ace8-bb1b0e1fb9b7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d9a27155-a555-4a33-bb59-ade60aa2183a">
+                    <propertyInstance
+                      Id="df766bdb-b3ff-49e1-af45-de3a4c6166a9"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ed0b62a-5746-4be7-9737-586b41811947">
+                    <propertyInstance
+                      Id="7ef99811-581f-47f8-8d20-811f6f95a8c4"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="74a180af-fdbc-47e5-8016-f0c6f9b2dfdb">
+                    <propertyInstance
+                      Id="2444fb11-f28d-4d06-a4ae-5205a12e3ee2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30879a7c-be01-4a80-8b5c-6687bef84e58">
+                    <propertyInstance
+                      Id="1c71ff7f-8a68-4711-8984-38b258fe86da"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="81c8a842-4a5d-4e4c-87cd-f59eef2a4cd2">
+                    <propertyInstance
+                      Id="d1b2cb25-249f-4f2a-9897-4e47f4938024"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1190ce6a-0371-4ad6-975d-09cdbafe262b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="559b3497-9f0a-48a8-a636-e754326fcec5"
+                      LastKnownName="Array"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="7f35528f-2ce2-423f-8467-88e91d8c6525"
+            name="ParseBindingDeclaration"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="67e9865b-a7f3-4ed8-83c6-827c31ee0b26"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseBindingDeclaration"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="201413b2-47cf-4002-8922-186fa4cb8337"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f6192ee4-af7a-4520-9c83-4c7b58d00ebf">
+                    <propertyInstance
+                      Id="b66686f4-5cce-41a6-a9fb-2877158ef5fe"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fc6d0b5b-bcbd-44b7-b53e-12f76000d09c">
+                    <propertyInstance
+                      Id="f07fe4b7-23f9-47ac-bd6c-d51fe8ce7ce1"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b202d6de-178f-4d4e-8777-1af377e03020">
+                    <propertyInstance
+                      Id="68cf9a92-2b20-43c7-9774-cb2065d993a7"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d6b223d0-572a-42c8-93e8-c08b98ce34b1">
+                    <propertyInstance
+                      Id="395ba344-9bc0-44e9-a279-079988917aa9"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="006fc8de-2bf3-48bb-ae07-9f45386e272b">
+                    <propertyInstance
+                      Id="05261c03-84e7-4931-8fc1-4c0f1f99e499"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="af727d2b-62f9-40e4-b02c-bb84ae8fc9bd">
+                    <propertyInstance
+                      Id="ff2e6a4a-b998-4116-a0c2-122b633ad440"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="364b29a7-948a-49c1-9207-9f2f3131a59c"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="e5aaca87-00ed-4bcb-bebe-c8688802c90f"
+                      LastKnownName="BindingDeclaration"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="241979dd-9508-46e0-8cc5-48cdbb928cdf"
+            name="ParseBindingDeclarationList"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="227061a4-d7ac-4d83-adcb-97aaa3a8db84"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseBindingDeclarationList"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="bacb50bc-7f9f-4d41-8e59-5b85595e8668"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="633c2526-4b87-4980-b332-69b05d126455">
+                    <propertyInstance
+                      Id="ca56b4d9-58e8-4da3-a127-7d679dad2782"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4fe57a9f-f137-42c6-aea1-589426b865c4">
+                    <propertyInstance
+                      Id="85f19fad-b6cf-43eb-9d4b-800616a5a9de"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ef39c609-1ec0-4157-84ef-a4bb4cac1016">
+                    <propertyInstance
+                      Id="1b5f1c17-6d61-4f24-ab76-90a23a131909"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="38003eb1-95dd-42c9-8739-44ca1f22307a">
+                    <propertyInstance
+                      Id="0463d7ca-622d-4102-a613-309d5b59b469"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="72758335-4668-4177-971a-b0855209ee27">
+                    <propertyInstance
+                      Id="d197b24f-7548-4e34-9e3c-2979bef1e86b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="072b449c-abe3-4c8d-b3af-9ada109d89a0">
+                    <propertyInstance
+                      Id="c87ba71e-4e1b-41b9-aac6-071f4d491f8f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="fad899d4-0588-494b-a206-5c6ccafe9294"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="248e697c-a2d3-4f14-84d9-95efde667fb0"
+                      LastKnownName="IEnumerable&lt;BindingDeclaration‎&gt;"
+                      LastKnownLocation="Package6_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e09d8fb0-d601-407a-a43d-8ef93746ee6b"
+            name="ParseBlock"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="f03b6cdb-fd71-41f8-8927-300577e6b55a"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseBlock"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="06f167fa-a534-4e5d-ad4b-4f86c8f245db"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7c3ec73c-cac7-4f62-9f74-6065fd3b1655">
+                    <propertyInstance
+                      Id="637074fc-6d77-4a02-8990-daa358d56903"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="83535b3a-a4b4-4d3c-8f06-d64f931395aa">
+                    <propertyInstance
+                      Id="3c10dac4-66b1-4246-b343-ab646bb17400"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0605fc2d-8e46-4a5b-8b8e-3edd6784eaa3">
+                    <propertyInstance
+                      Id="096147dd-329f-4b53-90bc-866394a88c7e"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="32a48718-d6d5-4779-a866-0271f0c3805a">
+                    <propertyInstance
+                      Id="22ab0026-2a15-477b-af98-26afe8003a87"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="886bd8d6-1187-4827-b98b-66831e7fc501">
+                    <propertyInstance
+                      Id="01ab03e9-c4dc-44af-a6e6-52769cde212c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0f24dd1b-a929-4f50-b2f8-f76a761763f4">
+                    <propertyInstance
+                      Id="71f78062-1b0a-460a-925e-2d4f3f3ceddb"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6823fbd1-77e9-43c6-85be-e088dc14fc80"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a213de11-3973-44c1-8c32-3773e4dfbf16"
+                      LastKnownName="Block"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1db7037d-b0a7-4a00-b647-bc8b1c36cbfc"
+            name="ParseBoolean"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="2feba7ba-6d75-4f53-96d0-04d94dba3d69"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseBoolean"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2681a6b5-ffc6-457b-a52f-a7391378511a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c8acb98d-1c33-4594-8d75-40d6a5772a0f">
+                    <propertyInstance
+                      Id="8c03e662-1ab0-4602-928f-4e20468311b6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b2ae4cee-d736-493d-8269-47f199d0c697">
+                    <propertyInstance
+                      Id="3a599318-21c0-4da8-b256-77bba01730c3"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="152eebc8-10e3-4ecc-98e0-3820fced795e">
+                    <propertyInstance
+                      Id="4a89b607-be67-400f-917e-e2e85d65aa3c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ecba79b5-2f9e-4f41-81bf-b79b42e2a856">
+                    <propertyInstance
+                      Id="7407d79f-9bee-48ea-ba3b-01965de98016"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="46208c7e-72df-47e6-9dae-0d9f393fb124">
+                    <propertyInstance
+                      Id="eae26c6e-5f02-42d8-9970-f810bc07e08c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0fb951eb-9e09-4980-a4f9-0fc7cf662e10">
+                    <propertyInstance
+                      Id="764324ca-00cb-4358-a83b-9345394e140d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3e5b71df-a0ea-4450-8490-6a1ef5a7d637"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="46ca2f29-28f8-40e6-a9f5-23e1d19572ce"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="5dd8f720-7dff-409c-ae0b-81bdb7c7d245"
+            name="ParseFloat"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="1a9bebf1-ec82-457b-b824-caaf25d2ddd5"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseFloat"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="846df628-651d-4675-be76-c7f663bc0166"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="46fd787e-08c9-438b-950f-b08afb4f3c82">
+                    <propertyInstance
+                      Id="281c46b6-42c8-4b43-82ba-9b5c05aacf6d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7cb1ccec-ba6c-42ea-8eb4-7ee0a655291c">
+                    <propertyInstance
+                      Id="f7725691-f08a-4981-b230-84270a58c4fb"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="53ee51af-e276-46e7-a0bd-1f463ffb98ec">
+                    <propertyInstance
+                      Id="0285a232-c5e2-4a53-a416-e1d34bb1c2e7"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a8c16f7c-412e-4f0d-9f1d-7622ef1527da">
+                    <propertyInstance
+                      Id="cf4c9f91-1f51-4d20-9fe2-7f582841971e"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e6d585d0-d52d-4e5b-835e-016d8361de49">
+                    <propertyInstance
+                      Id="f4256016-6ab5-4d7a-869a-5726041b841e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="589c600c-61c8-4d90-95f3-8cc6fa55a600">
+                    <propertyInstance
+                      Id="0149357b-332c-454b-9683-9b5ae99d0e65"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4a2537f8-84c7-467b-9ba0-d9c0ccaa0107"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="0367b2bd-a098-40e1-bf9a-e7cf3888c19a"
+                      LastKnownName="Float"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="117da2fc-b684-4ea4-bcc7-a81388267a71"
+            name="ParseFor"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="fd8b7eb9-6373-488a-b3ed-1666a7d0f0e1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseFor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="bdbef56b-85c5-42e3-b617-10b11fc1b39d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dfae9cda-c513-4ece-a23a-66b3e2babbb1">
+                    <propertyInstance
+                      Id="4d1fa740-c363-4f1d-b621-005e80447b57"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ff0358fd-d34c-4a45-91af-9007c23019ef">
+                    <propertyInstance
+                      Id="824b2d93-8561-4918-898b-9ae9161826eb"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4368e64c-c06b-42cb-9aab-0aba15263f59">
+                    <propertyInstance
+                      Id="ff49c63b-dcbb-4bb7-a5b1-e1d4c551e8a1"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8c8c5d6f-ba29-42e0-84a3-f96286ffb0cd">
+                    <propertyInstance
+                      Id="e5da5669-4a4d-41a7-853c-820e6801d2cf"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8cb4a366-9709-4ed4-8253-ea995a2fe7d7">
+                    <propertyInstance
+                      Id="f915fa6c-5f88-4a16-ad33-9aa899f76cd6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0a430c11-44e5-4a8a-b2e3-6129ed2bc9c1">
+                    <propertyInstance
+                      Id="cbb36520-1e7f-455d-81b7-65387f3a4910"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="39ed03ca-60a2-40ad-9214-ab6fade557b6"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="c7eed1c4-9880-4fc2-92f3-e5b6c153ed68"
+                      LastKnownName="For"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="dbb813f3-0614-48e7-9d37-bda9438d3807"
+            name="ParseFunctionDefinition"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4b02aab7-5b9c-4f32-ae01-f51b840f1a91"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseFunctionDefinition"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2b9319bb-c95e-474f-98d1-5645331402a7"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="72a52b62-9f79-44ce-a637-b96229e01eb5">
+                    <propertyInstance
+                      Id="7ba95852-6bda-49d5-815e-0eb9d9284d60"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d7e0a2c9-f95e-4653-9b38-ce1f93a86bce">
+                    <propertyInstance
+                      Id="0f7f231f-cc4c-48d4-bd6e-72bf5017c561"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b613e28a-4a09-4dcd-96c5-dbe81f766dbf">
+                    <propertyInstance
+                      Id="31ee4170-a64b-474f-8e10-056ae0eb1e58"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7ec420de-688e-4519-b48c-ba0d14139f8c">
+                    <propertyInstance
+                      Id="39909613-babe-4ae1-9266-40c746a51ec6"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d494b280-ec85-40ce-96ba-d99f99462a2d">
+                    <propertyInstance
+                      Id="fdc0df49-8ef6-4aea-9b86-21bf00dd0ced"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c49a1bfb-402e-48de-9107-7ee7fc6291d2">
+                    <propertyInstance
+                      Id="996da423-f0d4-4e01-b749-0998a5e66004"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0786362b-2450-4f31-b689-e7be0d9a9faa"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="c0fbc865-c8cb-4ddc-8bfb-5fa8b4d6a3ad"
+                      LastKnownName="FunctionDefinition"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3766279d-36c4-455c-86bc-f73f3ceb865e"
+            name="ParseFunctionSignature"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="76ecb0c1-c4a6-45c1-8fc3-7770fe238b3c"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseFunctionSignature"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d458e919-7ee8-44e9-9185-47435f72a620"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fe767f27-5e4b-42f7-a8dd-beeba438132e">
+                    <propertyInstance
+                      Id="86dbe00e-f17a-4a60-9ed7-792a6dd03af3"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1829d8ac-618c-40a9-8b3a-55a52612bef3">
+                    <propertyInstance
+                      Id="bf16b656-d2f5-4667-bc71-4f9842df81f4"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a3f9090b-be16-4bad-8fd8-1007ce57460e">
+                    <propertyInstance
+                      Id="42fcb85b-b598-4232-9792-b81284c4d4ec"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cf86dd94-9a7d-482d-b0c5-cff2b2f48d71">
+                    <propertyInstance
+                      Id="4d8a9124-f8dc-4560-8344-78219fdeb408"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7e174168-3f2d-4bb3-82bd-22808f136c99">
+                    <propertyInstance
+                      Id="f62bfdc2-8b07-4078-9d22-6205351ad907"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="62ce6157-2229-4361-b63f-810d3d6862db">
+                    <propertyInstance
+                      Id="0719e173-e651-4a9b-90b7-03a52ffe84af"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b565db88-2223-4dd6-a72e-9b6eb483b451"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="89a73182-eb22-4f5a-901e-39cd468f3bef"
+                      LastKnownName="FunctionSignature"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c838e183-e733-4869-9e77-191d35d57de9"
+            name="ParseIf"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ce88a92b-ba46-4791-a4c9-3b6e92322fea"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseIf"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="565dafcb-eca3-4197-973f-64e99e8e19a6"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="12745c1e-09dd-4c64-8a90-8ef1bd44ef0c">
+                    <propertyInstance
+                      Id="9aebbe46-e5a5-4f2f-a408-b83a5c492c9e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0e653820-6c45-4038-bae4-213cf35a9c7c">
+                    <propertyInstance
+                      Id="9a510d50-4e72-4520-bf66-2e91cdb34c05"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4ac2aa65-b835-47f3-8c5d-3a269573ab1b">
+                    <propertyInstance
+                      Id="874b18d1-0ade-468a-b5a1-03f4cb67358b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fb5a47c4-59d1-472b-8144-dd1bf07b3931">
+                    <propertyInstance
+                      Id="142901f1-c67e-4c9c-abf6-0f8c5d33af3f"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f01beecb-a48e-410c-9a08-c6642e4fd2e3">
+                    <propertyInstance
+                      Id="caa4fb5e-2632-4595-9879-18d8ef9a7ba2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e3dc3908-4b78-42bb-a328-cf7d8192f869">
+                    <propertyInstance
+                      Id="8a50c845-449f-4d6d-bdae-8ae56c2d8faa"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cc16000d-a821-4ea7-8e09-0749024e1924"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="cdd9339f-a066-42df-ac7c-abf370ff7ce6"
+                      LastKnownName="If"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3f597954-c0b2-4371-94c6-633edc3a748a"
+            name="ParseInt"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="343d75ee-2ce2-4ad8-ba1b-a59411e92f68"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseInt"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="46a137f8-b058-415b-8992-ad1d6decd795"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e94f4225-5dd4-451d-a81f-0e1966b058a6">
+                    <propertyInstance
+                      Id="95e862b8-0960-4658-85da-d26847b433f9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6e6599a0-4eec-4dc1-ac7b-941420439071">
+                    <propertyInstance
+                      Id="8523629a-0eda-46bc-af07-bf989096cd38"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f535db3c-50d2-4e24-9dc3-cc2f46e95569">
+                    <propertyInstance
+                      Id="edb26ae1-3ac0-4ea1-8b7f-2a2a5f938a31"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8b83e706-6503-4264-8048-852e511796ae">
+                    <propertyInstance
+                      Id="eb85d78e-5bea-43d8-8dfb-db099e199e03"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b66cf349-437b-426b-bad9-a426d8bbb0a7">
+                    <propertyInstance
+                      Id="83c76cb4-dab9-44aa-8192-222eebd79602"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="77053d2a-2900-4552-849d-c3581a5b17a3">
+                    <propertyInstance
+                      Id="92ba831d-e0f8-4234-bd4b-81611aa049d7"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ff56a8ab-cae8-4044-8d7c-299dbd274492"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="bc671293-6e9a-439f-be51-5303afef597e"
+                      LastKnownName="Integer"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="fb338951-a7bf-4d15-bbc1-f5139e96ee9d"
+            name="ParseMain"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4639a3e7-5c4e-4464-b396-09436388e409"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseMain"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ed82bb27-c6d4-444c-b521-5f557fef1a9f"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a3bbe486-0f6c-4c8c-b74d-bac9af7938a8">
+                    <propertyInstance
+                      Id="89f9dd5c-0ada-48df-9e19-ff5c0bd7e666"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="51fb22ac-b0bf-4758-9242-1975ca28f49e">
+                    <propertyInstance
+                      Id="8e51f12c-4a5c-452e-9bf3-bb972d60a99d"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4b26060f-25a4-4ad2-954e-ee3d9f29c4c5">
+                    <propertyInstance
+                      Id="dff6e1ca-07ac-4fae-a019-f4977a52cb58"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9cbce419-28c6-4aa2-9f0e-728afb330e12">
+                    <propertyInstance
+                      Id="51457809-1012-40ea-b9e9-b5039498b97a"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b204d8fc-ce98-40ae-84a9-de3d9d2e4f2b">
+                    <propertyInstance
+                      Id="ae4bdf13-b659-4d62-8647-a78c9b74d580"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ef4dc171-d066-40f4-ba30-908cb569552c">
+                    <propertyInstance
+                      Id="780b2a1c-c781-4ea8-8008-915a6c86b00d"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="03d611e4-5dde-4f61-aadf-7fd59dfa01bd"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="6732df2b-a8e9-412e-ba27-3113b7b3f210"
+                      LastKnownName="INode"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="03c00fc1-d07f-44aa-b991-c8ffb5256c59"
+            name="ParseName"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="7583ad8f-7af2-41e5-b127-ce4d0a74703f"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="571408ca-8639-4a60-8bbe-1ef231a6af28"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="39cb9967-138b-417e-aedf-3b8a1938d191">
+                    <propertyInstance
+                      Id="43479d86-739d-4445-8978-0baa29c68413"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7c4f78c2-b228-46e1-9e62-b3051fb60a09">
+                    <propertyInstance
+                      Id="3c46d42b-6480-429a-a474-49ce1ff5d695"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="386b0ce9-319d-4431-bf31-f3704c48a9cd">
+                    <propertyInstance
+                      Id="e1b14804-6b2d-4b57-a2e4-be27a133fa66"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ba135c5-e049-44bc-9cbf-761620bbb981">
+                    <propertyInstance
+                      Id="ebfa4277-7c43-41bc-a2e4-1e53ee1d1e04"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ed5170de-dcd9-433e-8f8e-ba05606ee477">
+                    <propertyInstance
+                      Id="c1f3ed3a-edc3-452f-b5cf-d2c66d64ac19"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5f106b09-2ed4-4e11-840e-b5fe560cdc0d">
+                    <propertyInstance
+                      Id="27fa47fc-1968-459a-a8a4-03ec75b2c740"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dd2bd148-a76d-47d4-b035-364b403a7245"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="e3f8c955-16b0-40c2-9de2-98447b87aee3"
+                      LastKnownName="Name"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="9dc51c4e-7517-417a-86c7-fea4b1c99a8a"
+            name="ParseNewAssignment"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="7f357495-48af-4793-a93d-bbcb65cc0f32"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseNewAssignment"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ca92d57c-12c4-42d5-ba21-19b36cec50e5"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="620d1437-0808-47ad-be3f-c1d500d3b65b">
+                    <propertyInstance
+                      Id="775c80b9-2607-4a91-86a0-0f3ec5018add"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0b6ae9c-d9a9-4bb4-b85c-5a98dbc32674">
+                    <propertyInstance
+                      Id="be3de7e5-8961-4df1-8cb5-9a068c2711cb"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c636bd61-42c4-46f4-88b2-1c28e5ce06eb">
+                    <propertyInstance
+                      Id="b2f174fe-7f8c-4ee8-bfa5-eeb24f05d267"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4ce75f56-3adb-47e1-877f-36c1078169d2">
+                    <propertyInstance
+                      Id="a8abb4e9-1a8f-4ae7-b3fc-4c973fab8670"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e99775ba-fcda-4c3a-b4c1-27a68d76bb35">
+                    <propertyInstance
+                      Id="cb4360fb-8d07-4c8a-b7c1-48f9c795e4ea"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2cbe4f63-44a0-4cf6-a305-1b4a43da973a">
+                    <propertyInstance
+                      Id="fe128d85-5643-49d0-b3f9-e4d947533fa0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="bf435838-0154-47c6-a942-6bfc92995980"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="c92623f4-aff6-483b-b218-dddea33334f9"
+                      LastKnownName="NewAssignment"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="8dbd0a2a-4a3c-4094-a4a0-9f13b57e899e"
+            name="ParseNumber"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="897e18da-6829-40b6-bea6-0014f8cab18b"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseNumber"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="2c2d79be-6cc6-4b9b-88a8-d15c2582b183"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6f29e1a7-45b9-4780-a4af-d05ad7bf0a23">
+                    <propertyInstance
+                      Id="2bbbe280-6c93-4191-bf11-233810af3e76"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="10de9e0e-504e-49ed-b0bb-5cca98b1edd4">
+                    <propertyInstance
+                      Id="6db79c29-e5d4-44ed-ac47-f0095dda8cb5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="edd164f1-3097-4b33-9f69-32aa838b9972">
+                    <propertyInstance
+                      Id="1d2590c5-2243-4bc6-ad36-3652bdfe7e1c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="970e9ace-af59-4ef7-bf53-12e28238c78f">
+                    <propertyInstance
+                      Id="3e3b1eb6-15f0-4787-9659-30c0c73850c0"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d998a413-7b40-49bd-8dc2-defd1f8a6ef6">
+                    <propertyInstance
+                      Id="1c54a601-445e-4c8f-8ed9-ab2691e4580e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a6bda9e7-ac00-46b3-ad3f-3dded83228f8">
+                    <propertyInstance
+                      Id="242f36a5-7626-4cbb-8749-d356cf3757e3"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ecbb2575-bf29-4789-af7e-b7186fc8177d"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="2d7e6003-72f9-47c1-8091-6e77e9b6d7b8"
+                      LastKnownName="IExpression"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e3459c6b-bb8b-4b85-b879-ed0c1d1bfdad"
+            name="ParseParameterList"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="461a37d8-9fe7-4dcc-b733-bf7a8e894ef1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseParameterList"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ae1aeff7-4b48-432f-9191-c6286421318c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8955b6f4-84f3-4315-9649-6c5684b3e6ac">
+                    <propertyInstance
+                      Id="67351cd9-2a32-476f-8958-4e58034b0a68"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="308f62e3-886d-4c83-8bfc-68e2e1c3b84b">
+                    <propertyInstance
+                      Id="e3ca8be2-e412-4670-9eaa-19f173fc8782"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e3b16e5b-1b08-42ae-8d51-f17e49f15d58">
+                    <propertyInstance
+                      Id="9b4ee6af-c0a9-4a45-949e-e8a639b73bfd"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="190118b1-2d89-4299-acaf-a5f76ae64962">
+                    <propertyInstance
+                      Id="e2524f8f-dc81-4b43-b369-ad6f52d56e51"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="22019eda-95c4-4549-b6f2-c8280ca1d8db">
+                    <propertyInstance
+                      Id="b5f8a639-dc37-44aa-a6b5-660b51d44c57"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="171f33c3-182f-47f2-a6b1-d277ecff3950">
+                    <propertyInstance
+                      Id="ac21ea76-092f-43c7-8e19-f2b708c94472"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="e47eb8d9-a251-4bf5-94b8-474b31731e78"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="e8935a02-fc66-4584-a02e-fbdbdc27dde6"
+                      LastKnownName="IEnumerable&lt;IExpression‎&gt;"
+                      LastKnownLocation="Package6_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="6f5c561c-bcb1-4166-927e-bfc7dd964c27"
+            name="ParseProgram"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d66ce3b2-263d-488b-afe5-4ab34f251e38"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseProgram"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="99047cec-d03d-42a4-b847-ce93b72b17fb"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d85ba9a8-e48e-4105-8df8-d373e363eb6f">
+                    <propertyInstance
+                      Id="c3705852-c056-4bfa-b71c-402797872321"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4817163e-5ecd-4b1c-9f43-c4807fd3fb23">
+                    <propertyInstance
+                      Id="895faa1c-d1a4-4b27-96e6-a47900698462"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9345bb77-22b5-4bbc-9615-4dbc8490e4cc">
+                    <propertyInstance
+                      Id="3f80dc83-3ac8-40fc-8fd7-f76e985ada9a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e24be3fe-66a7-4493-ab9f-0e6bd363d3ea">
+                    <propertyInstance
+                      Id="a30acf9d-5c38-431e-8fef-1e49bb79dc3d"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f8fea10d-cc26-43ed-8b23-707c1d0cd85e">
+                    <propertyInstance
+                      Id="8a3984b8-764f-443e-87b7-13fa3580a207"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="265abc74-431f-42a3-8c0b-f39ba6517311">
+                    <propertyInstance
+                      Id="00ae0edd-e586-4b80-b6ed-06292fa58bd6"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8eec85b5-56f8-4b2b-a0e7-96bf7e01320e"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="c4a4a04f-eb94-432d-b8bf-02899b90e8a6"
+                      LastKnownName="Program"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1db2eefb-51b7-4797-9c51-35321f95d803"
+            name="ParseRecord"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d58f0f4f-e569-4254-9551-c6b13fc1b007"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseRecord"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a1c198bb-610e-4c41-a5ab-9b1d14de645c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2a725db0-65a4-4dbb-81e8-cb6342c75bc5">
+                    <propertyInstance
+                      Id="36a37c2d-198a-46f3-b141-989e226a1dc2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="93ec95a7-8a21-4783-a7a9-5cdd3ecbfa5f">
+                    <propertyInstance
+                      Id="9dad6b71-c2af-4fe7-a7e3-f0fcaffbdbe3"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2cedb918-9474-40ca-862a-21ac1c03c9a7">
+                    <propertyInstance
+                      Id="0ba69c24-90aa-473e-a8a7-7500d200da19"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f90e05a9-1f5f-4f96-adb8-e15712bed84f">
+                    <propertyInstance
+                      Id="4c2b6425-53a7-4c20-be2b-99309d0aa9f4"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dc14cfe9-33c2-4f27-9419-086829b910e6">
+                    <propertyInstance
+                      Id="a5edb84d-8137-437c-b498-a77b34d89c51"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="de15d2ae-7299-456b-aa1b-bd5a439cdd81">
+                    <propertyInstance
+                      Id="d06defeb-7841-4358-8c42-e34b320e6270"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6f07f264-8217-4ee6-b983-d73bdbeee2e7"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="d2170fbe-b1a8-4305-91c1-084b0cca0110"
+                      LastKnownName="Record"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0615c954-4a05-4b2c-84c8-9efe8f623045"
+            name="ParseReturn"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="b14f2f5d-64b7-46b4-8e5a-b7f1c4fea1f1"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseReturn"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="814cfe44-1b22-403a-9ef5-44c13e73c391"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c49c6228-a0b3-409b-b750-9bd188f5a213">
+                    <propertyInstance
+                      Id="123dbdf3-9d01-4222-8e7c-b46bd6675e78"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c72a01ed-214d-47ec-a75d-4c15dd6f8420">
+                    <propertyInstance
+                      Id="ed8a12b3-b03f-4d43-9a48-f571b59a145e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8a907259-6294-4122-baa9-9dd4fe053cf9">
+                    <propertyInstance
+                      Id="e2e90eaa-8075-4339-8973-ab0cc9aeed59"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9f36311e-52fd-47e3-b4cc-70e1b073bdc5">
+                    <propertyInstance
+                      Id="a61b62f5-f542-4c71-ae22-469cf2bdf26b"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="42a6bc5a-84b5-475e-83d4-db2e4287de0d">
+                    <propertyInstance
+                      Id="610ed927-c634-4837-bbaa-2cfc2092866d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="23c7a395-02d8-4965-a2a7-8ec503199d2c">
+                    <propertyInstance
+                      Id="677e6e1f-75f6-4569-9391-4d42ed0861a9"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="db13b44d-55af-480f-b999-37309a62288b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="0dc25b0b-deab-4725-bfd4-28deaed011a0"
+                      LastKnownName="Return"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="47edb518-d340-4429-beae-d8b4ac753ed5"
+            name="ParseString"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="764a744f-8d55-41a5-b58c-2a60338e90f3"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseString"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e6b2736b-7580-4414-87b0-a2458301eddb"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9444ca9e-f6a4-4737-94ae-3e40e32eb3e9">
+                    <propertyInstance
+                      Id="0dba0ab6-52c8-4fe7-b28a-232560f514c5"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="df1cb069-2c34-4300-a0fc-c2c0e314a866">
+                    <propertyInstance
+                      Id="fa33e6b4-ff95-4dfd-8de0-b3fe89175a37"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6d5b10a2-c455-41ae-a0d6-5935d8f4d5ff">
+                    <propertyInstance
+                      Id="f57ae9be-cca3-4a52-8c21-961646dd4d79"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="edd98e14-0d43-4f92-a5cf-728c7f1242f7">
+                    <propertyInstance
+                      Id="e23ffcce-46fe-4332-a33e-1be781f9b6d4"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="de058742-86ed-4e15-a918-e3009046fc64">
+                    <propertyInstance
+                      Id="e1b23729-293d-4b2c-94b1-90d25e68ba01"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="93f649e7-3f42-494c-85e8-441df66b0b0a">
+                    <propertyInstance
+                      Id="ae047aa5-0021-4486-9474-59bc3743e075"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2ca54d9e-96a5-4b55-9c9e-df72707aec9d"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="66f971e2-1225-466a-9083-b735c739f73c"
+                      LastKnownName="String"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="da7a5f9c-2298-4af2-922b-c324d321f366"
+            name="ParseType"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="d503b0b2-2c80-43c3-a36b-2d73ae851b4c"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseType"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9b5505bd-4b6d-4193-a2f2-1d9e6fc27659"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="32d57366-c14b-4d56-b634-ac98f3397ef5">
+                    <propertyInstance
+                      Id="57a05738-f1f0-42dc-b2a5-ccb18fd8a32f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="62e008dc-ba13-4499-b12b-29294f93db53">
+                    <propertyInstance
+                      Id="625981ef-4f12-4642-aca6-35fb44bbd8d6"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="66235876-ef50-4385-8b97-9e477d355fbf">
+                    <propertyInstance
+                      Id="74b74bce-7e27-4e83-84da-948a85421c95"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5de224cf-926c-46c7-9b5e-cc12ae37caf4">
+                    <propertyInstance
+                      Id="791adb2f-4ea1-4bca-b42f-ea72ecf6ed15"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1076967d-887f-47a0-b20f-cb9674b2e88a">
+                    <propertyInstance
+                      Id="b0d532cc-ab01-464d-a918-182b199d2980"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2fc1baf8-1ca7-4370-a6f4-aae6dbb11955">
+                    <propertyInstance
+                      Id="69a49298-6214-4b9a-987a-3b1bb11bb3b0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4d07cdb2-8f2f-41c4-b328-5c69f934594b"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="d9293739-5cb6-42cb-999f-5cf931f0f1aa"
+                      LastKnownName="Type"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="db215098-afe2-4b5a-9d21-609fcba534e2"
+            name="ParseTypeConstraint"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="5639e94c-dba0-451d-9a6f-ab5031627157"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseTypeConstraint"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="97ed0f1e-cfd6-46e5-be86-1800e4d307d8"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="87e2443c-429a-45cb-8b65-8c0dfab37281">
+                    <propertyInstance
+                      Id="6343517c-0618-4769-b6a7-e0f1e2faa7fd"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fd6d2dcd-0712-4a7f-81d5-2eaa9926e773">
+                    <propertyInstance
+                      Id="f9f62832-a799-4470-85ec-6efa75108084"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8adb17ad-9c13-4c61-af71-9680fe2e2715">
+                    <propertyInstance
+                      Id="63fb1d07-1631-479b-8da6-d0810039700c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6cf4b582-d62f-4dac-9ac2-288957bdb3ff">
+                    <propertyInstance
+                      Id="7e23db67-f6dc-44bc-9df5-9a2c327edc72"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cdf318b7-76f6-41a0-9bcf-639368ae7fa7">
+                    <propertyInstance
+                      Id="7f204680-3a29-41c6-a922-85376611ac03"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9c1bb3e1-d3ac-4390-acaa-2f2c20586847">
+                    <propertyInstance
+                      Id="a4ad91ee-27c3-4c9e-882c-9bd00431ea1a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="febfd83a-53d0-4f4f-b6f1-37fa91c34014"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a178fdc0-774e-413e-8ab2-083acb8c337a"
+                      LastKnownName="Constraint"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="cb62ff96-6613-4eac-a92e-d50eccc5b468"
+            name="ParseTypeConstraintList"
+            visibility="Private"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="0f92193f-cdc6-415c-9e60-71e4e7b6616f"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseTypeConstraintList"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1ca981db-1524-494a-bd4f-ad8ab4f075f1"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="56bb6b38-8fad-42ed-91e1-afd9189e0280">
+                    <propertyInstance
+                      Id="33377c4e-a40e-4dc8-89cc-c15e132725e1"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d4c7c23b-ff04-467b-8240-f759f7254256">
+                    <propertyInstance
+                      Id="d9b71e4a-5a4b-4f7c-82ed-6d92e2278834"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bbb1ed90-541f-4ae4-80d8-30ec848d33c8">
+                    <propertyInstance
+                      Id="f70c80bb-ee21-48d8-8248-edb3b3cc1083"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="69bb98a0-db61-4104-a066-624413cdf3b8">
+                    <propertyInstance
+                      Id="7e490081-b532-46f4-a672-e7ea90b2dee7"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9ff3b64d-ab34-4c09-abc9-15b44ebcc2a6">
+                    <propertyInstance
+                      Id="338e092a-65a0-4593-8c37-706927b9f53d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2b962433-8f4b-4ebd-8221-69507432644b">
+                    <propertyInstance
+                      Id="c91f4e92-def4-42cd-aa04-2a006b8c2ab0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2015109a-191d-46bb-be3f-eba109bb8e13"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="8b014968-d79b-40eb-b695-a4bb9fc6407a"
+                      LastKnownName="IEnumerable&lt;Constraint‎&gt;"
+                      LastKnownLocation="Package6_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="70076a36-5080-4e8c-afa8-1c932bf067e6"
+            name="ParseTypeName"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="902e3340-b4cb-4275-8843-90e23a6e9b63"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseTypeName"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="32bd2c63-6616-4bbd-8d53-922f89dbc768"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="361dde60-66bf-4124-a55e-740bacdd404d">
+                    <propertyInstance
+                      Id="154e8024-c8a7-4ee4-baf1-27e7c70556b9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="75280228-4e95-444f-9077-9b183fbd0446">
+                    <propertyInstance
+                      Id="d47bb910-ff6a-4aea-82a8-17e3c820f77e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="29476582-e186-44a5-9117-5c84ed60edbc">
+                    <propertyInstance
+                      Id="8da0af40-7cfe-4053-bf0f-836b6bc8fd16"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8232489d-65a0-43ce-aa8a-fe704b9f9bc5">
+                    <propertyInstance
+                      Id="73d788f2-3d13-42da-b8b7-e4fc78451c05"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7ad4fea1-5183-41ee-9c01-99b0c42b88fc">
+                    <propertyInstance
+                      Id="859b9bd5-675b-4563-b1a0-8e40630ce265"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a5288021-77f6-48fb-a453-5974bd2e765b">
+                    <propertyInstance
+                      Id="8cb24716-1a99-4301-a5c2-09acb5e3f11a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="af7c798a-a971-4d01-9ffc-da482db8e0af"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="62161f3c-9221-4597-9852-9aa11e53e907"
+                      LastKnownName="TypeName"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="90b9a4ba-c70c-4016-9b89-bc3e16235d45"
+            name="ParseUnaryOp"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="66f3ad09-cc7f-442a-ad1b-ffbb6dad301e"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseUnaryOp"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="27912d0d-272d-4979-9f93-d79758891878"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2e579d5e-8f82-42a8-8ae2-8a7cc47daad9">
+                    <propertyInstance
+                      Id="d17fcc59-3716-4f2c-a65c-3ad1feb8eecb"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6a2f01e4-6137-4ab3-9204-6199134fcb1b">
+                    <propertyInstance
+                      Id="6029c024-f0f2-488f-96fa-f6d1a49d2a02"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a7c159fd-d6ae-4181-9d30-8c18ff127e4e">
+                    <propertyInstance
+                      Id="f8a723fc-3354-44f0-8e23-daf0cc9d12be"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8b531a9a-ed73-408d-93a9-0dd305928f38">
+                    <propertyInstance
+                      Id="c4b17ad7-dd03-47f2-bee7-ebb61e10417e"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b378159-5cdd-4834-bf13-c8dd0e7df700">
+                    <propertyInstance
+                      Id="68e057e2-a5f5-464b-aa10-3b32ce76a0e4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4034ace7-f7e2-4f46-9076-f826a6dcd216">
+                    <propertyInstance
+                      Id="e5930290-8510-421e-b9a8-90e7485ac97c"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="26e0f7a3-d00d-4436-ac68-00141384cea9"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="d9d0b282-70fb-4c2e-8c98-1f7cce2410f7"
+                      LastKnownName="UnaryOp"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="deae06fd-9c3a-49d6-af52-a77f0d2c1ad4"
+            name="ParseWhile"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="fecdc156-e795-49c1-aeb3-446cadc85939"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3DParseWhile"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="697c3430-dd38-41e3-ad34-166919b1646a"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="94b50a4a-18d6-45d2-aae2-ec99430481d5">
+                    <propertyInstance
+                      Id="1f3590a9-aa77-4a8b-9bcb-295b94526340"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c1af5f24-330d-40f1-b3c9-e2eb2f80988b">
+                    <propertyInstance
+                      Id="a4d27de9-014e-41ea-bb32-1363b193a526"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="762fe089-fdc3-4b6d-bc50-d12fa0c1cd5f">
+                    <propertyInstance
+                      Id="23d14f52-a050-486e-9e16-d74c0845756b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="df314734-3de7-45a1-a196-0e23024cf0e8">
+                    <propertyInstance
+                      Id="bf151124-0792-4a87-bd0b-666aaff5887e"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="446f9cf5-309b-4671-9d1e-2263132ccbea">
+                    <propertyInstance
+                      Id="4e88bf2b-2680-406e-ae75-7a4dcebeabfc"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="80092ba8-86d1-4c26-a7e9-e1db1778a11f">
+                    <propertyInstance
+                      Id="94fe0276-8422-4713-bd42-638bdc665b21"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="350a2849-670f-44ea-8759-844423407901"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="57a7c2b4-c857-4543-9198-f2f8af1ba302"
+                      LastKnownName="While"
+                      LastKnownLocation="Package7_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="87db057f-02d7-4751-adbc-3c9a9af17f30"
+            name="Parser"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a01ddac1-4e3d-4b39-a486-bf3fbd9b1fa3"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem.Collections.Generic Type%3D(Name%3DIEnumerable GenericParameterCount%3D1 GenericArguments%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)]))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6dd43410-d73f-4da1-a2ca-ce669d2b2595"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5a44684c-551e-4307-b79a-1173b302cc60">
+                    <propertyInstance
+                      Id="4f56fa64-c8a7-4282-8d9d-36c54373fd9e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="97d844f2-1810-448f-9c59-fbdbdcfe8e5c">
+                    <propertyInstance
+                      Id="704e1b9b-955d-472d-b908-f005429beb9f"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="58ce66ca-3409-466b-8420-fa3d437219da">
+                    <propertyInstance
+                      Id="e0d2d2fd-a435-4219-afbe-e2f0f1fdcdba"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9e4007d0-fce8-4416-9ca6-ea0a84a09759">
+                    <propertyInstance
+                      Id="5728c141-1358-4b6e-963a-3f1a5778ec9b"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bf65caf5-7819-4526-ba70-941d3c895831">
+                    <propertyInstance
+                      Id="1bf9b1dc-7e0c-4055-86ea-d946f3c86f28"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="76358668-cb99-407e-b2ec-c9acd773cd56">
+                    <propertyInstance
+                      Id="cf4ea6c1-6d18-4175-a475-2f615f350640"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="91420a43-53dd-4148-a880-1a4d58f94629"
+                  name="tokens"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="6952cddb-804a-4c8d-b412-d8ac3af933dd"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParser Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem.Collections.Generic Type%3D(Name%3DIEnumerable GenericParameterCount%3D1 GenericArguments%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)]))]) ParameterIdentifier%3Dtokens"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="5d60b667-286f-4298-aa7f-a4330cbc8cfe"
+                      LastKnownName="IEnumerable&lt;Token‎&gt;"
+                      LastKnownLocation="Package6_0949.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a74a9193-220b-4cc3-a45e-d01059587dd9"
+        name="ParseException"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="4e3dd31a-6ce7-44ea-ae05-184983620094"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="25e70e22-9d75-4bdc-8bd4-70ee61597981"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="460b6e92-8847-402c-baa6-c64114854aad">
+                <propertyInstance
+                  Id="ec15c6b9-acd0-4d37-8402-5ed617bc6bb3"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="e4a53144-1444-401c-8051-296dd96a201c">
+                <propertyInstance
+                  Id="def419c2-cf9a-444a-b2d7-7dc2a5f20e4d"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="302c3350-fc39-4a5d-b5e1-33b865e2ca12">
+                <propertyInstance
+                  Id="21998ed8-5d5b-4a81-8256-79b58355437c"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0b25df2c-4a45-47ce-834b-532533ec9248">
+                <propertyInstance
+                  Id="710a8c69-7780-42ac-a424-9248f4625df2"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5a7af07f-f47c-475a-a856-f086356246d8">
+                <propertyInstance
+                  Id="0b1d09f3-9dfd-405d-9f04-f0c2bf53769c"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="fed54271-880c-4f63-a84d-6197e7c23764"
+            isSubstitutable="false">
+            <classMoniker
+              Id="36ead759-e03c-4aa7-b9ae-560484d92b07"
+              LastKnownName="Exception"
+              LastKnownLocation="Package4_0949.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="45e8b4b3-91c4-43a1-bbad-c60dff82fcd4"
+            name="AssertType"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="0ee494a8-8551-4f87-8711-7bf863ffef5a"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssertType OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="127fe5b2-de3b-4294-815c-3f7e3d4c2262"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6b562921-bc84-4903-86be-1080fdf22ff1">
+                    <propertyInstance
+                      Id="165d183f-0d7c-4509-b6b5-90e8fb7d9927"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="91b0ed65-2861-4d68-a275-b5ca1476362e">
+                    <propertyInstance
+                      Id="9c6d3fe7-09af-4c93-a062-4460725ee4e9"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="15977cd1-3c33-4c51-b0a8-f0e820a10ebf">
+                    <propertyInstance
+                      Id="c8b488f4-cb03-4d09-a86e-81468cd7a9d6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b70d2dd1-3531-49ec-8c59-da5857aec060">
+                    <propertyInstance
+                      Id="b1c956af-5407-4ac0-82d3-6350cc1df4b5"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e4ef1f7f-3423-4a4a-84b0-5cec0fd8e59c">
+                    <propertyInstance
+                      Id="0fb7e751-f1a2-4c3b-b857-899806d99f55"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="571105ef-0a58-4303-9556-2ae087f59c43">
+                    <propertyInstance
+                      Id="17d6a8cc-d616-462c-84a6-30ba6840d0f5"
+                      name="params"
+                      value="True" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="617d3f1b-7c89-4963-a20a-48439dcb981a"
+                  name="actual"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="7699cbf7-4316-411e-bfe6-3c706b091116"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssertType OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))]) ParameterIdentifier%3Dactual"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f08ed384-ec33-457f-8331-57a2a09bb83a"
+                  name="expected"
+                  direction="In"
+                  isOrdered="true">
+                  <referencesInternal>
+                    <reference
+                      Id="7f026a7d-d462-40b2-9b7a-1dd693fde511"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssertType OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))]) ParameterIdentifier%3Dexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="06599722-91e3-4ab3-a1a6-f6be4e14baf4"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="c3b073ba-d7e4-49f0-b91b-bb2f26905fea"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="7fe2b002-32d1-4dbd-9f0a-25ab7f2749a1"
+                      LastKnownName="TokenType"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1f2b7a6b-a8f1-437d-85d3-4922c8b7452b"
+            name="Assert"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="3d5b947b-f953-4c4b-82a6-87ba2a23b424"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssert OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f93f3fad-aab2-4f95-a746-d09673eb3b5d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="240129f4-2125-4342-9602-24122fd175b5">
+                    <propertyInstance
+                      Id="835dc180-57d7-4051-8bb0-2d52ddd5cae4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f92bc9e6-b36d-448a-a301-8201d4f21c74">
+                    <propertyInstance
+                      Id="0fdd18be-88b0-4031-a18c-f14f668aa675"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="557351c3-eba8-4d52-b8dd-f3119f561687">
+                    <propertyInstance
+                      Id="be4a7a89-0cf5-41fd-8a63-a6155b551575"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c03e4e42-eb92-433a-946d-e020e7453a6d">
+                    <propertyInstance
+                      Id="79070c24-a53a-4ab4-a3b5-5029b7896a3f"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a166e2f-f423-4cb1-a233-32942fa28ad8">
+                    <propertyInstance
+                      Id="3dc2043a-d802-4a93-9985-d55147161f3c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b1adf618-4409-400e-808b-98fc357a4390">
+                    <propertyInstance
+                      Id="699d8d55-796c-4827-b2ec-c23a2531bf62"
+                      name="params"
+                      value="True" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ebbe59d2-fb5c-49ad-915e-4f44e2382308"
+                  name="actual"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="8d64120f-36c6-416e-ad08-00ee76ab8f9d"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssert OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))]) ParameterIdentifier%3Dactual"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c9c04d28-2ca6-4b58-9b25-796fc505d3e5"
+                  name="expected"
+                  direction="In"
+                  isOrdered="true">
+                  <referencesInternal>
+                    <reference
+                      Id="a0bac147-af0e-4a26-b9db-5ecef7f76480"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DAssert OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))]) ParameterIdentifier%3Dexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="62c8ce0e-76c5-4a42-8ae8-9711a5512102"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="6e65449a-75d9-4bae-80a5-667d2c24e9c9"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3cbe1b9b-c25f-4d7c-8f93-e44d3f2700e2"
+            name="UnexpectedToken"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="26621c8e-f50d-48a7-81bb-c97976800822"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6103689b-893b-47dd-805b-455465399389"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8bc510d7-766a-4e7b-852d-666b0ccc4430">
+                    <propertyInstance
+                      Id="3af5b5d9-b20a-4f91-b418-5868bea8cc27"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="35ea9ad7-e67b-4302-8ec0-5b33ae4e41ae">
+                    <propertyInstance
+                      Id="8927d262-bb22-44f9-906b-3c435d1b80fd"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1fb7a09a-e45c-4327-8884-b32db04ce8fb">
+                    <propertyInstance
+                      Id="31ec6581-6daa-4dda-9737-79edbd9aa91d"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bb887653-846b-4641-8a31-41fa643e6c91">
+                    <propertyInstance
+                      Id="62959f87-4196-4987-8ea8-c6265725eee7"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f2429b65-6685-4fc0-aa30-999a46a5bd6b">
+                    <propertyInstance
+                      Id="e6c1bca1-68b6-43a2-9d00-7150b838ac56"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="37dc5f5e-a600-4894-af0f-d5bcd0fd4fb6">
+                    <propertyInstance
+                      Id="4c30a954-ca2e-4e09-a3e8-fe55ad7d0a54"
+                      name="params"
+                      value="True" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="13a7ee44-4a17-4502-8535-8fae730df243"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a74a9193-220b-4cc3-a45e-d01059587dd9"
+                      LastKnownName="ParseException"
+                      LastKnownLocation="Package1_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="16d042e9-2dd5-4dcf-9458-0141578d2a4f"
+                  name="unexpected"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="50fda3e2-6b73-4d06-a171-dffecc574695"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))]) ParameterIdentifier%3Dunexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="68ec396e-6a98-4f90-a684-028397353ccf"
+                  name="expected"
+                  direction="In"
+                  isOrdered="true">
+                  <referencesInternal>
+                    <reference
+                      Id="696f704d-078b-49c4-b976-af55ad5e67e0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DTokenType ArrayRank%3D1 ParentType%3DTokenType))]) ParameterIdentifier%3Dexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0b79bb7b-3f80-44d6-8ade-0ce1da92858c"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4d123fbd-4dbf-4bb7-8a8d-75429b3c359f"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="7fe2b002-32d1-4dbd-9f0a-25ab7f2749a1"
+                      LastKnownName="TokenType"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4bd7ea0e-8cba-4c15-91ef-498f38399d17"
+            name="UnexpectedToken"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a2cacad4-ff6a-4103-8321-ae48edef443c"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="118d588d-49e4-42bb-a669-6f9c25fe46d4"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="02e3ba31-ff35-4048-b60b-5c3a8d0974c9">
+                    <propertyInstance
+                      Id="96f4e8ce-3d67-4254-8a06-02c07ee9aaff"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b293fb94-8f9e-423f-a948-a9e163a61da5">
+                    <propertyInstance
+                      Id="f887657e-6f57-42f1-9f9d-d5dbdf77b3c2"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="938a8aaf-a7dc-4302-a9e8-a41dcd61e272">
+                    <propertyInstance
+                      Id="3df6213e-14b8-4ca8-83bb-845dee624801"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="22dbf5c6-d0bb-41b8-8d42-85fbea76aae4">
+                    <propertyInstance
+                      Id="341943b6-802c-4bfd-948b-29b5264cc2e7"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8bef931-3fdf-437d-b6be-6c963c4b5cfc">
+                    <propertyInstance
+                      Id="5362f43a-20ec-495b-9b0e-da0aa1e86b4e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="120ea3be-42f4-429c-98b7-be8b1d1718df">
+                    <propertyInstance
+                      Id="de597d8a-6aff-40b4-a8f7-2600557b4d7f"
+                      name="params"
+                      value="True" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="49bcbf0d-b269-4a41-9629-a22e17400352"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a74a9193-220b-4cc3-a45e-d01059587dd9"
+                      LastKnownName="ParseException"
+                      LastKnownLocation="Package1_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="95320c09-fcc8-4c4e-950c-044c88841ede"
+                  name="unexpected"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="50d357a9-bb07-461c-b392-0a59d067050c"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))]) ParameterIdentifier%3Dunexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f1e9145f-d594-4d5b-89da-7b1e0d12f60a"
+                  name="expected"
+                  direction="In"
+                  isOrdered="true">
+                  <referencesInternal>
+                    <reference
+                      Id="91395ac5-f0e7-499f-b7e2-f3e6cb0fcfa7"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3DUnexpectedToken OverloadingParameters%3D[(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3DToken)%2C(Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Lexer Type%3D(Name%3DToken ArrayRank%3D1 ParentType%3DToken))]) ParameterIdentifier%3Dexpected"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="18aa3945-624b-48c6-9f2a-50b7a25be387"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="a3d3c09d-18d0-42f7-b919-d6b63c5cf609"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="88603ad2-d651-4aad-abb0-b922519de299"
+                      LastKnownName="Token"
+                      LastKnownLocation="Package_0954.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="79782e75-1e93-438e-89f2-ef4d2bb2c064"
+            name="ParseException"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="9f9d1f98-7c34-42e1-82f4-5b847267e2ba"
+                handle="viewcode://./CodeSchema_Method?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="230a0fbf-cb29-4787-8218-5d6aa9bd2f34"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="07654125-a125-47db-8c1f-4f6250cad837">
+                    <propertyInstance
+                      Id="fe42afbb-e775-4841-a089-4ef6afbac9dc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2dcfe9a2-c865-42ce-a0e6-d4d6e01ce533">
+                    <propertyInstance
+                      Id="01cb2478-b39a-43b1-b68a-d9a4b27689d7"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b38be272-1eb3-458b-a340-d65fb2c388cd">
+                    <propertyInstance
+                      Id="9e13cdb9-0cdb-4266-b5ab-4f45b901219a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="357d53ca-20c4-486d-9705-377d1a2a8950">
+                    <propertyInstance
+                      Id="62b9d683-269a-43bc-a8f4-8f7529f82ed2"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="20a2518c-c55b-4660-b1be-53405a3b75d4">
+                    <propertyInstance
+                      Id="f073b9ea-86cd-489e-bd30-c467e21d7588"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0ea6c98-5cc2-41fb-92f2-183d2b77ab62">
+                    <propertyInstance
+                      Id="5578150c-dcf7-4c3f-b5da-c0c560a311b0"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="342eef71-08bc-4d8c-a31d-7e1a68ee8135"
+                  name="message"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="ac74181a-14e0-4294-a061-979edbe273f0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FCompiler%2FCompiler%2FCompiler%2Fbin%2FDebug%2FCompiler.exe Namespace%3DSpeedycloud.Compiler.Parser Type%3DParseException Member%3D(Name%3D.ctor OverloadingParameters%3D[(Assembly%3D&quot;file:%2F%2F%2FC:%2FProgram Files (x86)%2FReference Assemblies%2FMicrosoft%2FFramework%2F.NETFramework%2Fv4.5%2Fmscorlib.dll&quot; Namespace%3DSystem Type%3DString)]) ParameterIdentifier%3Dmessage"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="CompilerModels.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

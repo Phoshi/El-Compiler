@@ -6,7 +6,7 @@ using System.Linq;
 namespace Speedycloud.Compiler.AST_Nodes {
     public class Type : INode{
         public TypeName Name { get; private set; }
-        public IEnumerable<Constraint> Constraints { get; private set; }
+        public IEnumerable<IEnumerable<Constraint>> Constraints { get; private set; }
         public bool IsRuntimeCheck { get; private set; }
         public bool IsArrayType { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Speedycloud.Compiler.AST_Nodes {
         }
 
         protected bool Equals(Type other) {
-            return Equals(Name, other.Name) && Constraints.SequenceEqual(other.Constraints) && IsRuntimeCheck.Equals(other.IsRuntimeCheck) && IsArrayType.Equals(other.IsArrayType);
+            return Equals(Name, other.Name) && Constraints.Zip(other.Constraints, (a, b) => a.SequenceEqual(b)).All(t=>t) && IsRuntimeCheck.Equals(other.IsRuntimeCheck) && IsArrayType.Equals(other.IsArrayType);
         }
 
         public override bool Equals(object obj) {
@@ -36,12 +36,22 @@ namespace Speedycloud.Compiler.AST_Nodes {
             }
         }
 
-        public Type(TypeName name, IEnumerable<Constraint> constraints = null, bool isRuntimeCheck = false, bool isArrayType = false) {
+
+        public Type(TypeName name, IEnumerable<IEnumerable<Constraint>> constraints, bool isRuntimeCheck = false, bool isArrayType = false) {
             Name = name;
-            Constraints = constraints ?? new List<Constraint>();
+            Constraints = constraints ?? new List<List<Constraint>>();
             IsRuntimeCheck = isRuntimeCheck;
             IsArrayType = isArrayType;
         }
+
+        public Type(TypeName name, IEnumerable<Constraint> constraints, bool isRuntimeCheck = false,
+            bool isArrayType = false) :
+            this(name, new List<IEnumerable<Constraint>> {constraints}, isRuntimeCheck, isArrayType){}
+
+        public Type(TypeName name) : this(name, (IEnumerable<IEnumerable<Constraint>>) null) {}
+
+        public Type(TypeName name, bool isRuntimeCheck = false, bool isArrayType = false)
+            : this(name, (IEnumerable<IEnumerable<Constraint>>) null, isRuntimeCheck, isArrayType) {}
 
         public T Accept<T>(IAstVisitor<T> visitor) {
             return visitor.Visit(this);

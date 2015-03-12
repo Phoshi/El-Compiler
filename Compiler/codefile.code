@@ -43,4 +43,12 @@ def getLine(): String{
 	print(journey);
 	println("");
 	println(-5);
+
+	var arr: [Integer<Lt 5 Gt 0>] = [1, 2, 3];
+	for (x in arr){
+		println(x);
+	};
+
+	var set: Integer<Eq 2 | Eq 5> = 3;
+	print(set);
 }

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="6df03480-1f4e-42a6-b6df-b00cc260db6e"
+  name="Speedycloud"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="3c34ec13-2ed6-43d5-a92b-ea26ad591b62"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSpeedycloud"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="d8082761-4aa6-449e-bf4f-1d103ddd1863"
+        LastKnownName="Compiler"
+        LastKnownLocation="Package_0949.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="2ad874e7-8cda-401e-81ff-201f8e487a96"
+        LastKnownName="Bytecode"
+        LastKnownLocation="Package2_0949.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

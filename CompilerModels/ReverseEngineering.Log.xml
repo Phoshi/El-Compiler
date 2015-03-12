@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2015-03-06T10:16:19" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: '0ebde48e-3205-4b64-bb4a-459578f86cc9' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: '4442cce6-0ba1-4d70-b1a9-75426360d908' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: '7284e035-8314-4f70-8dc7-37235b91d848' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Medium" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer' -  (Class)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::consts' -  (Property)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::Lex' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::Lex::input' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::Lexer' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::mode' -  (Property)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::Tokenise' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Lexer::Tokenise::str' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::LexModes' -  (Enumeration)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Medium" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token' -  (Class)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Equals' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Equals::obj' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Equals::other' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::GetHashCode' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Token' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Token::tokenText' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Token::type' -  (Parameter)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::TokenText' -  (Property)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::ToString' -  (Operation)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::Token::Type' -  (Property)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Medium" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType' -  (Enumeration)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Assignment' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::CloseBrace' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::CloseBracket' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::CloseSquareBracket' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Colon' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Comma' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Def' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Else' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Eof' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Failure' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::False' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::For' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::If' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::In' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Instance' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::LineSeperator' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Name' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Number' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::OpenBrace' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::OpenBracket' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::OpenSquareBracket' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Record' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Return' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::RuntimeCheck' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::String' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Symbol' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::True' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Typeclass' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Val' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::Var' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::Speedycloud::Compiler::Lexer::TokenType::While' -  (EnumerationLiteral)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections::Generic' -  (Package)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections::Generic::Dictionary' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections::Generic::Dictionary&lt;String‎, Token‎&gt;' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections::Generic::List' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Collections::Generic::List&lt;Token‎&gt;' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'CompilerModels::System::Object' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Integer' -  (PrimitiveType)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'String' -  (PrimitiveType)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: CompilerModels::Speedycloud::Compiler::Lexer::Token to CompilerModels::Speedycloud::Compiler::Lexer::TokenType (Association)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: CompilerModels::System::Collections::Generic::List&lt;Token‎&gt; to CompilerModels::System::Collections::Generic::IEnumerable&lt;Token‎&gt; (InterfaceRealization)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: CompilerModels::System::Collections::Generic::Dictionary to CompilerModels::System::Collections::Generic::IDictionary&lt;TKey‎, TValue‎&gt; (InterfaceRealization)" />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="High" Text="(3) type(s) fully reverse engineered." />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="High" Text="(6) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2015-03-06T10:16:21" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+</Log>

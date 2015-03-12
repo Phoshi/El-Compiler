@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="2ad874e7-8cda-401e-81ff-201f8e487a96"
+  name="Bytecode"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="c3642ee0-5781-4f98-9459-f21452b1bb26"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DSpeedycloud.Bytecode"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="e68ff9bb-5194-4874-a297-5a0cc1ea6d7c"
+        LastKnownName="ValueTypes"
+        LastKnownLocation="Package3_0949.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="01e7f36f-60be-48f5-8ff7-8eb147946404"
+        name="Instruction"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="7ee8dfa3-6e27-4afa-8723-d666742b6375"
+            handle="viewcode://./CodeSchema_Enum?Assembly%3Dfile:%2F%2F%2FE:%2FDropbox%2Fsrc%2FC%2523%2FFYP%2FBytecode%2Fbin%2FDebug%2FBytecode.dll Namespace%3DSpeedycloud.Bytecode Type%3DInstruction"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="a4ff1b31-be97-42ca-bc30-12fe38ea9d06"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ce227001-b8cf-4ceb-b8ca-26c56862a270">
+                <propertyInstance
+                  Id="5d96d5c0-43b4-4334-a688-383eb91e6814"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fd24ecf1-e9fe-4f2e-96ac-a3d33281d42e">
+                <propertyInstance
+                  Id="3232ee9a-94b5-4770-a350-c4f41e7fcf9c"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c68ef00b-2b7a-4a99-a077-add33598514c">
+                <propertyInstance
+                  Id="6ce9bae3-8f9c-4207-878d-b881b79503aa"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </enumeration>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

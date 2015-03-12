@@ -328,13 +328,14 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             else {
                 var baseType = types[type.Name.Name];
-                var constraints = type.Constraints.Select(BuildConstraint).ToList();
+                //var constraints = type.Constraints.Select(BuildConstraint).ToList();
+                var constraints = type.Constraints.Select(list=>list.Select(BuildConstraint).Aggregate((a, b)=>new AndConstraint(a, b))).ToList();
                 var isArray = type.IsArrayType;
 
                 ITypeInformation newType = baseType;
 
                 if (constraints.Any()) {
-                    newType = new ConstrainedType(newType, constraints.Aggregate((a, b) => new AndConstraint(a, b)));
+                    newType = new ConstrainedType(newType, constraints.Aggregate((a, b) => new OrConstraint(a, b)));
                 }
                 if (isArray) {
                     newType = new ArrayType(newType);
