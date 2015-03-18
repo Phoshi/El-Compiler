@@ -13,6 +13,7 @@ using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.Parser {
     public class Parser {
+        public Dictionary<INode, InputPosition> NodeLocations = new Dictionary<INode, InputPosition>(); 
         private readonly List<Token> tokens;
         private int position = 0;
 
@@ -74,7 +75,9 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public INode Parse() {
+            var token = GetCurrentToken();
             var expr = ParseMain();
+            NodeLocations[expr] = token.Position;
             return ParseBinaryOperator(0, expr);
         }
 
@@ -87,6 +90,7 @@ namespace Speedycloud.Compiler.Parser {
                 Token binOp = GetCurrentToken();
                 if (binOp.Type == TokenType.OpenBracket) {
                     LHS = new FunctionCall(((Name)LHS).Value, ParseParameterList());
+                    NodeLocations[LHS] = binOp.Position;
                     continue;
                 }
                 GetNextToken();
@@ -97,9 +101,11 @@ namespace Speedycloud.Compiler.Parser {
                     RHS = ParseBinaryOperator(tokenPrecidence + 1, RHS);
                 if (binOp.Type == TokenType.Symbol) {
                     LHS = new BinaryOp(binOp.TokenText, (IExpression)LHS, (IExpression)RHS);
+                    NodeLocations[LHS] = binOp.Position;
                 }
                 else if (binOp.Type == TokenType.OpenSquareBracket) {
                     LHS = new ArrayIndex((IExpression)LHS, (IExpression)RHS);
+                    NodeLocations[LHS] = binOp.Position;
                     ConsumeCurrentToken();
                 }
                 else if (binOp.Type == TokenType.Assignment) {
@@ -107,10 +113,12 @@ namespace Speedycloud.Compiler.Parser {
                         var name = (Name) LHS;
                         name = new Name(name.Value, true);
                         LHS = new Assignment(name, (IExpression) RHS);
+                        NodeLocations[LHS] = binOp.Position;
                     }
                     else if (LHS is ArrayIndex) {
                         var index = (ArrayIndex) LHS;
                         LHS = new ArrayAssignment(index.Array, index.Index, (IExpression)RHS);
+                        NodeLocations[LHS] = binOp.Position;
                     }
                 }
             }
@@ -442,10 +450,10 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public static ParseException UnexpectedToken(Token unexpected, params TokenType[] expected) {
-            return new ParseException(string.Format("{0} unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList())));
+            return new ParseException(string.Format("{0} ({2}) unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList()), unexpected.Position));
         }
         public static ParseException UnexpectedToken(Token unexpected, params Token[] expected) {
-            return new ParseException(string.Format("{0} unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList())));
+            return new ParseException(string.Format("{0} ({2}) unexpected at this time. Expected: {1}", unexpected, string.Join(" or ", expected.ToList()), unexpected.Position));
         }
 
         public ParseException(string message) : base(message) {}

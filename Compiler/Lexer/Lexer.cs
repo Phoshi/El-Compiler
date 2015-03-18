@@ -58,18 +58,25 @@ namespace Speedycloud.Compiler.Lexer {
         public List<Token> Lex(string input) {
             var tokens = new List<Token>();
             var accumulator = "";
+            int charCount = 0, line = 0;
             foreach (var character in input) {
+                charCount++;
+                if (character == '\n') {
+                    charCount = 0;
+                    line++;
+                }
+                var pos = new InputPosition(charCount, line);
                 if (mode == LexModes.Normal) {
                     if (char.IsWhiteSpace(character)) {
                         if (accumulator != "") {
-                            tokens.Add(Tokenise(accumulator));
+                            tokens.Add(Tokenise(accumulator, pos));
                             accumulator = "";
                         }
                         continue;
                     }
                     if (accumulator != "" && accumulator.All(char.IsLetterOrDigit) != char.IsLetterOrDigit(character)) {
                         if (!(accumulator.All(c => char.IsDigit(c) || c == '.') && (character == '.' || char.IsDigit(character)))) {
-                            tokens.Add(Tokenise(accumulator));
+                            tokens.Add(Tokenise(accumulator, pos));
                             accumulator = "";    
                         }
                     }
@@ -78,11 +85,11 @@ namespace Speedycloud.Compiler.Lexer {
 
                     if (consts.ContainsKey(accumulator) &&
                         !consts.Keys.Any(key => key.StartsWith(accumulator) && key != accumulator)) {
-                        tokens.Add(Tokenise(accumulator));
+                        tokens.Add(Tokenise(accumulator, new InputPosition()));
                         accumulator = "";
                     }
                     else if (consts.ContainsKey(accumulator.Substring(0, accumulator.Length - 1))){
-                        tokens.Add(Tokenise(accumulator.Substring(0, accumulator.Length - 1)));
+                        tokens.Add(Tokenise(accumulator.Substring(0, accumulator.Length - 1), pos));
                         accumulator = accumulator.Last().ToString();
                     }
 
@@ -95,27 +102,27 @@ namespace Speedycloud.Compiler.Lexer {
                     accumulator += character;
                     if (character == '"') {
                         mode = LexModes.Normal;
-                        tokens.Add(new Token(TokenType.String, accumulator));
+                        tokens.Add(new Token(TokenType.String, accumulator, pos));
                         accumulator = "";
                     }
                 }
             }
 
             if (accumulator != "") {
-                tokens.Add(Tokenise(accumulator));
+                tokens.Add(Tokenise(accumulator, new InputPosition(charCount, line)));
             }
 
             return tokens;
         }
 
-        public Token Tokenise(string str) {
+        public Token Tokenise(string str, InputPosition pos) {
             if (consts.ContainsKey(str)) {
-                return consts[str];
+                return consts[str].AtPosition(pos);
             }
             if (str.All(c => char.IsDigit(c) || c == '.')) {
-                return new Token(TokenType.Number, str);
+                return new Token(TokenType.Number, str, pos);
             }
-            return new Token(TokenType.Name, str);
+            return new Token(TokenType.Name, str, pos);
         }
     }
 

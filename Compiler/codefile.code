@@ -49,6 +49,7 @@ def getLine(): String{
 		println(x);
 	};
 
-	var set: Integer<Eq 2 | Eq 5> = 3;
+	var set: Integer<Eq 2 | Eq 5> = 2;
+	hello world
 	print(set);
 }

@@ -75,6 +75,7 @@
     <Compile Include="AST_Visitors\BytecodeGenerator.cs" />
     <Compile Include="AST_Visitors\IAstVisitor.cs" />
     <Compile Include="AST_Nodes\INode.cs" />
+    <Compile Include="Lexer\InputPosition.cs" />
     <Compile Include="Lexer\Lexer.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Parser\Parser.cs" />

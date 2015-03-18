@@ -9,6 +9,7 @@ namespace Speedycloud.Compiler.Lexer {
     public class Token {
         public TokenType Type { get; private set; }
         public string TokenText { get; private set; }
+        public InputPosition Position { get; private set; }
 
         protected bool Equals(Token other) {
             return Type == other.Type && string.Equals(TokenText, other.TokenText);
@@ -31,9 +32,14 @@ namespace Speedycloud.Compiler.Lexer {
             }
         }
 
-        public Token(TokenType type, string tokenText) {
+        public Token(TokenType type, string tokenText, InputPosition pos = default(InputPosition)) {
             Type = type;
             TokenText = tokenText;
+            Position = pos;
+        }
+
+        public Token AtPosition(InputPosition pos) {
+            return new Token(Type, TokenText, pos);
         }
     }
 
