@@ -42,5 +42,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         public static Exception ReadonlyAssignment(Assignment assignment) {
             return new TypeCheckException(string.Format("Attempted to reassign readonly binding {0} with {1}", assignment.Binding, assignment.Expression));
         }
+
+        public static Exception IndexOutOfRange(ITypeInformation arr, ITypeInformation index) {
+            return new TypeCheckException(string.Format("Attempted to index {0} with {1}.", arr, index));
+        }
     }
 }

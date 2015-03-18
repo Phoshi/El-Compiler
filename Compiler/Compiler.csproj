@@ -91,6 +91,7 @@
     <Compile Include="TypeChecker\ConstrainedType.cs" />
     <Compile Include="TypeChecker\Constraints\AndConstraint.cs" />
     <Compile Include="TypeChecker\Constraints\Eq.cs" />
+    <Compile Include="TypeChecker\Constraints\Flag.cs" />
     <Compile Include="TypeChecker\Constraints\Gt.cs" />
     <Compile Include="TypeChecker\Constraints\ITypeConstraint.cs" />
     <Compile Include="TypeChecker\Constraints\Lt.cs" />

@@ -75,7 +75,25 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (!index.IsAssignableTo(new IntegerType())) {
                 throw TypeCheckException.TypeMismatch(new IntegerType(), index);
             }
-            return ((ArrayType)((ConstrainedType) arr).Type).Type;
+            var probablyValidIndex = TryCheckArrayBounds(arr, index);
+            if (!probablyValidIndex) {
+                throw TypeCheckException.IndexOutOfRange(arr, index);
+            }
+            return GetInnerArrayType(arr);
+        }
+
+        private bool TryCheckArrayBounds(ITypeInformation array, ITypeInformation index) {
+            if (index is IntegerType) {
+                //We have no index information!
+                return true;
+            }
+            if (array is ArrayType) {
+                //We have no length information. Whoops.
+                return true;
+            }
+            var upperBound = ((Eq)((ConstrainedType) array).Constraint).Num;
+            var bounds = new AndConstraint(new Gt(-1), new Lt(upperBound + 1));
+            return index.IsAssignableTo(new ConstrainedType(new IntegerType(), bounds));
         }
 
         public ITypeInformation Visit(ArrayAssignment assignment) {
@@ -128,7 +146,8 @@ namespace Speedycloud.Compiler.TypeChecker {
             var constraints = new Dictionary<string, Func<decimal, ITypeConstraint>> {
                 {"Eq", n=>new Eq(n)},
                 {"Lt", n=>new Lt(n)},
-                {"Gt", n=>new Gt(n)}
+                {"Gt", n=>new Gt(n)},
+                {"Mod", n=>new Mod(n)}
             };
             var num = ((Integer) constraint.Expression).Num;
             return constraints[constraint.Name](num);

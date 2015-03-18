@@ -86,6 +86,8 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation LeastSpecificType() {
+            if (Type is ArrayType)
+                return this;
             return Type;
         }
     }
