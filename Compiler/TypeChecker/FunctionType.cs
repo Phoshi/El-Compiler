@@ -16,6 +16,26 @@ namespace Speedycloud.Compiler.TypeChecker {
             this.returnType = returnType;
         }
 
+        protected bool Equals(FunctionType other) {
+            return string.Equals(name, other.name) && parameters.SequenceEqual(other.parameters) && Equals(returnType, other.returnType);
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((FunctionType) obj);
+        }
+
+        public override int GetHashCode() {
+            unchecked {
+                int hashCode = (name != null ? name.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (parameters != null ? parameters.GetHashCode() : 0);
+                hashCode = (hashCode*397) ^ (returnType != null ? returnType.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
+
         public IEnumerable<ITypeInformation> Parameters {
             get { return parameters; }
         }

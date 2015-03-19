@@ -1,3 +1,14 @@
-﻿val x: Integer = 6
-val y: Integer<Eq 7> = x + 1
-print(y)
+﻿record Foo T = (x: T);
+
+def Fooable(foo: Foo String){
+	var xValue: String = x(foo);
+	print(xValue);
+}
+
+var fooInstance: Foo Integer<Eq 5> = Foo(5);
+
+var xValue: Integer<Eq 5> = x(fooInstance);
+
+print(xValue);
+
+Fooable(Foo("Hello, world!"));

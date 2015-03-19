@@ -80,7 +80,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public override int GetHashCode() {
-            throw new NotImplementedException();
+            return this.GetType().GetHashCode();
         }
     }
 }

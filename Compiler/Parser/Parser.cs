@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using Speedycloud.Compiler.AST_Nodes;
@@ -309,10 +310,16 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
             var recordName = ConsumeCurrentToken().TokenText;
 
+            var typeParams = new List<TypeName>();
+
+            while (GetCurrentToken().Type == TokenType.Name) {
+                typeParams.Add(new TypeName(ConsumeCurrentToken().TokenText));
+            }
+
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.Assignment);
             var bindings = ParseBindingDeclarationList();
 
-            return new Record(recordName, new List<TypeName>(), bindings);
+            return new Record(recordName, typeParams, bindings);
         }
 
         public Return ParseReturn() {
@@ -333,7 +340,7 @@ namespace Speedycloud.Compiler.Parser {
                 ConsumeCurrentToken();
                 var arrType = ParseType();
                 ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseSquareBracket);
-                t = new Type(arrType.Name, arrType.Constraints, isRuntimeCheck: arrType.IsRuntimeCheck,
+                t = new Type(arrType.Name, arrType.TypeParameters, arrType.Constraints, isRuntimeCheck: arrType.IsRuntimeCheck,
                     isArrayType: true);
             }
             else {
@@ -341,21 +348,27 @@ namespace Speedycloud.Compiler.Parser {
                 t = new Type(ParseTypeName());
             }
 
+            var typeParams = new List<Type>();
+            while (GetCurrentToken().Type == TokenType.Name) {
+                typeParams.Add(ParseType());
+            }
+            t = new Type(t.Name, typeParams, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, t.Flag);
+
             if (GetCurrentToken().Equals(new Token(TokenType.Symbol, "<"))) {
                 var constraints = ParseTypeConstraintList();
-                t = new Type(t.Name, constraints, isRuntimeCheck: t.IsRuntimeCheck, isArrayType: t.IsArrayType);
+                t = new Type(t.Name, t.TypeParameters, constraints, isRuntimeCheck: t.IsRuntimeCheck, isArrayType: t.IsArrayType, flag: t.Flag);
             }
 
             if (GetCurrentToken().Type == TokenType.RuntimeCheck) {
                 ConsumeCurrentToken();
-                t = new Type(t.Name, t.Constraints, isRuntimeCheck: true, isArrayType: t.IsArrayType);
+                t = new Type(t.Name, t.TypeParameters, t.Constraints, isRuntimeCheck: true, isArrayType: t.IsArrayType, flag: t.Flag);
             }
 
             if (GetCurrentToken().Equals(new Token(TokenType.Symbol, "#"))) {
                 ConsumeCurrentToken();
                 ParseException.AssertType(GetCurrentToken(), TokenType.Name);
                 var flag = ConsumeCurrentToken().TokenText;
-                t = new Type(t.Name, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, flag);
+                t = new Type(t.Name, t.TypeParameters, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, flag);
             }
 
             return t;

@@ -402,6 +402,7 @@ namespace CompilerTests {
                 new Token(TokenType.Name, "x"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.Comma, ", "),
                 new Token(TokenType.Name, "y"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
@@ -451,6 +452,7 @@ namespace CompilerTests {
                 new Token(TokenType.Name, "x"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
+                new Token(TokenType.Comma, ","),
                 new Token(TokenType.Name, "y"),
                 new Token(TokenType.Colon, ":"),
                 new Token(TokenType.Name, "Integer"),
@@ -531,7 +533,7 @@ namespace CompilerTests {
             var tree = parser.ParseType();
 
             Assert.AreEqual(
-                new Type(new TypeName("Integer"), new List<Constraint> {new Constraint("Eq", new Integer(5))}), tree);
+                new Type(new TypeName("Integer"), new List<Type>(), new List<Constraint> { new Constraint("Eq", new Integer(5)) }), tree);
         }
 
         [TestMethod]

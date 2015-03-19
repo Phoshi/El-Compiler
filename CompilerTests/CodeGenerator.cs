@@ -116,7 +116,7 @@ namespace CompilerTests {
             var tree =
                 new NewAssignment(
                     new BindingDeclaration(new Name("x", true),
-                        new Type(new TypeName("Integer"), new List<Constraint>(), isRuntimeCheck: false,
+                        new Type(new TypeName("Integer"), new List<Type>(), new List<Constraint>(), isRuntimeCheck: false,
                             isArrayType: false)), new Integer(3), isWritable: false);
             var gen = new BytecodeGenerator();
 
@@ -327,7 +327,7 @@ namespace CompilerTests {
         [TestMethod]
         public void BindingDeclaration() {
             var tree = new BindingDeclaration(new Name("x", true),
-                new Type(new TypeName("Integer"), new List<Constraint>(), false, false));
+                new Type(new TypeName("Integer"), new List<Type>(), new List<Constraint>(), false, false));
             var gen = new BytecodeGenerator();
 
             var bytecode = gen.Visit(tree).ToList();

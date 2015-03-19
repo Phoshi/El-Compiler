@@ -429,7 +429,7 @@ namespace CompilerTests {
             var tc = new Typechecker();
 
             var decl = new BindingDeclaration(new Name("Foo", true),
-                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                new Type(new TypeName("Integer"), new List<Type>(), constraints: new List<Constraint> {
                     new Constraint("Eq", new Integer(3))
                 }));
             var result = tc.Visit(decl);
@@ -442,7 +442,7 @@ namespace CompilerTests {
             var tc = new Typechecker();
 
             var decl = new BindingDeclaration(new Name("Foo", true),
-                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                new Type(new TypeName("Integer"), new List<Type>(), constraints: new List<Constraint> {
                     new Constraint("Gt", new Integer(3)),
                     new Constraint("Lt", new Integer(10))
                 }));
@@ -456,7 +456,7 @@ namespace CompilerTests {
             var tc = new Typechecker();
 
             var decl = new BindingDeclaration(new Name("Foo", true),
-                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                new Type(new TypeName("Integer"), new List<Type>(), constraints: new List<Constraint> {
                     new Constraint("Gt", new Integer(3)),
                     new Constraint("Lt", new Integer(10))
                 }, isArrayType: true));
@@ -472,7 +472,7 @@ namespace CompilerTests {
             var tc = new Typechecker();
 
             var decl = new BindingDeclaration(new Name("Foo", true),
-                new Type(new TypeName("Integer"), constraints: new List<Constraint> {
+                new Type(new TypeName("Integer"), new List<Type>(), constraints: new List<Constraint> {
                     new Constraint("Gt", new Integer(3)),
                     new Constraint("Lt", new Integer(10))
                 }, isArrayType: true, isRuntimeCheck: true));
@@ -563,7 +563,7 @@ namespace CompilerTests {
             var tc = new Typechecker();
             var newAssignment = new NewAssignment(
                 new BindingDeclaration(new Name("f", true),
-                    new Type(new TypeName("Integer"), new List<Constraint> {new Constraint("Eq", new Integer(3))})),
+                    new Type(new TypeName("Integer"), new List<Type>(), new List<Constraint> { new Constraint("Eq", new Integer(3)) })),
                 new Integer(3), false);
             var assignment = new Assignment(new Name("f", true), new Integer(5));
             var program = new Block(new List<IStatement> { newAssignment, assignment });
@@ -843,12 +843,12 @@ namespace CompilerTests {
 
         [TestMethod]
         public void ComplexType() {
-            var comp1 = new ComplexType(new IntegerType());
-            var comp2 = new ComplexType(new IntegerType(), new IntegerType());
-            var comp3 = new ComplexType(new StringType());
-            var comp4 = new ComplexType(comp1, comp2, comp3);
-            var comp5 = new ComplexType(new ConstrainedType(new IntegerType(), new Eq(5)));
-            var comp6 = new ComplexType(comp5, comp2, comp3);
+            var comp1 = new ComplexType("", new IntegerType());
+            var comp2 = new ComplexType("", new IntegerType(), new IntegerType());
+            var comp3 = new ComplexType("", new StringType());
+            var comp4 = new ComplexType("", comp1, comp2, comp3);
+            var comp5 = new ComplexType("", new ConstrainedType(new IntegerType(), new Eq(5)));
+            var comp6 = new ComplexType("", comp5, comp2, comp3);
 
             Assert.IsTrue(comp1.IsAssignableTo(comp1));
             Assert.IsTrue(comp5.IsAssignableTo(comp1));
@@ -867,9 +867,11 @@ namespace CompilerTests {
                 new BindingDeclaration(new Name("x", true), new Type(new TypeName("Integer"))),
                 new BindingDeclaration(new Name("y", true), new Type(new TypeName("Integer"))),
             });
+            var forceInstantiation = new Type(new TypeName("Point"));
 
             var tc = new Typechecker();
             tc.Visit(record);
+            tc.Visit(forceInstantiation);
 
             Assert.AreEqual(3, tc.Functions.Count);
             Assert.IsTrue(
@@ -878,14 +880,14 @@ namespace CompilerTests {
                         f.Name == "Point" && 
                         f.Parameters.Count() == 2 &&
                         f.Parameters.All(p => p.Equals(new IntegerType())) &&
-                        f.ReturnType.Equals(new ComplexType(new IntegerType(), new IntegerType()))) == 1);
+                        f.ReturnType.Equals(new ComplexType("Point", new IntegerType(), new IntegerType()))) == 1);
 
             Assert.IsTrue(
                 tc.Functions.Count(
                     f =>
                         f.Name == "x" &&
                         f.Parameters.Count() == 1 &&
-                        f.Parameters.All(p => p.Equals(new ComplexType(new IntegerType(), new IntegerType()))) &&
+                        f.Parameters.All(p => p.Equals(new ComplexType("Point", new IntegerType(), new IntegerType()))) &&
                         f.ReturnType.Equals(new IntegerType())) == 1);
 
             Assert.IsTrue(
@@ -893,10 +895,10 @@ namespace CompilerTests {
                     f =>
                         f.Name == "y" &&
                         f.Parameters.Count() == 1 &&
-                        f.Parameters.All(p => p.Equals(new ComplexType(new IntegerType(), new IntegerType()))) &&
+                        f.Parameters.All(p => p.Equals(new ComplexType("Point", new IntegerType(), new IntegerType()))) &&
                         f.ReturnType.Equals(new IntegerType())) == 1);
 
-            Assert.IsTrue(tc.Records["Point"].Type.Equals(new ComplexType(new IntegerType(), new IntegerType())));
+            Assert.IsTrue(tc.Records["Point"].GetType(new Dictionary<TypeName, ITypeInformation>()).Equals(new ComplexType("Point", new IntegerType(), new IntegerType())));
         }
 
         [TestMethod]

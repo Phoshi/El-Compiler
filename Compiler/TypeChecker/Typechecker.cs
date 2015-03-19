@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -209,18 +210,85 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(FunctionCall call) {
+            if (records.ContainsKey(call.Name)) {
+                var record = records[call.Name];
+                var types = call.Parameters.Select(Visit);//.Select(t=>t.LeastSpecificType());
+                var parameterMatch = record.ParameterTypes.Zip(types, (expected, actual) => new {expected, actual}).Where(pt => record.TypeParameters.Contains(pt.expected.Name));
+                var typeParameters = new Dictionary<TypeName, ITypeInformation>();
+                foreach (var typeParam in parameterMatch) {
+                    var expected = typeParam.expected;
+                    var actual = typeParam.actual;
+                    typeParameters[expected.Name] = actual;
+                }
+                InstantiateRecordType(call.Name, typeParameters);
+            }
             var definitions = functions.Where(f=>f.Name == call.Name).ToList();
+            var validDefinitions = new List<FunctionType>();
             foreach (var def in definitions) {
                 var correctTypeMatch =
                     def.Parameters.Zip(call.Parameters, (type, expr) => Visit(expr).IsAssignableTo(type)).All(t => t);
                 if (!correctTypeMatch) {
                     continue;
                 }
+                validDefinitions.Add(def);
+            }
 
+            if (validDefinitions.Count == 1) {
+                var def = validDefinitions.First();
                 functionCalls[call] = def;
+                if (records.ContainsKey(call.Name)) {
+                    ClearRecordType(call.Name);
+                }
                 return def.ReturnType;
             }
+            else {
+                var exactMatches =
+                    validDefinitions.Where(
+                        def => def.Parameters.Zip(call.Parameters, (type, expr) => Visit(expr).Equals(type)).All(t => t)).ToList();
+                if (exactMatches.Count() == 1) {
+                    var def = exactMatches.First();
+                    functionCalls[call] = def;
+                    if (records.ContainsKey(call.Name)) {
+                        ClearRecordType(call.Name);
+                    }
+                    return def.ReturnType;
+                }
+            }
+
             throw TypeCheckException.UnknownOverload(call, definitions);
+        }
+
+        private void InstantiateRecordType(string name, Dictionary<TypeName, ITypeInformation> typeParameters = null) {
+            if (types.ContainsKey(name)) {
+                return;
+            }
+            typeParameters = typeParameters ?? new Dictionary<TypeName, ITypeInformation>();
+            var recordType = records[name].BuildType(typeParameters);
+            var type = recordType.Item1;
+            var ctor = recordType.Item2;
+            var accessors = recordType.Item3;
+            if (!functions.Any(f=>f.Equals(ctor))){
+                functions.Add(ctor);
+                foreach (var accessor in accessors) {
+                    if (!functions.Contains(accessor)) {
+                        functions.Add(accessor);
+                    }
+                }
+            }
+            types[name] = type;
+            foreach (var typeInformation in typeParameters) {
+                types[typeInformation.Key.Name] = typeInformation.Value;
+            }
+        }
+
+        private void ClearRecordType(string name) {
+            if (!types.ContainsKey(name)) {
+                return;
+            }
+            types.Remove(name);
+            foreach (var typeInformation in records[name].TypeParameters) {
+                types.Remove(typeInformation.Name);
+            }
         }
 
         public ITypeInformation Visit(FunctionDefinition def) {
@@ -324,21 +392,22 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(Record record) {
             var name = record.Name;
             var typeParams = record.TypeParams;
-            var members = record.Members.Select(m=>new {Name = m.Name.Value, Type = Visit(m.Type)}).ToList();
 
-            var memberTypes = members.Select(m => m.Type).ToList();
-            var type = new ComplexType(memberTypes.ToArray());
-            var ctor = new FunctionType(name, memberTypes, type);
-            var accessors =
-                members.Select(member => new FunctionType(member.Name, new List<ITypeInformation> {type}, member.Type));
-
-            records[name] = new RecordTypeInformation(type, ctor, accessors);
-
-            functions.Add(ctor);
-            foreach (var accessor in accessors) {
-                functions.Add(accessor);
-            }
-            types[name] = type;
+            Func<Dictionary<TypeName, ITypeInformation>, Tuple<ComplexType, FunctionType, IEnumerable<FunctionType>>> builderFunction = parameters => {
+                foreach (var typeInformation in parameters) {
+                    types[typeInformation.Key.Name] = typeInformation.Value;
+                }
+                var members = record.Members.Select(m => new { Name = m.Name.Value, Type = Visit(m.Type) }).ToList();
+                var memberTypes = members.Select(m => m.Type).ToList();
+                var type = new ComplexType(name, parameters, memberTypes.ToArray());
+                var ctor = new FunctionType(name, memberTypes, type);
+                var accessors =
+                    members.Select(
+                        member => new FunctionType(member.Name, new List<ITypeInformation> {type}, member.Type));
+                return Tuple.Create(type, ctor, accessors);
+            };
+            var paramTypes = record.Members.Select(m => m.Type).ToList();
+            records[name] = new RecordTypeInformation(typeParams, paramTypes, builderFunction);
 
             return new UnknownType();
         }
@@ -360,6 +429,14 @@ namespace Speedycloud.Compiler.TypeChecker {
                 return new AnyType();
             }
             else {
+                if (records.ContainsKey(type.Name.Name)) {
+                    var record = records[type.Name.Name];
+                    var typeParameters = new Dictionary<TypeName, ITypeInformation>();
+                    foreach (var parameters in record.TypeParameters.Zip(type.TypeParameters, (expected, actual)=>new{expected, actual})) {
+                        typeParameters[parameters.expected] = Visit(parameters.actual);
+                    }
+                    InstantiateRecordType(type.Name.Name, typeParameters);
+                }
                 var baseType = types[type.Name.Name];
                 var constraints = type.Constraints.Select(list=>list.Select(BuildConstraint).Aggregate((a, b)=>new AndConstraint(a, b))).ToList();
                 var isArray = type.IsArrayType;
@@ -374,6 +451,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 }
                 if (type.Flag != "") {
                     newType = new ConstrainedType(newType, new Flag(type.Flag));
+                }
+                if (records.ContainsKey(type.Name.Name)) {
+                    ClearRecordType(type.Name.Name);
                 }
                 return newType;
             }
