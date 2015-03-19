@@ -31,6 +31,8 @@ namespace Speedycloud.Compiler.Lexer {
             {"&&", new Token(TokenType.Symbol, "&&")},
             {"||", new Token(TokenType.Symbol, "||")},
             {"|", new Token(TokenType.Symbol, "|")},
+
+            {"#", new Token(TokenType.Symbol, "#")},
             
             {"true", new Token(TokenType.True, "true")},
             {"false", new Token(TokenType.False, "false")},

@@ -283,7 +283,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 declaredType = assignmentType.LeastSpecificType();
                 names[assignment.Declaration.Name.Value] = names[assignment.Declaration.Name.Value].WithType(declaredType);
             }
-            if (!assignmentType.IsAssignableTo(declaredType)) {
+            var flagAwareType = SplitFlag(declaredType);
+            var flagAssignment = SplitFlag(assignmentType);
+            if (!assignmentType.IsAssignableTo(flagAwareType.Item1) || !flagAwareType.Item2.Equals(flagAssignment.Item2)) {
                 throw TypeCheckException.TypeMismatch(declaredType, assignmentType);
             }
 
@@ -291,6 +293,18 @@ namespace Speedycloud.Compiler.TypeChecker {
                 names[assignment.Declaration.Name.Value] = names[assignment.Declaration.Name.Value].WithWritable(false);
             }
             return new UnknownType();
+        }
+
+        private Tuple<ITypeInformation, Flag> SplitFlag(ITypeInformation flagType) {
+            var con = flagType as ConstrainedType;
+            if (con == null) {
+                return Tuple.Create(flagType, new Flag());
+            }
+            var flag = con.Constraint as Flag;
+            if (flag != null) {
+                return Tuple.Create(con.Type, flag);
+            }
+            return Tuple.Create(flagType, new Flag());
         }
 
         public ITypeInformation Visit(AST_Nodes.Block block) {
@@ -347,7 +361,6 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             else {
                 var baseType = types[type.Name.Name];
-                //var constraints = type.Constraints.Select(BuildConstraint).ToList();
                 var constraints = type.Constraints.Select(list=>list.Select(BuildConstraint).Aggregate((a, b)=>new AndConstraint(a, b))).ToList();
                 var isArray = type.IsArrayType;
 
@@ -358,6 +371,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 }
                 if (isArray) {
                     newType = new ArrayType(newType);
+                }
+                if (type.Flag != "") {
+                    newType = new ConstrainedType(newType, new Flag(type.Flag));
                 }
                 return newType;
             }

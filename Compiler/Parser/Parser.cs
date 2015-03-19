@@ -43,7 +43,6 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         private readonly Dictionary<string, int> precidences = new Dictionary<string, int> {
-            {"(", 10},
             {"[", 10},
             {"=", 15},
             {"+", 20},
@@ -61,6 +60,8 @@ namespace Speedycloud.Compiler.Parser {
 
             {"&&", 40},
             {"||", 40},
+
+            {"(", 60},
         };
         private int GetTokenPrecidence(Token tok) {
             if (precidences.ContainsKey(tok.TokenText)) {
@@ -350,6 +351,13 @@ namespace Speedycloud.Compiler.Parser {
                 t = new Type(t.Name, t.Constraints, isRuntimeCheck: true, isArrayType: t.IsArrayType);
             }
 
+            if (GetCurrentToken().Equals(new Token(TokenType.Symbol, "#"))) {
+                ConsumeCurrentToken();
+                ParseException.AssertType(GetCurrentToken(), TokenType.Name);
+                var flag = ConsumeCurrentToken().TokenText;
+                t = new Type(t.Name, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, flag);
+            }
+
             return t;
         }
 
@@ -430,6 +438,10 @@ namespace Speedycloud.Compiler.Parser {
         public AST_Nodes.Program ParseProgram() {
             var nodes = new List<INode>();
             while (!Eof()) {
+                if (GetCurrentToken().Type == TokenType.LineSeperator) {
+                    ConsumeCurrentToken();
+                    continue;
+                }
                 nodes.Add(Parse());
             }
             return new AST_Nodes.Program(nodes);

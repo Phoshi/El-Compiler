@@ -9,14 +9,15 @@ namespace Speedycloud.Compiler.AST_Nodes {
         public IEnumerable<IEnumerable<Constraint>> Constraints { get; private set; }
         public bool IsRuntimeCheck { get; private set; }
         public bool IsArrayType { get; private set; }
+        public string Flag { get; private set; }
 
         public override string ToString() {
-            return string.Format("(Type {0} [{1}] {2} {3})", Name, string.Join(", ", Constraints),
-                IsRuntimeCheck ? "RUNTIME" : "STATIC", IsArrayType ? "ARRAY" : "SCALAR");
+            return string.Format("(Type {0} [{1}] {2} {3} #{4})", Name, string.Join(", ", Constraints),
+                IsRuntimeCheck ? "RUNTIME" : "STATIC", IsArrayType ? "ARRAY" : "SCALAR", Flag);
         }
 
         protected bool Equals(Type other) {
-            return Equals(Name, other.Name) && Constraints.Zip(other.Constraints, (a, b) => a.SequenceEqual(b)).All(t=>t) && IsRuntimeCheck.Equals(other.IsRuntimeCheck) && IsArrayType.Equals(other.IsArrayType);
+            return Equals(Name, other.Name) && Constraints.Zip(other.Constraints, (a, b) => a.SequenceEqual(b)).All(t=>t) && IsRuntimeCheck.Equals(other.IsRuntimeCheck) && IsArrayType.Equals(other.IsArrayType) && Flag.Equals(other.Flag);
         }
 
         public override bool Equals(object obj) {
@@ -37,11 +38,12 @@ namespace Speedycloud.Compiler.AST_Nodes {
         }
 
 
-        public Type(TypeName name, IEnumerable<IEnumerable<Constraint>> constraints, bool isRuntimeCheck = false, bool isArrayType = false) {
+        public Type(TypeName name, IEnumerable<IEnumerable<Constraint>> constraints, bool isRuntimeCheck = false, bool isArrayType = false, string flag = "") {
             Name = name;
             Constraints = constraints ?? new List<List<Constraint>>();
             IsRuntimeCheck = isRuntimeCheck;
             IsArrayType = isArrayType;
+            Flag = flag;
         }
 
         public Type(TypeName name, IEnumerable<Constraint> constraints, bool isRuntimeCheck = false,

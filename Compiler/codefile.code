@@ -1,2 +1,3 @@
-﻿val arr = [1, 2, 3]
-var x = arr[5]
+﻿val x: Integer = 6
+val y: Integer<Eq 7> = x + 1
+print(y)
