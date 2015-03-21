@@ -14,7 +14,7 @@ using Type = Speedycloud.Compiler.AST_Nodes.Type;
 
 namespace Speedycloud.Compiler.TypeChecker {
     public class Typechecker : IAstVisitor<ITypeInformation> {
-        private readonly CascadingDictionary<string, BindingInformation> names = new CascadingDictionary<string, BindingInformation>(); 
+        private CascadingDictionary<string, BindingInformation> names = new CascadingDictionary<string, BindingInformation>(); 
         public CascadingDictionary<string, BindingInformation> Names { get { return names; } }
 
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } }
@@ -40,11 +40,13 @@ namespace Speedycloud.Compiler.TypeChecker {
         };
 
         private void NewScope() {
+            names = new CascadingDictionary<string, BindingInformation>(names);
             types = new CascadingDictionary<string, ITypeInformation>(types);
         }
 
         private void DeleteTopScope() {
             types = types.Parent;
+            names = names.Parent;
         }
 
         public Typechecker() {}
@@ -343,6 +345,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(NewAssignment assignment) {
+            if (names.TopLevel.ContainsKey(assignment.Declaration.Name.Value)) {
+                throw TypeCheckException.BindingReassignmentInSameScope(assignment);
+            }
             Visit(assignment.Declaration);
             var declaredType = names[assignment.Declaration.Name.Value].Type;
 
@@ -376,14 +381,17 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(AST_Nodes.Block block) {
+            NewScope();
             foreach (var statement in block.Statements) {
                 Visit(statement);
             }
+            DeleteTopScope();
             return new UnknownType();
         }
 
         public ITypeInformation Visit(AST_Nodes.Program program) {
             foreach (var node in program.Nodes) {
+                
                 Visit(node);
             }
             return new UnknownType();

@@ -60,7 +60,7 @@ def println(str: String){
     putc(10);
 }
 
-def print(num: Integer){
+def iprint(num: Integer){
 	var n = num;
     if (n < 0){
         print(""-"");
@@ -69,9 +69,17 @@ def print(num: Integer){
 	if (n > 0){
 		var digit = n % 10;
 		n = n / 10;
-		print(n);
+		iprint(n);
 		putc(48 + digit);
 	};
+}
+
+def print(num: Integer){
+    if (num == 0){
+        putc(48);
+    } else {
+        iprint(num);
+    };
 }
 
 def println(num: Integer){

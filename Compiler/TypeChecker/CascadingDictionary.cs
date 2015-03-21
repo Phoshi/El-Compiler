@@ -10,6 +10,11 @@ namespace Speedycloud.Compiler.TypeChecker {
         private readonly Dictionary<TKey, TValue> contents = new Dictionary<TKey, TValue>();
         private readonly CascadingDictionary<TKey, TValue> parent;
 
+        private static readonly Random idRng = new Random();
+        public readonly int ScopeId = idRng.Next();
+
+        public IDictionary<TKey, TValue> TopLevel { get { return contents; } }
+
         public CascadingDictionary() {
             this.parent = null;
         }

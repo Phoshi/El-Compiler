@@ -1,14 +1,10 @@
-﻿record Foo T = (x: T);
-
-def Fooable(foo: Foo String){
-	var xValue: String = x(foo);
-	print(xValue);
+﻿var x = 0
+val y = 0
+{
+val y = 5;
+x = y;
+print(x);
+print(y);
 }
-
-var fooInstance: Foo Integer<Eq 5> = Foo(5);
-
-var xValue: Integer<Eq 5> = x(fooInstance);
-
-print(xValue);
-
-Fooable(Foo("Hello, world!"));
+print(y)
+print(x)

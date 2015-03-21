@@ -70,18 +70,28 @@ namespace Speedycloud.Compiler.AST_Visitors {
             return funcTable.First(kv => kv.Value.Signature.Name == call.Name);
         }
 
-        public Dictionary<string, int> Names { get { return nameTable; } } 
-        private readonly Dictionary<string, int> nameTable = new Dictionary<string, int>();
-        private readonly Dictionary<string, int> funcParameterNames = new Dictionary<string, int>(); 
+        public IDictionary<string, int> Names { get { return nameTable; } } 
+        private CascadingDictionary<string, int> nameTable = new CascadingDictionary<string, int>();
+        private CascadingDictionary<string, int> funcParameterNames = new CascadingDictionary<string, int>(); 
 
-        private int GetNameEntry(string name) {
+        private int GetNameEntry(string name, bool isNewEntry) {
             if (funcParameterNames.ContainsKey(name)) {
                 return funcParameterNames[name];
             }
-            if (!nameTable.ContainsKey(name)) {
-                nameTable[name] = name.GetHashCode();
+            if (!(isNewEntry ? nameTable.TopLevel : nameTable).ContainsKey(name)) {
+                nameTable[name] = (nameTable.ScopeId + name).GetHashCode();
             }
             return nameTable[name];
+        }
+
+        private void NewScope() {
+            nameTable = new CascadingDictionary<string, int>(nameTable);
+            funcParameterNames = new CascadingDictionary<string, int>(funcParameterNames);
+        }
+
+        private void DeleteTopScope() {
+            nameTable = nameTable.Parent;
+            funcParameterNames = funcParameterNames.Parent;
         }
 
         public IEnumerable<Opcode> Finalise(IEnumerable<Opcode> opcodes) {
@@ -193,8 +203,8 @@ namespace Speedycloud.Compiler.AST_Visitors {
         Random rng = new Random();
         public IEnumerable<Opcode> Visit(For forStatement) {
 
-            var loopIter = GetNameEntry("LOOP_ITER_"+rng.NextDouble());
-            var loopCount = GetNameEntry("LOOP_COUNT_"+rng.NextDouble());
+            var loopIter = GetNameEntry("LOOP_ITER_"+rng.NextDouble(), false);
+            var loopCount = GetNameEntry("LOOP_COUNT_"+rng.NextDouble(), false);
 
             var func = AddFunction(new FunctionDefinition(
                 new FunctionSignature("LOOP_FUNC", new List<BindingDeclaration> {forStatement.Binding},
@@ -276,21 +286,24 @@ namespace Speedycloud.Compiler.AST_Visitors {
 
         public IEnumerable<Opcode> Visit(Name name) {
             if (name.IsWrite)
-                return new[] {new Opcode(Instruction.STORE_NAME, GetNameEntry(name.Value))};
-            return new[] { new Opcode(Instruction.LOAD_NAME, GetNameEntry(name.Value)) };
+                return new[] {new Opcode(Instruction.STORE_NAME, GetNameEntry(name.Value, false))};
+            return new[] { new Opcode(Instruction.LOAD_NAME, GetNameEntry(name.Value, false)) };
 
         }
 
         public IEnumerable<Opcode> Visit(NewAssignment assignment) {
             var bytecode = Visit(assignment.Assignment).ToList();
-            var nameTableEntry = GetNameEntry(assignment.Declaration.Name.Value);
+            var nameTableEntry = GetNameEntry(assignment.Declaration.Name.Value, true);
             var nameConstant = AddConstant(assignment.Declaration.Name.Value);
             bytecode.Add(new Opcode(Instruction.STORE_NEW_NAME, nameTableEntry, nameConstant));
             return bytecode;
         }
 
         public IEnumerable<Opcode> Visit(AST_Nodes.Block block) {
-            return block.Statements.SelectMany(Visit).ToList();
+            NewScope();
+            var returns = block.Statements.SelectMany(Visit).ToList();
+            DeleteTopScope();
+            return returns;
         }
 
         public IEnumerable<Opcode> Visit(AST_Nodes.Program program) {

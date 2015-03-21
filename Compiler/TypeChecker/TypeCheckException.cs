@@ -46,5 +46,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         public static Exception IndexOutOfRange(ITypeInformation arr, ITypeInformation index) {
             return new TypeCheckException(string.Format("Attempted to index {0} with {1}.", arr, index));
         }
+
+        public static Exception BindingReassignmentInSameScope(NewAssignment assignment) {
+            return new TypeCheckException(string.Format("Attempted to reassign {0}, but a definition already exists in scope!", assignment.Declaration.Name));
+        }
     }
 }
