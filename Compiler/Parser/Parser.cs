@@ -351,6 +351,9 @@ namespace Speedycloud.Compiler.Parser {
             var typeParams = new List<Type>();
             while (GetCurrentToken().Type == TokenType.Name) {
                 typeParams.Add(ParseType());
+                if (GetCurrentToken().Type == TokenType.Comma) {
+                    ConsumeCurrentToken();
+                }
             }
             t = new Type(t.Name, typeParams, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, t.Flag);
 
