@@ -1,10 +1,9 @@
-﻿var x = 0
-val y = 0
-{
-val y = 5;
-x = y;
-print(x);
-print(y);
+﻿record Foo T = (fooX: T)
+def fooble(x: Foo Integer){
+	print(1);
 }
-print(y)
-print(x)
+def fooble(x: Foo String){
+	print(2);
+}
+fooble(Foo("Hi"))
+fooble(Foo(0))

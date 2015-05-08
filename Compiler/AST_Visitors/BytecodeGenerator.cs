@@ -62,9 +62,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
         private KeyValuePair<int, FunctionDefinition> GetFunctionForCall(FunctionCall call) {
             if (typeInformation != null && typeInformation.FunctionCalls.ContainsKey(call)) {
                 var callInfo = typeInformation.FunctionCalls[call];
-                var defs = typeInformation.FunctionDefinitions.Where(pair => pair.Value == callInfo).ToList();
+                var defs = typeInformation.FunctionDefinitions.Where(pair => pair.Value.Equals(callInfo)).ToList();
                 if (defs.Any()) {
-                    return funcTable.First(func => Equals(func.Value, defs.First().Key));
+                    return funcTable.First(func => Equals(func.Value.Signature, defs.First().Key));
                 }
             }
             return funcTable.First(kv => kv.Value.Signature.Name == call.Name);
@@ -249,7 +249,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(FunctionDefinition def) {
-            AddFunction(def);
+            if (!funcTable.ContainsValue(def)) {
+                AddFunction(def);
+            }
             return new List<Opcode>();
         }
 
@@ -307,6 +309,9 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(AST_Nodes.Program program) {
+            foreach (var function in program.Nodes.OfType<FunctionDefinition>()) {
+                //Visit(function);
+            }
             return program.Nodes.SelectMany(Visit).ToList();
         }
 

@@ -27,6 +27,21 @@ namespace Speedycloud.Compiler.TypeChecker {
             return string.Format("(Array {0})", Type);
         }
 
+        protected bool Equals(ArrayType other) {
+            return Equals(Type, other.Type);
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((ArrayType) obj);
+        }
+
+        public override int GetHashCode() {
+            return (Type != null ? Type.GetHashCode() : 0) + GetType().Name.GetHashCode();;
+        }
+
         public bool IsSubType(ITypeInformation other) {
             if (other is AnyType) return true;
             if (other is ArrayType) return Type.IsSubType(((ArrayType) other).Type);

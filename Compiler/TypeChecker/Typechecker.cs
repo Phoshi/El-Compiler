@@ -20,9 +20,9 @@ namespace Speedycloud.Compiler.TypeChecker {
         public HashSet<FunctionType> Functions { get { return new HashSet<FunctionType>(functions); } }
         private readonly HashSet<FunctionType> functions = new HashSet<FunctionType>();
 
-        private readonly Dictionary<FunctionDefinition, FunctionType> functionDefinitions =
-            new Dictionary<FunctionDefinition, FunctionType> {};
-        public Dictionary<FunctionDefinition, FunctionType> FunctionDefinitions { get { return functionDefinitions; } } 
+        private readonly Dictionary<FunctionSignature, FunctionType> functionDefinitions =
+            new Dictionary<FunctionSignature, FunctionType> {};
+        public Dictionary<FunctionSignature, FunctionType> FunctionDefinitions { get { return functionDefinitions; } } 
         private readonly Dictionary<FunctionCall, FunctionType> functionCalls =
             new Dictionary<FunctionCall, FunctionType>();
         public Dictionary<FunctionCall, FunctionType> FunctionCalls { get { return functionCalls; } } 
@@ -41,11 +41,11 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         private void NewScope() {
             names = new CascadingDictionary<string, BindingInformation>(names);
-            types = new CascadingDictionary<string, ITypeInformation>(types);
+            //types = new CascadingDictionary<string, ITypeInformation>(types);
         }
 
         private void DeleteTopScope() {
-            types = types.Parent;
+            //types = types.Parent;
             names = names.Parent;
         }
 
@@ -54,7 +54,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public Typechecker(Dictionary<FunctionDefinition, FunctionType> preludeFunctionTypes) {
             foreach (var preludeFunctionType in preludeFunctionTypes) {
                 functions.Add(preludeFunctionType.Value);
-                functionDefinitions[preludeFunctionType.Key] = preludeFunctionType.Value;
+                functionDefinitions[preludeFunctionType.Key.Signature] = preludeFunctionType.Value;
             }
         }
         public ITypeInformation Visit(INode node) {
@@ -214,7 +214,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(FunctionCall call) {
             if (records.ContainsKey(call.Name)) {
                 var record = records[call.Name];
-                var types = call.Parameters.Select(Visit);//.Select(t=>t.LeastSpecificType());
+                var types = call.Parameters.Select(Visit);
                 var parameterMatch = record.ParameterTypes.Zip(types, (expected, actual) => new {expected, actual}).Where(pt => record.TypeParameters.Contains(pt.expected.Name));
                 var typeParameters = new Dictionary<TypeName, ITypeInformation>();
                 foreach (var typeParam in parameterMatch) {
@@ -299,7 +299,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             Visit(def.Statement);
             DeleteTopScope();
 
-            functionDefinitions[def] = Functions.Last();
+            
             return new UnknownType();
         }
 
@@ -311,7 +311,9 @@ namespace Speedycloud.Compiler.TypeChecker {
                 parameters.Add(names[binding.Name.Value].Type);
             }
             var returnType = Visit(sig.ReturnType);
-            functions.Add(new FunctionType(name, parameters, returnType));
+            var func = new FunctionType(name, parameters, returnType);
+            functions.Add(func);
+            functionDefinitions[sig] = func;
             names["$RETURN"] = new BindingInformation("$RETURN", returnType, false);
             return new UnknownType();
         }
@@ -390,8 +392,15 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(AST_Nodes.Program program) {
+            foreach (var type in program.Nodes.OfType<Record>()) {
+                Visit(type);
+            }
+            foreach (var function in program.Nodes.OfType<FunctionDefinition>()) {
+                NewScope();
+                Visit(function.Signature);
+                DeleteTopScope();
+            }
             foreach (var node in program.Nodes) {
-                
                 Visit(node);
             }
             return new UnknownType();

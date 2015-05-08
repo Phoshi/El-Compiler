@@ -23,6 +23,21 @@ namespace Speedycloud.Compiler.TypeChecker {
             return true;
         }
 
+        protected bool Equals(AnyType other) {
+            return true;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((AnyType) obj);
+        }
+
+        public override int GetHashCode() {
+            return GetType().Name.GetHashCode();
+        }
+
         public ITypeInformation Union(ITypeInformation other) {
             return other;
         }

@@ -39,6 +39,10 @@ namespace Speedycloud.Compiler.TypeChecker {
             return false;
         }
 
+        protected bool Equals(IntegerType other) {
+            return true;
+        }
+
         public ITypeInformation Union(ITypeInformation other) {
             if (other is AnyType) return this;
             if (other is IntegerType) {
@@ -80,7 +84,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public override int GetHashCode() {
-            return this.GetType().GetHashCode();
+            return GetType().Name.GetHashCode();
         }
     }
 }

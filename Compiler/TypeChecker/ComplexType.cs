@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Speedycloud.Compiler.AST_Nodes;
@@ -45,9 +46,14 @@ namespace Speedycloud.Compiler.TypeChecker {
 
         public override int GetHashCode() {
             unchecked {
-                int hashCode = (attributes != null ? attributes.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Name != null ? Name.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (Parameters != null ? Parameters.GetHashCode() : 0);
+                int hashCode =(Name != null ? Name.GetHashCode() : 0);
+                foreach (var attribute in attributes) {
+                    hashCode = (hashCode*397) ^ attribute.GetHashCode();
+                }
+                foreach (var parameter in Parameters) {
+                    hashCode = (hashCode*397) ^ parameter.Key.GetHashCode();
+                    hashCode = (hashCode * 397) ^ parameter.Value.GetHashCode();
+                }
                 return hashCode;
             }
         }

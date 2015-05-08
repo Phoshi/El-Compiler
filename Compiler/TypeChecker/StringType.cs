@@ -32,6 +32,21 @@ namespace Speedycloud.Compiler.TypeChecker {
             return "(String)";
         }
 
+        protected bool Equals(StringType other) {
+            return true;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((StringType) obj);
+        }
+
+        public override int GetHashCode() {
+            return GetType().Name.GetHashCode();
+        }
+
         public ITypeInformation Union(ITypeInformation other) {
             if (other is AnyType) return this;
             if (other is StringType) {

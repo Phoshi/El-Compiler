@@ -30,7 +30,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public override int GetHashCode() {
             unchecked {
                 int hashCode = (name != null ? name.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (parameters != null ? parameters.GetHashCode() : 0);
+                hashCode = parameters.Aggregate(hashCode, (current, e) => (current*397) ^ (e.GetHashCode()));
                 hashCode = (hashCode*397) ^ (returnType != null ? returnType.GetHashCode() : 0);
                 return hashCode;
             }
