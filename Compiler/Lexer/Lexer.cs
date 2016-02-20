@@ -71,6 +71,7 @@ namespace Speedycloud.Compiler.Lexer {
                 if (mode == LexModes.Normal) {
                     if (char.IsWhiteSpace(character)) {
                         if (accumulator != "") {
+                            Program.Log("Lexer", "Tokenising " + accumulator);
                             tokens.Add(Tokenise(accumulator, pos));
                             accumulator = "";
                         }
@@ -78,6 +79,7 @@ namespace Speedycloud.Compiler.Lexer {
                     }
                     if (accumulator != "" && accumulator.All(char.IsLetterOrDigit) != char.IsLetterOrDigit(character)) {
                         if (!(accumulator.All(c => char.IsDigit(c) || c == '.') && (character == '.' || char.IsDigit(character)))) {
+                            Program.Log("Lexer", "Tokenising " + accumulator);
                             tokens.Add(Tokenise(accumulator, pos));
                             accumulator = "";    
                         }
@@ -87,10 +89,12 @@ namespace Speedycloud.Compiler.Lexer {
 
                     if (consts.ContainsKey(accumulator) &&
                         !consts.Keys.Any(key => key.StartsWith(accumulator) && key != accumulator)) {
+                            Program.Log("Lexer", "Tokenising " + accumulator);
                         tokens.Add(Tokenise(accumulator, new InputPosition()));
                         accumulator = "";
                     }
                     else if (consts.ContainsKey(accumulator.Substring(0, accumulator.Length - 1))){
+                        Program.Log("Lexer", "Tokenising " + accumulator);
                         tokens.Add(Tokenise(accumulator.Substring(0, accumulator.Length - 1), pos));
                         accumulator = accumulator.Last().ToString();
                     }
@@ -104,6 +108,7 @@ namespace Speedycloud.Compiler.Lexer {
                     accumulator += character;
                     if (character == '"') {
                         mode = LexModes.Normal;
+                        Program.Log("Lexer", "Tokenising " + accumulator);
                         tokens.Add(new Token(TokenType.String, accumulator, pos));
                         accumulator = "";
                     }
@@ -111,6 +116,7 @@ namespace Speedycloud.Compiler.Lexer {
             }
 
             if (accumulator != "") {
+                Program.Log("Lexer", "Tokenising " + accumulator);
                 tokens.Add(Tokenise(accumulator, new InputPosition(charCount, line)));
             }
 

@@ -120,7 +120,10 @@ namespace Speedycloud.Compiler.AST_Visitors {
         }
 
         public IEnumerable<Opcode> Visit(INode node) {
-            return node.Accept(this);
+            Program.LogIn("Compile", "Compiling " + node);
+            var compiled = node.Accept(this).ToList();
+            Program.LogOut("Compile", "Compiled " + string.Join("; ", compiled));
+            return compiled;
         }
 
         public IEnumerable<Opcode> Visit(Array array) {

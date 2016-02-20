@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Speedycloud.Bytecode;
@@ -58,6 +59,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
         }
         public ITypeInformation Visit(INode node) {
+
             return node.Accept(this);
         }
 
@@ -72,9 +74,12 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(ArrayIndex arrayIndex) {
             var arr = Visit(arrayIndex.Array);
             var index = Visit(arrayIndex.Index);
+            Program.LogIn("Typechecker", "Checking array index " + arrayIndex);
+            Program.Log("Typechecker", string.Format("Array {0} is array?", arr));
             if (!arr.IsAssignableTo(new ArrayType(new AnyType()))) {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), arr);
             }
+            Program.Log("Typechecker", string.Format("Index {0} numeric?", index));
             if (!index.IsAssignableTo(new IntegerType())) {
                 throw TypeCheckException.TypeMismatch(new IntegerType(), index);
             }
@@ -82,20 +87,24 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (!probablyValidIndex) {
                 throw TypeCheckException.IndexOutOfRange(arr, index);
             }
+            Program.LogOut("Typechecker", "Array index is good.");
             return GetInnerArrayType(arr);
         }
 
         private bool TryCheckArrayBounds(ITypeInformation array, ITypeInformation index) {
             if (index is IntegerType) {
+                Program.Log("Typechecker", string.Format("Index is probably okay. We don't have the type information to be sure."));
                 //We have no index information!
                 return true;
             }
             if (array is ArrayType) {
+                Program.Log("Typechecker", string.Format("Index is probably okay. We don't have the array length information to be sure."));
                 //We have no length information. Whoops.
                 return true;
             }
             var upperBound = ((Eq)((ConstrainedType) array).Constraint).Num;
-            var bounds = new AndConstraint(new Gt(-1), new Lt(upperBound + 1));
+            var bounds = new AndConstraint(new Gt(-1), new Lt(upperBound));
+            Program.Log("Typechecker", string.Format("Array index {0} fits into {1}?", index, bounds));
             return index.IsAssignableTo(new ConstrainedType(new IntegerType(), bounds));
         }
 
@@ -103,37 +112,42 @@ namespace Speedycloud.Compiler.TypeChecker {
             var arr = Visit(assignment.Array);
             var index = Visit(assignment.Index);
             var value = Visit(assignment.Value);
+            Program.LogIn("Typechecker", "Checking array assignment " + assignment);
+            Program.Log("Typechecker", string.Format("Array {0} is array?", arr));
             if (!arr.IsAssignableTo(new ArrayType(new AnyType()))) {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), arr);
             }
+            Program.Log("Typechecker", string.Format("Index {0} is numeric?", index));
             if (!index.IsAssignableTo(new IntegerType())) {
                 throw TypeCheckException.TypeMismatch(new IntegerType(), index);
             }
             var expected = ((ArrayType) ((ConstrainedType) arr).Type).Type;
+            Program.Log("Typechecker", string.Format("Value {0} can be assigned to array type {1}?", value, expected));
             if (!value.IsAssignableTo(expected)) {
                 throw TypeCheckException.TypeMismatch(expected, value);
             }
-            var lowerBound = new ConstrainedType(new IntegerType(), new Gt(-1));
-            var upperBound = new ConstrainedType(new IntegerType(), new Lt(((Eq)((ConstrainedType) arr).Constraint).Num));
-            if (!index.IsAssignableTo(lowerBound)) {
-                throw TypeCheckException.TypeMismatch(lowerBound, index);
-            }
-            if (!index.IsAssignableTo(upperBound)) {
-                throw TypeCheckException.TypeMismatch(upperBound, index);
-            }
 
+            var probablyValidIndex = TryCheckArrayBounds(arr, index);
+            if (!probablyValidIndex) {
+                throw TypeCheckException.IndexOutOfRange(arr, index);
+            }
+            Program.LogOut("Typechecker", "Array assignment is good.");
             return new UnknownType();
         }
 
         public ITypeInformation Visit(Assignment assignment) {
+            Program.LogIn("Typechecker", string.Format("Checking assignment {0}", assignment));
+            Program.Log("Typechecker", string.Format("Binding {0} is assignable?", assignment));
             if (!names[assignment.Binding.Value].Writable) {
                 throw TypeCheckException.ReadonlyAssignment(assignment);
             }
             var expected = names[assignment.Binding.Value].Type;
             var actual = Visit(assignment.Expression);
+            Program.Log("Typechecker", string.Format("Value {0} assignable to {1}?", actual, expected));
             if (!actual.IsAssignableTo(expected)) {
                 throw TypeCheckException.TypeMismatch(expected, actual);
             }
+            Program.LogOut("Typechecker", "Assignment is good.");
             return new UnknownType();
         }
 
@@ -178,6 +192,8 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(For forStatement) {
             NewScope();
             var enumerableType = Visit(forStatement.Enumerable);
+            Program.LogIn("Typechecker", "Checking for loop " + forStatement);
+            Program.Log("Typechecker", string.Format("Array {0} is array?", enumerableType));
             if (!enumerableType.IsAssignableTo(new ArrayType(new AnyType()))) {
                 throw TypeCheckException.TypeMismatch(new ArrayType(new AnyType()), enumerableType);
             }
@@ -186,6 +202,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (names[forStatement.Binding.Name.Value].Type is AnyType) {
                 names[forStatement.Binding.Name.Value] = names[forStatement.Binding.Name.Value].WithType(arrayType);
             }
+            Program.Log("Typechecker", string.Format("Array {0} and binding {1} match?", arrayType, names[forStatement.Binding.Name.Value].Type));
             if (!arrayType.IsAssignableTo(names[forStatement.Binding.Name.Value].Type)) {
                 throw TypeCheckException.TypeMismatch(names[forStatement.Binding.Name.Value].Type, arrayType);
             }
@@ -194,6 +211,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             Visit(forStatement.Executable);
             DeleteTopScope();
             DeleteTopScope();
+            Program.LogOut("Typechecker", "For loop is good.");
             return new UnknownType();
         }
 
@@ -212,6 +230,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         }
 
         public ITypeInformation Visit(FunctionCall call) {
+            Program.LogIn("Typechecker", "Checking function call " + call);
             if (records.ContainsKey(call.Name)) {
                 var record = records[call.Name];
                 var types = call.Parameters.Select(Visit);
@@ -226,6 +245,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             var definitions = functions.Where(f=>f.Name == call.Name).ToList();
             var validDefinitions = new List<FunctionType>();
+            Program.LogIn("Typechecker", "Searching for overload match...");
             foreach (var def in definitions) {
                 var correctTypeMatch =
                     def.Parameters.Zip(call.Parameters, (type, expr) => Visit(expr).IsAssignableTo(type)).All(t => t);
@@ -237,6 +257,8 @@ namespace Speedycloud.Compiler.TypeChecker {
 
             if (validDefinitions.Count == 1) {
                 var def = validDefinitions.First();
+                Program.LogOut("Typechecker", "Overload " + def + " matched, and there are no other possible matches.");
+                Program.LogOut("Typechecker", "Function call is good.");
                 functionCalls[call] = def;
                 if (records.ContainsKey(call.Name)) {
                     ClearRecordType(call.Name);
@@ -253,10 +275,11 @@ namespace Speedycloud.Compiler.TypeChecker {
                     if (records.ContainsKey(call.Name)) {
                         ClearRecordType(call.Name);
                     }
+                    Program.LogOut("Typechecker", "Multiple possible overloads found, but " + def + " is the only exact match.");
+                    Program.LogOut("Typechecker", "Function call is good.");
                     return def.ReturnType;
                 }
             }
-
             throw TypeCheckException.UnknownOverload(call, definitions);
         }
 
@@ -321,6 +344,7 @@ namespace Speedycloud.Compiler.TypeChecker {
         public ITypeInformation Visit(If ifStatement) {
             var condition = Visit(ifStatement.Condition);
             NewScope();
+            Program.Log("Typechecker", "Checking " + ifStatement);
             if (!condition.IsAssignableTo(new BooleanType())) {
                 throw TypeCheckException.TypeMismatch(new BooleanType(), condition);
             }
@@ -350,6 +374,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (names.TopLevel.ContainsKey(assignment.Declaration.Name.Value)) {
                 throw TypeCheckException.BindingReassignmentInSameScope(assignment);
             }
+            Program.LogIn("Typechecker", "Checking " + assignment);
             Visit(assignment.Declaration);
             var declaredType = names[assignment.Declaration.Name.Value].Type;
 
@@ -360,6 +385,9 @@ namespace Speedycloud.Compiler.TypeChecker {
             }
             var flagAwareType = SplitFlag(declaredType);
             var flagAssignment = SplitFlag(assignmentType);
+            Program.Log("Typechecker",
+                string.Format("Value {0} is assignable to type {1}, and the flags ({2}, {3}) match.", assignmentType,
+                    flagAwareType.Item1, flagAwareType.Item2, flagAssignment.Item2));
             if (!assignmentType.IsAssignableTo(flagAwareType.Item1) || !flagAwareType.Item2.Equals(flagAssignment.Item2)) {
                 throw TypeCheckException.TypeMismatch(declaredType, assignmentType);
             }
@@ -367,6 +395,7 @@ namespace Speedycloud.Compiler.TypeChecker {
             if (!assignment.IsWritable) {
                 names[assignment.Declaration.Name.Value] = names[assignment.Declaration.Name.Value].WithWritable(false);
             }
+            Program.LogOut("Typechecker", "Assignment is good.");
             return new UnknownType();
         }
 

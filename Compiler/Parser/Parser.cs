@@ -78,7 +78,9 @@ namespace Speedycloud.Compiler.Parser {
 
         public INode Parse() {
             var token = GetCurrentToken();
+            Program.LogIn("Parser", "Parsing" + token);
             var expr = ParseMain();
+            Program.LogOut("Parser", "Parsed " + expr);
             NodeLocations[expr] = token.Position;
             return ParseBinaryOperator(0, expr);
         }
@@ -91,7 +93,9 @@ namespace Speedycloud.Compiler.Parser {
                     return LHS;
                 Token binOp = GetCurrentToken();
                 if (binOp.Type == TokenType.OpenBracket) {
+                    Program.LogIn("Parser", "Parsing function call...");
                     LHS = new FunctionCall(((Name)LHS).Value, ParseParameterList());
+                    Program.LogOut("Parser", "Parsed " + LHS);
                     NodeLocations[LHS] = binOp.Position;
                     continue;
                 }
@@ -102,24 +106,32 @@ namespace Speedycloud.Compiler.Parser {
                 if (tokenPrecidence < nextPrecidence)
                     RHS = ParseBinaryOperator(tokenPrecidence + 1, RHS);
                 if (binOp.Type == TokenType.Symbol) {
+                    Program.LogIn("Parser", "Parsing binary operator...");
                     LHS = new BinaryOp(binOp.TokenText, (IExpression)LHS, (IExpression)RHS);
+                    Program.LogOut("Parser", "Parsed " + LHS);
                     NodeLocations[LHS] = binOp.Position;
                 }
                 else if (binOp.Type == TokenType.OpenSquareBracket) {
+                    Program.LogIn("Parser", "Parsing array index...");
                     LHS = new ArrayIndex((IExpression)LHS, (IExpression)RHS);
+                    Program.LogOut("Parser", "Parsed " + LHS);
                     NodeLocations[LHS] = binOp.Position;
                     ConsumeCurrentToken();
                 }
                 else if (binOp.Type == TokenType.Assignment) {
                     if (LHS is Name) {
+                        Program.LogIn("Parser", "Parsing variable assignment...");
                         var name = (Name) LHS;
                         name = new Name(name.Value, true);
                         LHS = new Assignment(name, (IExpression) RHS);
+                        Program.LogOut("Parser", "Parsed " + LHS);
                         NodeLocations[LHS] = binOp.Position;
                     }
                     else if (LHS is ArrayIndex) {
+                        Program.LogIn("Parser", "Parsing array index assignment...");
                         var index = (ArrayIndex) LHS;
                         LHS = new ArrayAssignment(index.Array, index.Index, (IExpression)RHS);
+                        Program.LogOut("Parser", "Parsed " + LHS);
                         NodeLocations[LHS] = binOp.Position;
                     }
                 }
@@ -127,6 +139,7 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         private IEnumerable<IExpression> ParseParameterList() {
+            Program.LogIn("Parser", "Parsing parameter list...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBracket);
             var parameters = new List<IExpression>();
             while (GetCurrentToken().Type != TokenType.CloseBracket) {
@@ -136,6 +149,7 @@ namespace Speedycloud.Compiler.Parser {
                 }
             }
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBracket);
+            Program.LogOut("Parser", "Parsed (" + string.Join(", ", parameters) + ")");
             return parameters;
         }
 
@@ -166,11 +180,13 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(GetCurrentToken(), TokenType.Number);
             int intNum;
             if (int.TryParse(GetCurrentToken().TokenText, out intNum)) {
+                Program.Log("Parser", "Parsed integer " + intNum);
                 ConsumeCurrentToken();
                 return new Integer(intNum);
             }
             double doubleNum;
             if (double.TryParse(GetCurrentToken().TokenText, out doubleNum)) {
+                Program.Log("Parser", "Parsed double " + doubleNum);
                 ConsumeCurrentToken();
                 return new Float(doubleNum);
             }
@@ -182,6 +198,7 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public AST_Nodes.Array ParseArray() {
+            Program.LogIn("Parser", "Parsing array...");
             ParseException.AssertType(GetCurrentToken(), TokenType.OpenSquareBracket);
             ConsumeCurrentToken();
 
@@ -193,10 +210,12 @@ namespace Speedycloud.Compiler.Parser {
                 }
             }
             ConsumeCurrentToken();
+            Program.LogOut("Parser", "Parsed [" + string.Join(", ", exprs) + "]");
             return new Array(exprs);
         }
 
         public IEnumerable<BindingDeclaration> ParseBindingDeclarationList() {
+            Program.LogIn("Parser", "Parsing binding declaration list...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBracket);
             var decls = new List<BindingDeclaration>();
             while (GetCurrentToken().Type != TokenType.CloseBracket) {
@@ -212,13 +231,14 @@ namespace Speedycloud.Compiler.Parser {
                 }
             }
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBracket);
+            Program.LogOut("Parser", "Parsed " + string.Join(", ", decls));
             return decls;
         } 
 
         public BindingDeclaration ParseBindingDeclaration() {
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
             var name = ConsumeCurrentToken().TokenText;
-
+            Program.Log("Parser", "Parsing binding declaration for " + name);
             if (GetCurrentToken().Type == TokenType.Colon) {
                 ConsumeCurrentToken();
                 var type = ParseType();
@@ -231,10 +251,12 @@ namespace Speedycloud.Compiler.Parser {
           
         public Boolean ParseBoolean() {
             if (GetCurrentToken().Type == TokenType.True) {
+                Program.Log("Parser", "Parsed True");
                 ConsumeCurrentToken(); 
                 return new Boolean(true);
             }
             else if (GetCurrentToken().Type == TokenType.False) {
+                Program.Log("Parser", "Parsed False");
                 ConsumeCurrentToken(); 
                 return new Boolean(false);
             }
@@ -247,6 +269,7 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(GetCurrentToken(), TokenType.Number);
             var constraintArg = ParseNumber();
 
+            Program.Log("Parser", "Parsed type constraint " + constraintType + " " + constraintArg);
             return new Constraint(constraintType, constraintArg);
         }
 
@@ -255,6 +278,7 @@ namespace Speedycloud.Compiler.Parser {
         }
 
         public For ParseFor() {
+            Program.LogIn("Parser", "Parsing for loop...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.For);
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBracket);
             var bind = ParseBindingDeclaration();
@@ -263,18 +287,24 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBracket);
             var executable = Parse();
 
-            return new For(bind, (IExpression)collection, (IStatement)executable);
+            var loop = new For(bind, (IExpression)collection, (IStatement)executable);
+            Program.LogOut("Parser", "Parsed " + loop);
+            return loop;
         }
 
         public FunctionDefinition ParseFunctionDefinition() {
+            Program.LogIn("Parser", "Parsing function definition...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.Def);
             var sig = ParseFunctionSignature();
             var executable = Parse();
 
-            return new FunctionDefinition(sig, (IStatement)executable);
+            var def = new FunctionDefinition(sig, (IStatement)executable);
+            Program.LogOut("Parser", "Parsed " + def);
+            return def;
         }
 
         public If ParseIf() {
+            Program.LogIn("Parser", "Parsing if...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.If);
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBracket);
             var cond = (IExpression)Parse();
@@ -286,26 +316,34 @@ namespace Speedycloud.Compiler.Parser {
                 otherwise = (IStatement)Parse();
             }
 
-            return new If(cond, concequent, otherwise);
+            var conditional = new If(cond, concequent, otherwise);
+            Program.LogOut("Parser", "Parsed " + conditional);
+            return conditional;
 
         }
 
         public Name ParseName() {
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
-            return new Name(ConsumeCurrentToken().TokenText, false);
+            var name = new Name(ConsumeCurrentToken().TokenText, false);
+            Program.Log("Parser", "Parsed " + name);
+            return name;
         }
 
         public NewAssignment ParseNewAssignment() {
+            Program.LogIn("Parser", "Parsing new assignment...");
             ParseException.AssertType(GetCurrentToken(), TokenType.Var, TokenType.Val);
             var isWritable = ConsumeCurrentToken().Type == TokenType.Var;
             var name = ParseBindingDeclaration();
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.Assignment);
             var value = (IExpression)Parse();
 
-            return new NewAssignment(name, value, isWritable);
+            var assignment = new NewAssignment(name, value, isWritable);
+            Program.LogOut("Parser", "Parsed " + assignment);
+            return assignment;
         }
 
         public Record ParseRecord() {
+            Program.LogIn("Parser", "Parsing record type...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.Record);
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
             var recordName = ConsumeCurrentToken().TokenText;
@@ -319,22 +357,29 @@ namespace Speedycloud.Compiler.Parser {
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.Assignment);
             var bindings = ParseBindingDeclarationList();
 
-            return new Record(recordName, typeParams, bindings);
+            var record = new Record(recordName, typeParams, bindings);
+            Program.LogOut("Parser", "Parsed " + record);
+            return record;
         }
 
         public Return ParseReturn() {
             ParseException.AssertType(GetCurrentToken(), TokenType.Return);
             ConsumeCurrentToken();
 
-            return new Return((IExpression)Parse());
+            var @return = new Return((IExpression)Parse());
+            Program.Log("Parser", "Parsed " + @return); 
+            return @return;
         }
 
         public String ParseString() {
             ParseException.AssertType(GetCurrentToken(), TokenType.String);
-            return new String(string.Join("", ConsumeCurrentToken().TokenText.Skip(1).Reverse().Skip(1).Reverse()));
+            var @string = new String(string.Join("", ConsumeCurrentToken().TokenText.Skip(1).Reverse().Skip(1).Reverse()));
+            Program.Log("Parser", "Parsed " + @string);
+            return @string;
         }
 
         public Type ParseType() {
+            Program.LogIn("Parser", "Parsing type...");
             Type t;
             if (GetCurrentToken().Type == TokenType.OpenSquareBracket) {
                 ConsumeCurrentToken();
@@ -373,11 +418,12 @@ namespace Speedycloud.Compiler.Parser {
                 var flag = ConsumeCurrentToken().TokenText;
                 t = new Type(t.Name, t.TypeParameters, t.Constraints, t.IsRuntimeCheck, t.IsArrayType, flag);
             }
-
+            Program.LogOut("Parser", "Parsed " + t);
             return t;
         }
 
         private IEnumerable<IEnumerable<Constraint>> ParseTypeConstraintList() {
+            Program.LogIn("Parser", "Parsing type constraint list...");
             ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, "<"));
             var returns = new List<IEnumerable<Constraint>>();
             var constraints = ParseInnerConstraintList();
@@ -388,41 +434,52 @@ namespace Speedycloud.Compiler.Parser {
                 returns.Add(constraints);
             }
             ParseException.Assert(ConsumeCurrentToken(), new Token(TokenType.Symbol, ">"));
+            Program.LogOut("Parser", "Parsed " + string.Join(", ", returns));
             return returns;
         }
 
         private IEnumerable<Constraint> ParseInnerConstraintList() {
+            Program.LogIn("Parser", "Parsing inner constraint list...");
             var constraints = new List<Constraint>();
             while (!GetCurrentToken().Equals(new Token(TokenType.Symbol, ">")) && !(GetCurrentToken().Equals(new Token(TokenType.Symbol, "|")))) {
                 constraints.Add(ParseTypeConstraint());
             }
+            Program.LogOut("Parser", "Parsed " + string.Join(", ", constraints));
             return constraints;
         }
 
         public TypeName ParseTypeName() {
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
-            return new TypeName(ConsumeCurrentToken().TokenText);
+            var typename = new TypeName(ConsumeCurrentToken().TokenText);
+            Program.Log("Parser", "Parsed " + typename);
+            return typename;
         }
 
         public UnaryOp ParseUnaryOp() {
             ParseException.AssertType(GetCurrentToken(), TokenType.Symbol);
             var op = ConsumeCurrentToken().TokenText;
             var operand = (IExpression)Parse();
-            return new UnaryOp(op, operand);
+            var unaryop = new UnaryOp(op, operand);
+            Program.Log("Parser", "Parsed " + unaryop);
+            return unaryop;
         }
 
         public While ParseWhile() {
+            Program.LogIn("Parser", "Parsing while...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.While);
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBracket);
             var condition = Parse();
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBracket);
             var concequence = Parse();
 
-            return new While((IExpression)condition, (IStatement)concequence);
+            var @while = new While((IExpression)condition, (IStatement)concequence);
+            Program.LogOut("Parser", "Parsed " + @while);
+            return @while;
 
         }
 
         public AST_Nodes.Block ParseBlock() {
+            Program.LogIn("Parser", "Parsing block...");
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.OpenBrace);
             var statements = new List<IStatement>();
             while (GetCurrentToken().Type != TokenType.CloseBrace) {
@@ -431,10 +488,13 @@ namespace Speedycloud.Compiler.Parser {
             }
 
             ParseException.AssertType(ConsumeCurrentToken(), TokenType.CloseBrace);
-            return new Block(statements);
+            var block = new Block(statements);
+            Program.LogOut("Parser", "Parsed " + block);
+            return block;
         }
 
         public FunctionSignature ParseFunctionSignature() {
+            Program.LogIn("Parser", "Parsing function signature...");
             ParseException.AssertType(GetCurrentToken(), TokenType.Name);
             var funcName = ConsumeCurrentToken().TokenText;
             var parameters = ParseBindingDeclarationList();
@@ -448,10 +508,13 @@ namespace Speedycloud.Compiler.Parser {
                 type = new Type(new TypeName("Void"));
             }
 
-            return new FunctionSignature(funcName, parameters, type);
+            var signature = new FunctionSignature(funcName, parameters, type);
+            Program.LogOut("Parser", "Parsed " + signature);
+            return signature;
         }
 
         public AST_Nodes.Program ParseProgram() {
+            Program.LogIn("Parser", "Parsing program...");
             var nodes = new List<INode>();
             while (!Eof()) {
                 if (GetCurrentToken().Type == TokenType.LineSeperator) {
@@ -460,7 +523,9 @@ namespace Speedycloud.Compiler.Parser {
                 }
                 nodes.Add(Parse());
             }
-            return new AST_Nodes.Program(nodes);
+            var program = new AST_Nodes.Program(nodes);
+            Program.LogOut("Parser", "Parsed " + program);
+            return program;
         }
     }
 
